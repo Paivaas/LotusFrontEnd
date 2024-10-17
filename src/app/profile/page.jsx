@@ -5,7 +5,7 @@ import Image from "next/image";
 import logo from "@/public/icons/utilities/lotus-icon.svg";
 import conteudos from "@/public/icons/nav/conteudos.svg";
 import galeria from "@/public/icons/nav/galeria.svg";
-import perfil from "@/public/icons/nav/Ativo/profile.svg";
+import perfil from "@/public/icons/nav/Ativo/perfil.png";
 import laranja from "@/public/icons/nav/nav-laranja.png";
 import config from "@/public/icons/utilities/settings-white.svg";
 import edit from "@/public/icons/utilities/edit-pencil-orange.svg";
