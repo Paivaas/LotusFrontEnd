@@ -42,7 +42,7 @@ const UploadModal = ({ isOpen, onClose, onUpload }) => {
 
     return (
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-opacity-15">
-            <div className="bg-[#E1EDF2] rounded-[25px] p-6 w-11/12 md:w-1/3">
+            <div className="bg-[#E1EDF2] rounded-[25px] p-6 w-11/12 md:w-1/2 max-w-4xl">
                 <h2 className="text-lg font-ABeeZee text-gray-4 mb-4">Adicionar Lembrança</h2>
                 <div className="flex mb-4">
                     <label className="w-1/2">
@@ -53,47 +53,51 @@ const UploadModal = ({ isOpen, onClose, onUpload }) => {
                             className="hidden"
                         />
                         {selectedImage ? (
-                            <Image
-                                src={selectedImage}
-                                alt="Preview"
-                                className="w-full h-full object-cover rounded"
-                                width={100} // Largura do preview
-                                height={100} // Altura do preview
-                            />
+                            <div className="w-96 h-96 border-2 border-dashed border-gray-400 flex items-center justify-center overflow-hidden rounded">
+                                <Image
+                                    src={selectedImage}
+                                    alt="Preview"
+                                    className="object-cover w-full h-full"
+                                    width={300}
+                                    height={300}
+                                />
+                            </div>
                         ) : (
-                            <div className="border-2 border-dashed border-gray-400 h-40 w-40  flex items-center justify-center rounded">
+                            <div className="border-2 border-dashed border-gray-400 h-96 w-96 flex items-center justify-center rounded">
                                 <span className="text-gray-500">Escolher imagem</span>
                             </div>
                         )}
                     </label>
-                    <div className="ml-4 flex-1">
+                    <div className="ml-44 flex-1 h-[500px]">
                         <input
                             type="text"
                             value={title}
                             onChange={(e) => setTitle(e.target.value)}
                             placeholder="Título"
-                            className="border rounded p-2 mb-2 w-full"
+                            className="bg-transparent rounded p-2 mb-2 w-full"
                         />
                         <textarea
                             value={description}
                             onChange={(e) => setDescription(e.target.value)}
                             placeholder="Descrição"
-                            className="border rounded p-2 w-full h-24"
+                            className="bg-transparent rounded p-2 w-full h-24"
                         />
                     </div>
                 </div>
-                <button
-                    onClick={handleUpload}
-                    className="mt-4 bg-blue-500 text-white p-2 rounded"
-                >
-                    Adicionar
-                </button>
-                <button
-                    onClick={onClose}
-                    className="mt-4 bg-pink-300 text-white p-2 rounded"
-                >
-                    Fechar
-                </button>
+                <div className="flex justify-end mt-4 gap-4">
+                    <button
+                        onClick={handleUpload}
+                        className="bg-[#DCEFC4] text-[#97CC58] w-28 p-2 border-gray-300 shadow-md border rounded-[10px]"
+                    >
+                        Salvar
+                    </button>
+                    <button
+                        onClick={onClose}
+                        className="bg-[#FFDAE1] text-[#FFAEBF] w-28 p-2 border-gray-300 shadow-md border rounded-[10px]"
+                    >
+                        Cancelar
+                    </button>
+                </div>
             </div>
         </div>
     );
@@ -192,18 +196,26 @@ export default function Home() {
                     <h2 className="text-[25px] font-ABeeZee text-gray-4 text-left">Meu bebê</h2>
                 </div>
 
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 p-7">
-                    {fotos.map((foto, index) => (
-                        <div key={index} className="w-full h-auto cursor-pointer" onClick={() => handleImageClick(foto)}>
-                            <Image
-                                src={foto.url}
-                                alt={`Foto ${index + 1}`}
-                                className="w-full h-auto object-cover rounded-lg"
-                                width={500} // Adicionando largura
-                                height={300} // Adicionando altura
-                            />
-                        </div>
-                    ))}
+                <div className="mt-8 p-7 h-96 overflow-y-auto">
+                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                        {fotos.map((foto, index) => (
+                            <div key={index} className="w-64 h-64 relative">
+                                <Image
+                                    src={foto.url}
+                                    alt={`Foto ${index + 1}`}
+                                    className="object-cover rounded-lg w-full h-full"
+                                    width={200}
+                                    height={200}
+                                />
+                                <div
+                                    className="absolute inset-0 bg-gray-2 bg-opacity-5 rounded-lg flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300"
+                                    onClick={() => handleImageClick(foto)}
+                                >
+                                    <h2 className="text-gray-4 font-bold text-center">{foto.title}</h2>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
                 </div>
             </div>
 
@@ -215,3 +227,4 @@ export default function Home() {
         </div>
     );
 }
+    
