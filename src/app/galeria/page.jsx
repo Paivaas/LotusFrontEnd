@@ -43,7 +43,6 @@ const UploadModal = ({ isOpen, onClose, onUpload }) => {
     return (
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-opacity-15">
             <div className="bg-[#E1EDF2] rounded-[25px] p-6 w-11/12 md:w-1/2 max-w-4xl">
-                <h2 className="text-lg font-ABeeZee text-gray-4 mb-4">Adicionar Lembrança</h2>
                 <div className="flex mb-4">
                     <label className="w-1/2">
                         <input
@@ -63,24 +62,24 @@ const UploadModal = ({ isOpen, onClose, onUpload }) => {
                                 />
                             </div>
                         ) : (
-                            <div className="border-2 border-dashed border-gray-400 h-96 w-96 flex items-center justify-center rounded">
+                            <div className="border-2 border-dashed border-gray-400 h-[550px] w-[500px] flex items-center justify-center rounded">
                                 <span className="text-gray-500">Escolher imagem</span>
                             </div>
                         )}
                     </label>
-                    <div className="ml-44 flex-1 h-[500px]">
+                    <div className="ml-24 flex-1 h-[500px]">
                         <input
                             type="text"
                             value={title}
                             onChange={(e) => setTitle(e.target.value)}
                             placeholder="Título"
-                            className="bg-transparent rounded p-2 mb-2 w-full"
+                            className="bg-transparent rounded p-2 mb-9 w-full text-[30px]"
                         />
                         <textarea
                             value={description}
                             onChange={(e) => setDescription(e.target.value)}
                             placeholder="Descrição"
-                            className="bg-transparent rounded p-2 w-full h-24"
+                            className="bg-transparent rounded p-2 w-full h-24 text-[20px]"
                         />
                     </div>
                 </div>
@@ -196,27 +195,28 @@ export default function Home() {
                     <h2 className="text-[25px] font-ABeeZee text-gray-4 text-left">Meu bebê</h2>
                 </div>
 
-                <div className="mt-8 p-7 h-96 overflow-y-auto">
-                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-                        {fotos.map((foto, index) => (
-                            <div key={index} className="w-64 h-64 relative">
-                                <Image
-                                    src={foto.url}
-                                    alt={`Foto ${index + 1}`}
-                                    className="object-cover rounded-lg w-full h-full"
-                                    width={200}
-                                    height={200}
-                                />
-                                <div
-                                    className="absolute inset-0 bg-gray-2 bg-opacity-5 rounded-lg flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300"
-                                    onClick={() => handleImageClick(foto)}
-                                >
-                                    <h2 className="text-gray-4 font-bold text-center">{foto.title}</h2>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
+                <div className="mt-8 h-96 overflow-y-auto">
+    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+        {fotos.map((foto, index) => (
+            <div key={index} className="relative bg-blue-200 p-5 flex items-center justify-center">
+                <Image
+                    src={foto.url}
+                    alt={`Foto ${index + 1}`}
+                    className="object-cover w-80 h-80 bg-[#E1EDF2]"
+                    width={256} 
+                    height={256} 
+                />
+                <div
+                    className="absolute inset-0 bg-gray-200 bg-opacity-5 rounded-lg flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300"
+                    onClick={() => handleImageClick(foto)}
+                >
+                    <h2 className="text-gray-700 font-bold text-center">{foto.title}</h2>
                 </div>
+            </div>
+        ))}
+    </div>
+</div>
+
             </div>
 
             <UploadModal
@@ -227,4 +227,3 @@ export default function Home() {
         </div>
     );
 }
-    
