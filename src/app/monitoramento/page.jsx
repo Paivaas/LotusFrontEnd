@@ -11,6 +11,7 @@ import logout from "@/public/icons/nav/Ativo/logout.png";
 import chat from "@/public/icons/nav/chat.svg";
 import monitoramento from "@/public/icons/nav/monitoramento.svg";
 import home from "@/public/icons/nav/home.svg";
+import { transform } from "next/dist/build/swc";
 
 // Componente para barra de progresso circular
 const CircularProgress = ({ progress, label, color }) => {
@@ -87,7 +88,6 @@ const UploadModal = ({ isOpen, onClose, onUpload }) => {
     return (
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-opacity-15">
             <div className="bg-[#FBFBFB] rounded-[25px] p-6 w-11/12 md:w-1/2 max-w-4xl">
-                <h2 className="text-lg font-ABeeZee text-gray-4 mb-4">Adicionar Lembrança</h2>
                 <div className="flex mb-4">
                     <label className="w-1/2">
                         <input
@@ -107,8 +107,7 @@ const UploadModal = ({ isOpen, onClose, onUpload }) => {
                                 />
                             </div>
                         ) : (
-                            <div className="border-2 border-dashed border-gray-400 h-96 w-96 flex items-center justify-center rounded">
-                                <span className="text-gray-500">Escolher imagem</span>
+                            <div className="border-2 border-dashed border-gray-400 h-32 w-96 flex items-center justify-center rounded">
                             </div>
                         )}
                     </label>
@@ -144,6 +143,7 @@ const UploadModal = ({ isOpen, onClose, onUpload }) => {
                 </div>
             </div>
         </div>
+
     );
 };
 
@@ -241,7 +241,7 @@ export default function Home() {
 
                 <div className="mt-8 p-7">
                     <h2 className="text-[15px] font-ABeeZee text-gray-4 text-left bg-white rounded-[60px]">
-                        Durante a sua gestação você: 
+                        Durante a sua gestação você:
                     </h2>
                 </div>
 
@@ -254,7 +254,18 @@ export default function Home() {
                         />
                     ))}
                 </div>
+                <div className="mt-2">
+                    <h2 className="text-[15px] font-ABeeZee text-gray-4 text-left bg-white rounded-[60px]" style={trans}>
+                        Veja com mais detalhes seu monitoramento:
+                    </h2>
+                </div>
+                    <div>
+
+                    </div>
+
             </div>
+
+
 
             <UploadModal
                 isOpen={isUploadModalOpen}
