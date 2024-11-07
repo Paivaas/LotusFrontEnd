@@ -12,41 +12,28 @@ import chat from "@/public/icons/nav/chat.svg";
 import monitoramento from "@/public/icons/nav/monitoramento.svg";
 import home from "@/public/icons/nav/home.svg";
 
-// Componente para barra de progresso circular que escolhe a cor por id
+// Componente para barra de progresso circular
 const CircularProgress = ({ progress, label, color }) => {
-    const circumference = 100 * Math.PI; // Circunferência do círculo
+    const circumference = 100 * Math.PI;
     const offset = circumference - (progress / 100) * circumference;
 
     return (
         <div className="flex flex-col items-center justify-center w-full bg-cover pl-14">
             <svg className="w-32 h-32" viewBox="1 -4 118 128">
+                <circle cx="60" cy="60" r="54" fill="none" stroke="#e0e0e0" strokeWidth="18" />
                 <circle
-                    cx="60" // Centralizando o círculo com o novo viewBox
-                    cy="60"
-                    r="54" // Ajustando o raio para se manter proporcional ao novo viewBox
-                    fill="none"
-                    stroke="#e0e0e0" // Cor do círculo de fundo
-                    strokeWidth="18" // Largura do círculo de fundo
-                />
-                <circle
-                    cx="60" // Centralizando o círculo de progresso
+                    cx="60"
                     cy="60"
                     r="54"
                     fill="none"
-                    strokeWidth="18" // Largura do círculo de progresso
+                    strokeWidth="18"
                     strokeDasharray={circumference}
                     strokeDashoffset={offset}
-                    stroke={color} // Usando a cor passada como prop    
-                    strokeLinecap="round" // Adicionando arredondamento nas extremidades
-                    transform="rotate(-90 60 60)" // Centralizando a rotação com o novo viewBox
+                    stroke={color}
+                    strokeLinecap="round"
+                    transform="rotate(-90 60 60)"
                 />
-                <text
-                    x="60" // Centralizando o texto
-                    y="65"
-                    textAnchor="middle"
-                    fontSize="24" // Ajuste opcional do tamanho da fonte
-                    fill="#333"
-                >
+                <text x="60" y="65" textAnchor="middle" fontSize="24" fill="#333">
                     {`${progress}%`}
                 </text>
             </svg>
@@ -54,92 +41,26 @@ const CircularProgress = ({ progress, label, color }) => {
         </div>
     );
 };
-// Componente para o modal de upload
-const UploadModal = ({ isOpen, onClose, onUpload }) => {
-    const [selectedImage, setSelectedImage] = useState(null);
-    const [title, setTitle] = useState("");
-    const [description, setDescription] = useState("");
 
-    const handleImageChange = (e) => {
-        const file = e.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                setSelectedImage(reader.result);
-            };
-            reader.readAsDataURL(file);
-        }
-    };
-
-    const handleUpload = () => {
-        if (selectedImage && title && description) {
-            onUpload({ url: selectedImage, title, description });
-            setSelectedImage(null);
-            setTitle("");
-            setDescription("");
-            onClose();
-        }
-    };
-
+// Novo componente para o modal vazio
+const Modal = ({ isOpen, onClose }) => {
     if (!isOpen) return null;
 
     return (
-        <div className="fixed inset-0 flex items-center justify-center z-50 bg-opacity-15">
-            <div className="bg-[#FBFBFB] rounded-[25px] p-6 w-11/12 md:w-1/2 max-w-4xl">
-                <h2 className="text-lg font-ABeeZee text-gray-4 mb-4">Adicionar Lembrança</h2>
-                <div className="flex mb-4">
-                    <label className="w-1/2">
-                        <input
-                            type="file"
-                            onChange={handleImageChange}
-                            accept="image/*"
-                            className="hidden"
-                        />
-                        {selectedImage ? (
-                            <div className="w-96 h-96 border-2 border-dashed border-gray-400 flex items-center justify-center overflow-hidden rounded">
-                                <Image
-                                    src={selectedImage}
-                                    alt="Preview"
-                                    className="object-cover w-full h-full"
-                                    width={300}
-                                    height={300}
-                                />
-                            </div>
-                        ) : (
-                            <div className="border-2 border-dashed border-gray-400 h-96 w-96 flex items-center justify-center rounded">
-                                <span className="text-gray-500">Escolher imagem</span>
-                            </div>
-                        )}
-                    </label>
-                    <div className="ml-44 flex-1 h-[500px]">
-                        <input
-                            type="text"
-                            value={title}
-                            onChange={(e) => setTitle(e.target.value)}
-                            placeholder="Título"
-                            className="bg-transparent rounded p-2 mb-2 w-full"
-                        />
-                        <textarea
-                            value={description}
-                            onChange={(e) => setDescription(e.target.value)}
-                            placeholder="Descrição"
-                            className="bg-transparent rounded p-2 w-full h-24"
-                        />
-                    </div>
-                </div>
-                <div className="flex justify-end mt-4 gap-4">
-                    <button
-                        onClick={handleUpload}
-                        className="bg-[#DCEFC4] text-[#97CC58] w-28 p-2 border-gray-300 shadow-md border rounded-[10px]"
-                    >
-                        Salvar
-                    </button>
-                    <button
-                        onClick={onClose}
-                        className="bg-[#FFDAE1] text-[#FFAEBF] w-28 p-2 border-gray-300 shadow-md border rounded-[10px]"
-                    >
-                        Cancelar
-                    </button>
+        <div className="fixed inset-0 flex items-center justify-center z-50 bg-opacity-50">
+            <div className="bg-white p-6 rounded-lg shadow-lg w-[60%] relative h-[70%]">
+                <button onClick={onClose} className="absolute top-2 right-2 text-gray-500">
+                    X
+                </button>
+                {/* Conteúdo vazio do modal */}
+                <div className="text-center text-gray-500">
+
+                <h1 className="text-[35px] text-gray-300">
+                    Monitoramento de hoje
+                </h1>
+                <div className="w-3/4 mx-auto mt-2 h-1 bg-gray-100 shadow-slate-200"></div>
+
+
                 </div>
             </div>
         </div>
@@ -149,27 +70,23 @@ const UploadModal = ({ isOpen, onClose, onUpload }) => {
 // Função principal do componente Home
 export default function Home() {
     const [fotos, setFotos] = useState([]);
-    const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false); // Estado para controlar o dropdown
 
-    const toggleUploadModal = () => {
-        setIsUploadModalOpen(!isUploadModalOpen);
+    const toggleModal = () => {
+        setIsModalOpen(!isModalOpen);
     };
 
-    const handleUploadPhoto = ({ url, title, description }) => {
-        setFotos((prevFotos) => [...prevFotos, { url, title, description }]);
+    const toggleDropdown = () => {
+        setIsDropdownOpen(!isDropdownOpen);
     };
 
-    const handleImageClick = (foto) => {
-        alert(`Título: ${foto.title}\nDescrição: ${foto.description}`);
-    };
-
-    // Definindo as cores específicas para cada barra de progresso
     const progressData = [
-        { label: "Se sentiu nervosa", progress: 75, color: "#FD9999" }, // Vermelho
-        { label: "Se sentiu ansiosa", progress: 50, color: "#FDD69A" }, // Verde
-        { label: "Sentiu medo", progress: 25, color: "#96A8FD" }, // Azul
-        { label: "Se sentiu feliz", progress: 100, color: "#B0E799" }, // Amarelo
-        { label: "Se sentiu animada", progress: 100, color: "#FDA2DA" }, // Magenta
+        { label: "Se sentiu nervosa", progress: 75, color: "#FD9999" },
+        { label: "Se sentiu ansiosa", progress: 50, color: "#FDD69A" },
+        { label: "Sentiu medo", progress: 25, color: "#96A8FD" },
+        { label: "Se sentiu feliz", progress: 100, color: "#B0E799" },
+        { label: "Se sentiu animada", progress: 100, color: "#FDA2DA" },
     ];
 
     return (
@@ -180,6 +97,7 @@ export default function Home() {
                     <h1 className="text-pink-3 text-lg font-medium ml-2 text-[24px]">Lotus</h1>
                 </div>
 
+                {/* Barra lateral de navegação */}
                 <button className="w-full text-left text-gray-3 hover:bg-pink-2 rounded-[10px] transition duration-200 transform hover:scale-105">
                     <div className="flex items-center p-4 gap-2">
                         <Image src={home} alt="Home" className="w-9 h-9" />
@@ -245,35 +163,56 @@ export default function Home() {
                             key={index}
                             progress={data.progress}
                             label={data.label}
-                            color={data.color} // Passando a cor para o componente
+                            color={data.color}
                         />
                     ))}
                 </div>
 
-                <div className="flex items-center justify-between bg-white p-4">
+                <div className="flex items-center justify-between bg-white p-4 rounded-full">
                     <h1 className="text-gray-4 text-[23px]">
                         Veja com mais detalhes seu monitoramento:
                     </h1>
-                    <button
-                        onClick={""}
-                        className="bg-pink-3 text-white px-4 py-2 rounded-lg hover:bg-pink-3 transition"
-                    >
-                        Adicionar Monitoramento 
-                    </button>
-                </div>
- 
-                    <div className="h-[100ox bg-white]">
 
+                    <div className="flex flex-row-reverse gap-2 relative items-center">
+                        {/* Botão de Adicionar Monitoramento */}
+                        <button
+                            onClick={toggleModal}
+                            className="bg-pink-3 text-white px-3 py-2 hover:bg-pink-3 transition rounded-2xl"
+                        >
+                            Adicionar Monitoramento
+                        </button>
+                        
+                        {/* Dropdown de Filtrar por */}
+                        <div className="relative">
+                            <button
+                                type="button"
+                                onClick={toggleDropdown}
+                                className="bg-white text-pink-3 border-pink-3 border-2 px-3 py-2 rounded-2xl"
+                            >
+                                Filtrar por ⇩
+                            </button>
+
+                            {/* Dropdown aberto */}
+                            {isDropdownOpen && (
+                                <div className="absolute right-0 mt-2 w-48 bg-white border border-pink-3 rounded-md shadow-lg py-1">
+                                    <button className="block w-full px-4 py-2 text-left text-pink-3 hover:bg-gray-100">
+                                        Últimos 7 dias
+                                    </button>
+                                    <button className="block w-full px-4 py-2 text-left text-pink-3 hover:bg-gray-100">
+                                        Últimos 15 dias
+                                    </button>
+                                    <button className="block w-full px-4 py-2 text-left text-pink-3 hover:bg-gray-100">
+                                        Últimos 30 dias
+                                    </button>
+                                </div>
+                            )}
+                        </div>
                     </div>
-
-
+                </div>
             </div>
 
-            <UploadModal
-                isOpen={isUploadModalOpen}
-                onClose={toggleUploadModal}
-                onUpload={handleUploadPhoto}
-            />
+            {/* Modal */}
+            <Modal isOpen={isModalOpen} onClose={toggleModal} />
         </div>
     );
 }
