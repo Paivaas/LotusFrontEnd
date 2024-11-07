@@ -12,47 +12,41 @@ import chat from "@/public/icons/nav/chat.svg";
 import monitoramento from "@/public/icons/nav/monitoramento.svg";
 import home from "@/public/icons/nav/home.svg";
 
-
-import { transform } from "next/dist/build/swc";
-
-// Componente para barra de progresso circular
-const CircularProgress = ({ progress, label, id }) => {
-    const circumference = 100 * Math.PI;
+// Componente para barra de progresso circular que escolhe a cor por id
+const CircularProgress = ({ progress, label, color }) => {
+    const circumference = 100 * Math.PI; // Circunferência do círculo
     const offset = circumference - (progress / 100) * circumference;
 
-    // Definindo a cor com base no ID
-    const colors = {
-        1: "#FF6347", // Vermelho
-        2: "#00FF00", // Verde
-        3: "#0000FF", // Azul
-        4: "#FFFF00", // Amarelo
-        5: "#FF00FF", // Magenta
-    };
-    const color = colors[id] || "#000"; // Cor padrão caso o ID não corresponda
-
     return (
-        <div className="flex flex-col items-center bg-cover pl-14">
-            <svg className="w-32 h-32" viewBox="1 -2 120 128">
+        <div className="flex flex-col items-center justify-center w-full bg-cover pl-14">
+            <svg className="w-32 h-32" viewBox="1 -4 118 128">
                 <circle
-                    cx="60"
+                    cx="60" // Centralizando o círculo com o novo viewBox
                     cy="60"
-                    r="54"
+                    r="54" // Ajustando o raio para se manter proporcional ao novo viewBox
                     fill="none"
-                    stroke="#e0e0e0"
-                    strokeWidth="15"
+                    stroke="#e0e0e0" // Cor do círculo de fundo
+                    strokeWidth="18" // Largura do círculo de fundo
                 />
                 <circle
-                    cx="60"
+                    cx="60" // Centralizando o círculo de progresso
                     cy="60"
                     r="54"
                     fill="none"
-                    strokeWidth="15"
+                    strokeWidth="18" // Largura do círculo de progresso
                     strokeDasharray={circumference}
                     strokeDashoffset={offset}
-                    stroke={color} // Usando a cor definida pelo ID
-                    transform="rotate(-90 60 60)"
+                    stroke={color} // Usando a cor passada como prop    
+                    strokeLinecap="round" // Adicionando arredondamento nas extremidades
+                    transform="rotate(-90 60 60)" // Centralizando a rotação com o novo viewBox
                 />
-                <text x="60" y="65" textAnchor="middle" fontSize="24" fill="#333">
+                <text
+                    x="60" // Centralizando o texto
+                    y="65"
+                    textAnchor="middle"
+                    fontSize="24" // Ajuste opcional do tamanho da fonte
+                    fill="#333"
+                >
                     {`${progress}%`}
                 </text>
             </svg>
@@ -60,32 +54,39 @@ const CircularProgress = ({ progress, label, id }) => {
         </div>
     );
 };
+// Componente para o modal de upload
+const UploadModal = ({ isOpen, onClose, onUpload }) => {
+    const [selectedImage, setSelectedImage] = useState(null);
+    const [title, setTitle] = useState("");
+    const [description, setDescription] = useState("");
 
-// Dados de progresso com ID adicionado
-const progressData = [
-    { id: 1, label: "Se sentiu nervosa", progress: 75 },
-    { id: 2, label: "Se sentiu ansiosa", progress: 50 },
-    { id: 3, label: "Sentiu medo", progress: 25 },
-    { id: 4, label: "Se sentiu feliz", progress: 100 },
-    { id: 5, label: "Se sentiu animada", progress: 100 },
-];
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setSelectedImage(reader.result);
+            };
+            reader.readAsDataURL(file);
+        }
+    };
 
-// Uso do componente CircularProgress com IDs específicos
-export default function Home() {
+    const handleUpload = () => {
+        if (selectedImage && title && description) {
+            onUpload({ url: selectedImage, title, description });
+            setSelectedImage(null);
+            setTitle("");
+            setDescription("");
+            onClose();
+        }
+    };
+
+    if (!isOpen) return null;
+
     return (
-<<<<<<< HEAD
-        <div className="mt-8 p-7 h-96 overflow-y-auto flex gap-8">
-            {progressData.map((data) => (
-                <CircularProgress
-                    key={data.id}
-                    progress={data.progress}
-                    label={data.label}
-                    id={data.id} // Passando o ID para definir a cor
-                />
-            ))}
-=======
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-opacity-15">
             <div className="bg-[#FBFBFB] rounded-[25px] p-6 w-11/12 md:w-1/2 max-w-4xl">
+                <h2 className="text-lg font-ABeeZee text-gray-4 mb-4">Adicionar Lembrança</h2>
                 <div className="flex mb-4">
                     <label className="w-1/2">
                         <input
@@ -105,7 +106,8 @@ export default function Home() {
                                 />
                             </div>
                         ) : (
-                            <div className="border-2 border-dashed border-gray-400 h-32 w-96 flex items-center justify-center rounded">
+                            <div className="border-2 border-dashed border-gray-400 h-96 w-96 flex items-center justify-center rounded">
+                                <span className="text-gray-500">Escolher imagem</span>
                             </div>
                         )}
                     </label>
@@ -140,10 +142,9 @@ export default function Home() {
                     </button>
                 </div>
             </div>
->>>>>>> 95f57a1f96ac0c828c172e6f2e54897e00f2aa78
         </div>
-
     );
+};
 
 // Função principal do componente Home
 export default function Home() {
@@ -162,7 +163,14 @@ export default function Home() {
         alert(`Título: ${foto.title}\nDescrição: ${foto.description}`);
     };
 
-   
+    // Definindo as cores específicas para cada barra de progresso
+    const progressData = [
+        { label: "Se sentiu nervosa", progress: 75, color: "#FD9999" }, // Vermelho
+        { label: "Se sentiu ansiosa", progress: 50, color: "#FDD69A" }, // Verde
+        { label: "Sentiu medo", progress: 25, color: "#96A8FD" }, // Azul
+        { label: "Se sentiu feliz", progress: 100, color: "#B0E799" }, // Amarelo
+        { label: "Se sentiu animada", progress: 100, color: "#FDA2DA" }, // Magenta
+    ];
 
     return (
         <div className="font-ABeeZee bg-white font-inter min-h-screen p-4 lg:p-8 flex flex-col lg:flex-row gap-8 overflow-hidden">
@@ -202,21 +210,15 @@ export default function Home() {
 
                 <button className="w-full text-left text-gray-3 hover:bg-pink-2 rounded-[10px] transition duration-200 transform hover:scale-105">
                     <div className="flex items-center p-4 gap-2">
-                        <Image src={monitoramento} alt="Monitoramento" className="w-9 h-9 " />
+                        <Image src={monitoramento} alt="Monitoramento" className="w-9 h-9" />
                         <h1 className="font-medium">Monitoramento</h1>
                     </div>
                 </button>
 
                 <button className="w-full text-left text-gray-3 hover:bg-pink-2 rounded-[10px] transition duration-200 transform hover:scale-105">
                     <div className="flex items-center p-4 gap-2">
-                        <Image src={conteudos} alt="Conteúdos" className="w-9 h-9 " />
-                        <h1 className="font-medium">Conteúdos</h1>
-                    </div>
-                </button>
-
-                <button className="absolute bottom-8 left-4">
-                    <div className="flex items-center">
-                        <Image src={logout} alt="Logout" />
+                        <Image src={logout} alt="Logout" className="w-9 h-9" />
+                        <h1 className="font-medium">Logout</h1>
                     </div>
                 </button>
             </div>
@@ -232,7 +234,7 @@ export default function Home() {
                 </div>
 
                 <div className="mt-8 p-7">
-                    <h2 className="text-[15px] font-ABeeZee text-gray-4 text-left bg-white rounded-[60px]">
+                    <h2 className="text-[23px] font-ABeeZee text-gray-4 text-left bg-white rounded-[60px]">
                         Durante a sua gestação você:
                     </h2>
                 </div>
@@ -243,21 +245,29 @@ export default function Home() {
                             key={index}
                             progress={data.progress}
                             label={data.label}
+                            color={data.color} // Passando a cor para o componente
                         />
                     ))}
                 </div>
-                <div className="mt-2">
-                    <h2 className="text-[15px] font-ABeeZee text-gray-4 text-left bg-white rounded-[60px]" style={trans}>
+
+                <div className="flex items-center justify-between bg-white p-4">
+                    <h1 className="text-gray-4 text-[23px]">
                         Veja com mais detalhes seu monitoramento:
-                    </h2>
+                    </h1>
+                    <button
+                        onClick={""}
+                        className="bg-pink-3 text-white px-4 py-2 rounded-lg hover:bg-pink-3 transition"
+                    >
+                        Adicionar Monitoramento 
+                    </button>
                 </div>
-                    <div>
+ 
+                    <div className="h-[100ox bg-white]">
 
                     </div>
 
+
             </div>
-
-
 
             <UploadModal
                 isOpen={isUploadModalOpen}
