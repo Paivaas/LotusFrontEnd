@@ -11,6 +11,10 @@ import logout from "@/public/icons/nav/Ativo/logout.png";
 import chat from "@/public/icons/nav/chat.svg";
 import monitoramento from "@/public/icons/nav/monitoramento.svg";
 import home from "@/public/icons/nav/home.svg";
+
+
+import { transform } from "next/dist/build/swc";
+
 // Componente para barra de progresso circular
 const CircularProgress = ({ progress, label, id }) => {
     const circumference = 100 * Math.PI;
@@ -69,6 +73,7 @@ const progressData = [
 // Uso do componente CircularProgress com IDs específicos
 export default function Home() {
     return (
+<<<<<<< HEAD
         <div className="mt-8 p-7 h-96 overflow-y-auto flex gap-8">
             {progressData.map((data) => (
                 <CircularProgress
@@ -78,7 +83,66 @@ export default function Home() {
                     id={data.id} // Passando o ID para definir a cor
                 />
             ))}
+=======
+        <div className="fixed inset-0 flex items-center justify-center z-50 bg-opacity-15">
+            <div className="bg-[#FBFBFB] rounded-[25px] p-6 w-11/12 md:w-1/2 max-w-4xl">
+                <div className="flex mb-4">
+                    <label className="w-1/2">
+                        <input
+                            type="file"
+                            onChange={handleImageChange}
+                            accept="image/*"
+                            className="hidden"
+                        />
+                        {selectedImage ? (
+                            <div className="w-96 h-96 border-2 border-dashed border-gray-400 flex items-center justify-center overflow-hidden rounded">
+                                <Image
+                                    src={selectedImage}
+                                    alt="Preview"
+                                    className="object-cover w-full h-full"
+                                    width={300}
+                                    height={300}
+                                />
+                            </div>
+                        ) : (
+                            <div className="border-2 border-dashed border-gray-400 h-32 w-96 flex items-center justify-center rounded">
+                            </div>
+                        )}
+                    </label>
+                    <div className="ml-44 flex-1 h-[500px]">
+                        <input
+                            type="text"
+                            value={title}
+                            onChange={(e) => setTitle(e.target.value)}
+                            placeholder="Título"
+                            className="bg-transparent rounded p-2 mb-2 w-full"
+                        />
+                        <textarea
+                            value={description}
+                            onChange={(e) => setDescription(e.target.value)}
+                            placeholder="Descrição"
+                            className="bg-transparent rounded p-2 w-full h-24"
+                        />
+                    </div>
+                </div>
+                <div className="flex justify-end mt-4 gap-4">
+                    <button
+                        onClick={handleUpload}
+                        className="bg-[#DCEFC4] text-[#97CC58] w-28 p-2 border-gray-300 shadow-md border rounded-[10px]"
+                    >
+                        Salvar
+                    </button>
+                    <button
+                        onClick={onClose}
+                        className="bg-[#FFDAE1] text-[#FFAEBF] w-28 p-2 border-gray-300 shadow-md border rounded-[10px]"
+                    >
+                        Cancelar
+                    </button>
+                </div>
+            </div>
+>>>>>>> 95f57a1f96ac0c828c172e6f2e54897e00f2aa78
         </div>
+
     );
 
 // Função principal do componente Home
@@ -169,7 +233,7 @@ export default function Home() {
 
                 <div className="mt-8 p-7">
                     <h2 className="text-[15px] font-ABeeZee text-gray-4 text-left bg-white rounded-[60px]">
-                        Durante a sua gestação você: 
+                        Durante a sua gestação você:
                     </h2>
                 </div>
 
@@ -182,7 +246,18 @@ export default function Home() {
                         />
                     ))}
                 </div>
+                <div className="mt-2">
+                    <h2 className="text-[15px] font-ABeeZee text-gray-4 text-left bg-white rounded-[60px]" style={trans}>
+                        Veja com mais detalhes seu monitoramento:
+                    </h2>
+                </div>
+                    <div>
+
+                    </div>
+
             </div>
+
+
 
             <UploadModal
                 isOpen={isUploadModalOpen}
