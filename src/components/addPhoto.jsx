@@ -3,7 +3,7 @@ import Image from "next/image";
 import { useState } from "react";
 
 // Import das imagens 
-import addPhoto from "../../public/icons/profile-information/grey/camera.svg";
+import addPhoto from "@/public/icons/profile-information/grey/camera.svg";
 
 export default function FileUpload() {
   const [file, setFile] = useState(null);

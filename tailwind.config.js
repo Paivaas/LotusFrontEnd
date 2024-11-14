@@ -58,6 +58,11 @@ module.exports = {
         'green-degrade-2': "var(--green-degrade-2)",
         'green-degrade-3': "var(--green-degrade-3)",
 
+        
+        'blue-degrade-1': "var(--blue-degrade-1)",
+        'blue-degrade-2': "var(--blue-degrade-2)",
+        'blue-degrade-3': "var(--blue-degrade-3)",
+
        },
     fontSize: {
         'title-mobile': ['calc(2rem + 1vw)', {

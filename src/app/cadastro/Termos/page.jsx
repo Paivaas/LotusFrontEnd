@@ -4,7 +4,7 @@
 import Image from "next/image";
 
 // Import das imagens 
-import LotusIcon from "../../../../public/icons/utilities/lotus-icon.svg";
+import LotusIcon from "@/public/icons/utilities/lotus-icon.svg";
 
 
 export default function Termos() {

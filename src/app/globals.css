@@ -47,4 +47,8 @@ textarea:focus, input:focus, select:focus {
   --green-degrade-2: #B9E189;
   --green-degrade-3: #97CC58;
 
+  --blue-degrade-1: #BCE0EF;
+  --blue-degrade-2: #98D0E9;
+  --blue-degrade-3: #82BED8;
+
 }

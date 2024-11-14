@@ -7,11 +7,11 @@ import Swal from 'sweetalert2';
 import { useRouter } from 'next/navigation';
 
 // Import das imagens 
-import LotusIcon from "../../../public/icons/utilities/lotus-icon.svg"
-import EmailIcon from "../../../public/icons/profile-information/grey/email.svg"
-import KeyIcon from "../../../public/icons/profile-information/grey/key.svg"
-import ArrowIcon from "../../../public/icons/utilities/arrow-white.svg"
-import CircleDegrade from "../../../public/icons/utilities/circle-degrade.svg"
+import LotusIcon from "@/public/icons/utilities/lotus-icon.svg"
+import EmailIcon from "@/public/icons/profile-information/grey/email.svg"
+import KeyIcon from "@/public/icons/profile-information/grey/key.svg"
+import ArrowIcon from "@/public/icons/utilities/arrow-white.svg"
+import CircleDegrade from "@/public/icons/utilities/circle-degrade.svg"
 
 export default function Home() {
 

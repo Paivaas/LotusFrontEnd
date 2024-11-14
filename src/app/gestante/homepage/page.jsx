@@ -1,24 +1,22 @@
 'use client'
 
-
 import Image from "next/image";
 import Link from "next/link";
 
-
-import Logo from "@/../public/icons/utilities/lotus-icon.svg"
-import LogoLogout from "@/../public/icons/nav/logout.svg"
+import Logo from "@/public/icons/utilities/lotus-icon.svg"
+import LogoLogout from "@/public/icons/nav/logout.svg"
 
 // Navegção
-import LogoHome from "@/../public/icons/nav/home.svg"
-import LogoMonitoramento from "@/../public/icons/nav/monitoramento.svg"
-import LogoConteudo from "@/../public/icons/nav/conteudos.svg"
-import LogoChat from "@/../public/icons/nav/chat.svg"
-import LogoGaleria from "@/../public/icons/nav/galeria.svg"
-import LogoPerfil from "@/../public/icons/nav/profile.svg"
+import LogoHome from "@/public/icons/nav/home.svg"
+import LogoMonitoramento from "@/public/icons/nav/monitoramento.svg"
+import LogoConteudo from "@/public/icons/nav/conteudos.svg"
+import LogoChat from "@/public/icons/nav/chat.svg"
+import LogoGaleria from "@/public/icons/nav/galeria.svg"
+import LogoPerfil from "@/public/icons/nav/profile.svg"
 
 // Outros
-import LogoBaby from "@/../public/icons/profile-information/pink/baby.svg"
-import LogoSeta from "@/../public/icons/utilities/arrow-pink.svg"
+import LogoBaby from "@/public/icons/profile-information/pink/baby.svg"
+import LogoSeta from "@/public/icons/utilities/arrow-pink.svg"
 
 // Icones
 import { FaCalendarAlt } from "react-icons/fa";
@@ -27,14 +25,11 @@ import { IoAdd } from "react-icons/io5";
 
 // Quadro
 import Flor from "@/components/quadro";
-
 import { useState } from "react";
 
 // Calendário
 import Calendar from "react-calendar";
 import '@/../src/styles/Calendar.css';
-
-
 
 export default async function Home() {
 

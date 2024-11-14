@@ -8,11 +8,11 @@ import React, { useState } from 'react';
 import Swal from 'sweetalert2';
 
 // Import das imagens 
-import LotusIcon from "../../../public/icons/utilities/lotus-icon.svg";
-import EmailIcon from "../../../public/icons/profile-information/grey/email.svg"
-import KeyIcon from "../../../public/icons/profile-information/grey/key.svg"
-import ArrowIcon from "../../../public/icons/utilities/arrow-white.svg"
-import CircleDegrade from "../../../public/icons/utilities/circle-degrade.svg"
+import LotusIcon from "@/public/icons/utilities/lotus-icon.svg";
+import EmailIcon from "@/public/icons/profile-information/grey/email.svg"
+import KeyIcon from "@/public/icons/profile-information/grey/key.svg"
+import ArrowIcon from "@/public/icons/utilities/arrow-white.svg"
+import CircleDegrade from "@/public/icons/utilities/circle-degrade.svg"
 
 // Import dos componentes
 import Toggle from "@/components/ToggleRegister";
