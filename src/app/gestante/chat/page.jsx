@@ -22,8 +22,12 @@ import GaleriaIcon from "@/public/icons/nav/galeria.svg"
 import MonitoramentoIcon from "@/public/icons/nav/monitoramento.svg"
 import PerfilIcon from "@/public/icons/nav/profile.svg"
 
-//Import
+//Import dos componentes do nav
 
+import { HomeGestante, HomeGestanteAtivo } from '@/components/nav/home';
+import { GaleriaGestante, GaleriaGestanteAtivo } from '@/components/nav/galeria';
+
+import Home from "@/app/page";
 
 export default function Chat() {
 
@@ -45,6 +49,14 @@ export default function Chat() {
                             <Image className="w-[15px]" alt="Arrow Icon" src={HomeIcon}></Image>
                             <li>Home</li>
                         </div>
+
+                        <h1>oiiii</h1>
+
+                        <ConteudoIcon>
+                            
+                        </ConteudoIcon>
+
+                    
 
                         <div className="flex items-center gap-2 w-44 bg-white p-2 rounded-xl cursor-pointer hover:bg-gray-2  transition duration-150 ease-in-out">
                             <Image className="w-[15px]" alt="Arrow Icon" src={ConteudoIcon}></Image>
