@@ -11,13 +11,40 @@ import logout from "@/public/icons/nav/Ativo/logout.png";
 import chat from "@/public/icons/nav/chat.svg";
 import monitoramento from "@/public/icons/nav/monitoramento.svg";
 import home from "@/public/icons/nav/home.svg";
-import nervosaImg from "@/public/icons/emotions/nervosa.png";
-import ansiosaImg from "@/public/icons/emotions/ansiosa.png";
-import medoImg from "@/public/icons/emotions/medo.png";
-import felizImg from "@/public/icons/emotions/feliz.png";
-import animadaImg from "@/public/icons/emotions/animada.png";
-import calmaImg from "@/public/icons/emotions/calma.png";
 
+
+// Sentimentos
+import triste from "@/public/icons/triste.png";
+import felicidade from "@/public/icons/felicidade.png"
+import raiva from "@/public/icons/raiva.png"
+import neutra from "@/public/icons/neutra.png"
+import sensivel from "@/public/icons/sensivel.png"
+
+// Dor
+import sensNoSeio from "@/public/icons/sensNoSeio.png";
+import dorNaCabeca from "@/public/icons/dorNaCabeca.png";
+import tontura from "@/public/icons/tontura.png"
+import dorNasPernas from "@/public/icons/dorNasPernas.png"
+import semDor from "@/public/icons/semDor.png"
+
+
+//Digestao
+import azia from "@/public/icons/azia.png";
+import enjoo from "@/public/icons/enjoo.png";
+import ok from "@/public/icons/ok.png";
+import comGases from "@/public/icons/comGases.png";
+import vomitando from "@/public/icons/vomitando.png"
+
+
+//Vida sexual
+import relacaoProtegida from "@/public/icons/relacaoProtegida.png";
+import relacaoDesprotegida from "@/public/icons/relacaoDesprotegida.png";
+import naoHouveRelacao from "@/public/icons/naoHouveRelacao.png"
+
+//Vida social
+import sociavel from "@/public/icons/sociavel.png";
+import introvertida from "@/public/icons/introvertida.png";
+import conflitante from "@/public/icons/conflitante.png"
 
 // Componente para barra de progresso circular
 const CircularProgress = ({ progress, label, color }) => {
@@ -49,48 +76,99 @@ const CircularProgress = ({ progress, label, color }) => {
     );
 };
 
+
+
+
+// Novo componente para o modal com botões de monitoramento
 const Modal = ({ isOpen, onClose }) => {
     if (!isOpen) return null;
 
+    // Dados de cada categoria e seus respectivos botões e ícones
+    const monitoramentoData = [
+        {
+            title: "Sentimentos",
+            options: [
+                { label: "Tristeza", icon: triste },
+                { label: "Felicidade", icon: felicidade },
+                {label: "Raiva", icon: raiva},
+                {label: "Sensível", icon: sensivel},
+                {label: "Neutra", icon: neutra}
+            ],
+        },
+        {
+            title: "Dor",
+            options: [
+                { label: "Sens. nos seios", icon: sensNoSeio },
+                { label: "Dor de cabeça", icon: dorNaCabeca },
+                { label: "Tontura", icon: tontura },
+                { label: "Dor nas pernas", icon: dorNasPernas },
+                { label: "Sem dor", icon: semDor },
+            ],
+        },
+        {
+            title: "Digestão",
+            options: [
+                { label: "Azia", icon: azia },
+                { label: "Enjoo", icon: enjoo},
+                { label: "Vomitando", icon: vomitando},
+                { label: "Com gases", icon: comGases},
+                { label: "Ok", icon: ok},
+
+            ],
+        },
+        {
+            title: "Vida Sexual",
+            options: [
+                { label: "Relação protegida", icon: relacaoProtegida },
+                { label: "Relação desprotegida", icon: relacaoDesprotegida },
+                { label: "Relação desprotegida", icon: naoHouveRelacao },
+
+            ],
+        },
+        {
+            title: "Vida Social",
+            options: [
+                { label: "Sociavel", icon: sociavel },
+                { label: "Introvertida", icon: introvertida },
+                { label: "Conflitante", icon: conflitante }
+            ],
+        },
+    ];
+
     return (
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-opacity-50">
-            <div className="bg-white p-6 rounded-lg shadow-lg w-[60%] relative h-[70%]">
+            <div className="bg-white p-6 rounded-lg shadow-lg w-[60%] relative h-[70%] overflow-y-auto">
                 <button onClick={onClose} className="absolute top-2 right-2 text-gray-500">
                     X
                 </button>
                 
-                {/* Conteúdo do modal com título e botões de humor em duas colunas */}
+                {/* Título do Modal */}
                 <div className="text-center text-gray-500">
                     <h1 className="text-[35px] text-gray-300">Monitoramento de hoje</h1>
                     <div className="w-3/4 mx-auto mt-2 h-1 bg-gray-100 shadow-slate-200"></div>
+                </div>
 
-                    {/* Botões de monitoramento de humor em duas colunas */}
-                    <div className="grid grid-cols-2 gap-4 mt-6 mx-auto w-3/4">
-                        <button className="flex flex-col items-center justify-center bg-pink-300 text-white w-32 h-32 rounded-lg hover:bg-pink-400 transition">
-                            <img src={nervosaImg.src} alt="Nervosa" className="w-12 h-12 mb-2" />
-                            <span>Se sentiu nervosa</span>
-                        </button>
-                        <button className="flex flex-col items-center justify-center bg-yellow-300 text-white w-32 h-32 rounded-lg hover:bg-yellow-400 transition">
-                            <img src={ansiosaImg.src} alt="Ansiosa" className="w-12 h-12 mb-2" />
-                            <span>Se sentiu ansiosa</span>
-                        </button>
-                        <button className="flex flex-col items-center justify-center bg-blue-300 text-white w-32 h-32 rounded-lg hover:bg-blue-400 transition">
-                            <img src={medoImg.src} alt="Medo" className="w-12 h-12 mb-2" />
-                            <span>Sentiu medo</span>
-                        </button>
-                        <button className="flex flex-col items-center justify-center bg-green-400 text-white w-32 h-32 rounded-lg hover:bg-green-500 transition">
-                            <img src={felizImg.src} alt="Feliz" className="w-12 h-12 mb-2" />
-                            <span>Se sentiu feliz</span>
-                        </button>
-                        <button className="flex flex-col items-center justify-center bg-pink-400 text-white w-32 h-32 rounded-lg hover:bg-pink-500 transition">
-                            <img src={animadaImg.src} alt="Animada" className="w-12 h-12 mb-2" />
-                            <span>Se sentiu animada</span>
-                        </button>
-                        <button className="flex flex-col items-center justify-center bg-purple-400 text-white w-32 h-32 rounded-lg hover:bg-purple-500 transition">
-                            <img src={calmaImg.src} alt="Calma" className="w-12 h-12 mb-2" />
-                            <span>Se sentiu calma</span>
-                        </button>
-                    </div>
+                {/* Seções de monitoramento */}
+                <div className="mt-6 space-y-8">
+                    {monitoramentoData.map((section, index) => (
+                        <div key={index} className="text-left">
+                            {/* Título da Categoria */}
+                            <h2 className="text-[24px] text-gray-700 mb-4">{section.title}</h2>
+                            
+                            {/* Botões de Opções */}
+                            <div className="space-y-3">
+                                {section.options.map((option, idx) => (
+                                    <button
+                                        key={idx}
+                                        className="flex items-center p-3 w-full text-left bg-gray-100 rounded-lg hover:bg-gray-200"
+                                    >
+                                        <Image src={option.icon} alt={`${option.label} Icon`} width={24} height={24} className="mr-3" />
+                                        <span className="text-gray-700">{option.label}</span>
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+                    ))}
                 </div>
             </div>
         </div>
