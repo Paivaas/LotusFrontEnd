@@ -178,7 +178,7 @@ export default function Home() {
 
             </nav>
 
-            <main className="w-full h-full rounded-2xl">
+            <main className="w-full h-full bg-gray-1 rounded 3xl">
 
                 <div className="h-20 w-full bg-blue-degrade-3 rounded-3xl flex justify-end">
                     <div className="w-14 h-20 bg-blue-degrade-2 rounded-e-2xl rounded-bl-full"></div>

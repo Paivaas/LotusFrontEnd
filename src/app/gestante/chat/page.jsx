@@ -80,13 +80,13 @@ export default function Chat() {
 
             </nav>
 
-            <main className="w-full h-full bg-gray-2 rounded-2xl">
+            <main className="w-full h-full bg-gray-1 rounded-2xl">
 
-                <div className="h-16 w-full bg-purple-degrade-3 rounded-2xl flex justify-end">
-                    <div className="w-14 h-16 bg-purple-degrade-2 rounded-e-2xl rounded-bl-full"></div>
-                    <div className="w-2/3 h-16 bg-purple-degrade-2 flex justify-end rounded-e-2xl ">
-                        <div className="w-14 h-16 bg-purple-degrade-1 rounded-e-2xl rounded-bl-full"></div>
-                        <div className="w-1/2 h-16 bg-purple-degrade-1 rounded-e-2xl"></div>
+                <div className="h-20 w-full bg-purple-degrade-3 rounded-3xl flex justify-end">
+                    <div className="w-14 h-20 bg-purple-degrade-2 rounded-e-3xl rounded-bl-full"></div>
+                    <div className="w-2/3 h-20 bg-purple-degrade-2 flex justify-end rounded-e-3xl ">
+                        <div className="w-14 h-20 bg-purple-degrade-1 rounded-e-3xl rounded-bl-full"></div>
+                        <div className="w-1/2 h-20 bg-purple-degrade-1 rounded-e-3xl"></div>
                     </div>
                 </div>
 
