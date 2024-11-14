@@ -121,26 +121,26 @@ export default function Galeria() {
     };
 
     return (
-        <div className="h-screen w-screen flex p-6 gap-4 overflow-hidden">
+        <div className="h-screen w-screen flex p-6 gap-4 overflow-hidden max-md:flex-col">
 
-            <nav className="flex flex-col justify-between text-gray-3 max-md:flex-col">
+        <nav className="flex flex-col justify-between text-gray-3 max-md:flex-col">
 
-                <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-4">
+                
+                <NavTop></NavTop>
 
-                    <NavTop></NavTop>
+                <ul className="flex flex-col gap-2 max-md:flex-wrap mt-8 max-md:flex-row max-md:">
+                    <HomeGestante></HomeGestante>
+                    <MonitoramentoGestante></MonitoramentoGestante>
+                    <ConteudosGestante></ConteudosGestante>
+                    <GaleriaGestanteAtivo></GaleriaGestanteAtivo>
+                    <PerfilGestante></PerfilGestante>
+                </ul>
+            </div>
+            
+            <Logout></Logout>
 
-                    <ul className="flex flex-col gap-2 max-md:flex-wrap mt-8 max-md:flex-row max-md:">
-                        <HomeGestante></HomeGestante>
-                        <MonitoramentoGestante></MonitoramentoGestante>
-                        <ConteudosGestante></ConteudosGestante>
-                        <GaleriaGestanteAtivo></GaleriaGestanteAtivo>
-                        <PerfilGestante></PerfilGestante>
-                    </ul>
-                </div>
-
-                <Logout></Logout>
-
-            </nav>
+        </nav>
 
             <main className="w-full h-full bg-gray-1 rounded 3xl">
 

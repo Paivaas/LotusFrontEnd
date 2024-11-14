@@ -155,21 +155,20 @@ export default function Home() {
                         </div>
                     </div>
 
-                    <div className="text-center mt-2">
-                        <h1 className="text-[30px] md:text-[25px] text-gray-4 font-ABeeZee z-40 font-thin">
+                    <div className="text-center mt-2 max-md:h-4">
+                        <h1 className="text-[30px] text-gray-4 font-ABeeZee z-40  font-thin max-md:text-[22px]">
                             {userInfo ? userInfo.name : "Nome do Usuário"}
                         </h1>
                     </div>
 
                     {/* DIV DE OPÇÕES PRINCIPAIS DO PERFIL */}
-                    {/* DIV DE OPÇÕES PRINCIPAIS DO PERFIL */}
-                    <div className="bg-gray-100 w-[600px] h-auto flex flex-col justify-around items-start mt-8 mx-auto p-4 rounded-[13px]">
+                    <div className="bg-gray-100 w-[600px] h-auto flex flex-col justify-around items-start mt-8 mx-auto p-4 rounded-[13px] max-md:w-[80vw]">
 
                         {/* Linha com Profissão e Data de Nascimento */}
-                        <div className="flex gap-4 w-full mb-4"> {/* Adicionado mb-4 para espaçamento inferior */}
+                        <div className="flex gap-4 w-full mb-4 max-md:flex-col max-md:gap-2"> {/* Adicionado mb-4 para espaçamento inferior */}
 
                             {/* Profissão */}
-                            <div className="flex items-center gap-4 bg-white p-4 rounded-[12px] border w-2/3 h-12"> {/* Aumentado para h-14 */}
+                            <div className="flex items-center gap-4 bg-white p-4 rounded-[12px] border w-2/3 h-12 max-md:w-full"> {/* Aumentado para h-14 */}
                                 <Image src={editprofissão} alt="Profissão" className="w-7 h-7" />
                                 <div className="flex flex-col">
                                     <span className="text-gray-400 font-ABeeZee">Profissão</span>
@@ -178,7 +177,7 @@ export default function Home() {
                             </div>
 
                             {/* Data de Nascimento */}
-                            <div className="flex items-center gap-4 bg-white p-4 rounded-[12px] border  w-1/3 h-12"> {/* Aumentado para h-14 */}
+                            <div className="flex items-center gap-4 bg-white p-4 rounded-[12px] border  w-1/3 h-12 max-md:w-full"> {/* Aumentado para h-14 */}
                                 <Image src={cake} alt="Data de Nascimento" className="w-6 h-7" />
                                 <div className="flex flex-col">
                                     <span className="text-gray-500">{userInfo?.dataNascimento || ""}</span>
@@ -188,7 +187,7 @@ export default function Home() {
                         </div>
 
                         {/* Nome do Bebê */}
-                        <div className="flex items-center gap-4 bg-white p-4 rounded-[12px] border  w-full h-12 mb-4"> {/* Aumentado para h-14 e adicionado mb-4 */}
+                        <div className="flex items-center gap-4 bg-white p-4 rounded-[12px] border max-md:mb-2  w-full h-12 mb-4"> {/* Aumentado para h-14 e adicionado mb-4 */}
                             <Image src={baby} alt="Nome do Bebê" className="w-7 h-7" />
                             <div className="flex flex-col">
                                 <span className="text-gray-400 font-ABeeZee">Nome do seu Bebê</span>
