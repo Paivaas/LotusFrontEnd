@@ -154,7 +154,7 @@ export default function Home() {
                             <li>Chat</li>
                         </div>
 
-                        <div className="flex items-center gap-2 w-44 bg-blue-degrade-1 p-2 rounded-xl cursor-pointer hover:bg-gray-2  transition duration-150 ease-in-out">
+                        <div className="flex items-center gap-2 w-44 bg-blue-degrade-1 p-2 rounded-xl cursor-pointer ">
                             <Image className="w-[15px]" alt="Arrow Icon" src={GaleriaIcon}></Image>
                             <li className="text-blue-degrade-3">Galeria</li>
                         </div>
