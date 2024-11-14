@@ -30,9 +30,9 @@ export default function Chat() {
 
     return (
 
-        <div className="h-screen w-screen flex p-6 gap-4 overflow-hidden">
+        <div className="h-screen w-screen flex p-6 gap-4 overflow-hidden max-md:flex-col">
 
-            <nav className="flex flex-col justify-between text-gray-3">
+            <nav className="flex flex-col justify-between text-gray-3 max-md:flex-col">
 
                 <div className="flex flex-col gap-4">
                     <div className="flex items-center gap-2 text-pink-3">
@@ -40,7 +40,7 @@ export default function Chat() {
                         <h1 className="font-ABeeZee">Lotus</h1>
                     </div>
 
-                    <ul className="flex flex-col gap-2 ">
+                    <ul className="flex flex-col gap-2 max-md:flex-wrap max-md:flex-row max-md:">
                         <div className="flex items-center gap-2 bg-white p-2 rounded-xl w-44 cursor-pointer hover:bg-gray-2  transition duration-150 ease-in-out">
                             <Image className="w-[15px]" alt="Arrow Icon" src={HomeIcon}></Image>
                             <li>Home</li>
@@ -51,7 +51,7 @@ export default function Chat() {
                             <li>Conteúdos</li>
                         </div>
 
-                        <div className="flex items-center gap-2 bg-purple-degrade-1 p-2 rounded-xl w-44 cursor-pointer">
+                        <div className="flex items-center gap-2 bg-purple-degrade-1 p-2 rounded-xl w-44 cursor-pointer ">
                             <Image className="w-[15px]" alt="Arrow Icon" src={ChatIcon}></Image>
                             <li className="text-purple-degrade-3">Chat</li>
                         </div>
@@ -73,7 +73,7 @@ export default function Chat() {
                     </ul>
                 </div>
 
-                <div className="flex items-center gap-2 cursor-pointer">
+                <div className="flex items-center gap-2 cursor-pointer bg-gray-1 rounded-2xl justify-center mt-4">
                     <Image className="w-[15px]" alt="Arrow Icon" src={LogOutIcon}></Image>
                     <h1>Log out</h1>
                 </div>
