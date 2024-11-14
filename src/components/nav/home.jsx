@@ -2,14 +2,14 @@
 
 import Image from "next/image";
 import { useRouter } from 'next/navigation';
-import Icon from "@/public/icons/nav/galeria.svg"
-import IconAtivo from "@/public/icons/nav/Ativo/galeria.svg"
+import Icon from "@/public/icons/nav/home.svg"
+import IconAtivo from "@/public/icons/nav/Ativo/home.svg"
 
 export function HomeGestante() {
 
     const router = useRouter();
     const HomeGestante = () => {
-        router.push('/gestante/galeria');
+        router.push('/gestante/homepage');
     }
 
     return (
@@ -32,9 +32,9 @@ export function HomeGestanteAtivo() {
 
     return (
         <button onClick={HomeGestante}>
-            <div className="flex items-center gap-2 p-2 rounded-xl w-44 cursor-pointer bg-blue-degrade-3">
+            <div className="flex items-center gap-2 p-2 rounded-xl w-44 cursor-pointer bg-orange-degrade-3">
                 <Image className="w-[15px]" alt="Arrow Icon" src={IconAtivo}></Image>
-                <li className="text-blue-degrade-1">Home</li>
+                <li className="text-orange-degrade-1">Home</li>
             </div>
         </button>
     )

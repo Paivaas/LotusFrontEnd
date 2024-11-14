@@ -2,24 +2,17 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import LotusIcon from "@/public/icons/utilities/lotus-icon.svg";
-import conteudos from "@/public/icons/nav/conteudos.svg";
-import galeria from "@/public/icons/nav/galeria.svg";
-import perfil from "@/public/icons/nav/Ativo/perfil.png";
-import azul from "@/public/icons/nav/nav-azul.png";
-import logout from "@/public/icons/nav/Ativo/logout.png";
-import chat from "@/public/icons/nav/chat.svg";
-import monitoramento from "@/public/icons/nav/monitoramento.svg";
-import home from "@/public/icons/nav/home.svg";
 
 
-import LogOutIcon from "@/public/icons/nav/logout.svg"
-import HomeIcon from "@/public/icons/nav/home.svg"
-import ConteudoIcon from "@/public/icons/nav/conteudos.svg"
-import ChatIcon from "@/public/icons/nav/chat.svg"
-import GaleriaIcon from "@/public/icons/nav/Ativo/galeria.svg"
-import MonitoramentoIcon from "@/public/icons/nav/monitoramento.svg"
-import PerfilIcon from "@/public/icons/nav/profile.svg"
+//Import dos componentes do nav
+import { HomeGestante, HomeGestanteAtivo } from '@/components/nav/home';
+import { GaleriaGestante, GaleriaGestanteAtivo } from '@/components/nav/galeria';
+import { MonitoramentoGestante, MonitoramentoGestanteAtivo } from '@/components/nav/monitoramento';
+import { PerfilGestante, PerfilGestanteAtivo } from '@/components/nav/perfil';
+import { ConteudosGestante, ConteudosGestanteAtivo } from '@/components/nav/conteudos';
+import { Logout } from '@/components/nav/logout';
+import { NavTop } from '@/components/nav/navTop';
+import { DegradeBlue } from '@/components/degrade';
 
 const UploadModal = ({ isOpen, onClose, onUpload }) => {
     const [selectedImage, setSelectedImage] = useState(null);
@@ -111,7 +104,7 @@ const UploadModal = ({ isOpen, onClose, onUpload }) => {
     );
 };
 
-export default function Home() {
+export default function Galeria() {
     const [fotos, setFotos] = useState([]);
     const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
 
@@ -130,63 +123,28 @@ export default function Home() {
     return (
         <div className="h-screen w-screen flex p-6 gap-4 overflow-hidden">
 
-            <nav className="flex flex-col justify-between text-gray-3">
+            <nav className="flex flex-col justify-between text-gray-3 max-md:flex-col">
 
                 <div className="flex flex-col gap-4">
-                    <div className="flex items-center gap-2 text-pink-3">
-                        <Image className="w-[40px]" alt="Arrow Icon" src={LotusIcon}></Image>
-                        <h1 className="font-ABeeZee">Lotus</h1>
-                    </div>
 
-                    <ul className="flex flex-col gap-2 ">
-                        <div className="flex items-center gap-2 bg-white p-2 rounded-xl w-44 cursor-pointer hover:bg-gray-2  transition duration-150 ease-in-out">
-                            <Image className="w-[15px]" alt="Arrow Icon" src={HomeIcon}></Image>
-                            <li>Home</li>
-                        </div>
+                    <NavTop></NavTop>
 
-                        <div className="flex items-center gap-2 w-44 bg-white p-2 rounded-xl cursor-pointer hover:bg-gray-2  transition duration-150 ease-in-out">
-                            <Image className="w-[15px]" alt="Arrow Icon" src={ConteudoIcon}></Image>
-                            <li>Conteúdos</li>
-                        </div>
-
-                        <div className="flex items-center gap-2 p-2 rounded-xl w-44 cursor-pointer hover:bg-gray-2  transition duration-150 ease-in-out">
-                            <Image className="w-[15px]" alt="Arrow Icon" src={ChatIcon}></Image>
-                            <li>Chat</li>
-                        </div>
-
-                        <div className="flex items-center gap-2 w-44 bg-blue-degrade-1 p-2 rounded-xl cursor-pointer ">
-                            <Image className="w-[15px]" alt="Arrow Icon" src={GaleriaIcon}></Image>
-                            <li className="text-blue-degrade-3">Galeria</li>
-                        </div>
-
-                        <div className="flex items-center gap-2 w-44 bg-white p-2 rounded-xl cursor-pointer hover:bg-gray-2  transition duration-150 ease-in-out">
-                            <Image className="w-[15px]" alt="Arrow Icon" src={MonitoramentoIcon}></Image>
-                            <li>Monitoramento</li>
-                        </div>
-
-                        <div className="flex items-center gap-2 w-44 bg-white p-2 rounded-xl cursor-pointer hover:bg-gray-2  transition duration-150 ease-in-out">
-                            <Image className="w-[13px]" alt="Arrow Icon" src={PerfilIcon}></Image>
-                            <li>Perfil</li>
-                        </div>
+                    <ul className="flex flex-col gap-2 max-md:flex-wrap mt-8 max-md:flex-row max-md:">
+                        <HomeGestante></HomeGestante>
+                        <MonitoramentoGestante></MonitoramentoGestante>
+                        <ConteudosGestante></ConteudosGestante>
+                        <GaleriaGestanteAtivo></GaleriaGestanteAtivo>
+                        <PerfilGestante></PerfilGestante>
                     </ul>
                 </div>
 
-                <div className="flex items-center gap-2 cursor-pointer">
-                    <Image className="w-[15px]" alt="Arrow Icon" src={LogOutIcon}></Image>
-                    <h1>Log out</h1>
-                </div>
+                <Logout></Logout>
 
             </nav>
 
             <main className="w-full h-full bg-gray-1 rounded 3xl">
 
-                <div className="h-20 w-full bg-blue-degrade-3 rounded-3xl flex justify-end">
-                    <div className="w-14 h-20 bg-blue-degrade-2 rounded-e-2xl rounded-bl-full"></div>
-                    <div className="w-2/3 h-20 bg-blue-degrade-2 flex justify-end rounded-e-3xl ">
-                        <div className="w-14 h-20 bg-blue-degrade-1 rounded-e-3xl rounded-bl-full"></div>
-                        <div className="w-1/2 h-20 bg-blue-degrade-1 rounded-e-3xl"></div>
-                    </div>
-                </div>
+               <DegradeBlue></DegradeBlue>
 
                 <section className="w-full h-full">
 

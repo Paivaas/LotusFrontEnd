@@ -15,9 +15,9 @@ import { PerfilGestante, PerfilGestanteAtivo } from '@/components/nav/perfil';
 import { ConteudosGestante, ConteudosGestanteAtivo } from '@/components/nav/conteudos';
 import { Logout } from '@/components/nav/logout';
 import { NavTop } from '@/components/nav/navTop';
-import { DegradeRed } from '@/components/degrade';
+import { DegradePink } from '@/components/degrade';
 
-export default function Monitoramento() {
+export default function Conteudos() {
 
 
     return (
@@ -32,8 +32,8 @@ export default function Monitoramento() {
 
                     <ul className="flex flex-col gap-2 max-md:flex-wrap mt-8 max-md:flex-row max-md:">
                         <HomeGestante></HomeGestante>
-                        <MonitoramentoGestanteAtivo></MonitoramentoGestanteAtivo>
-                        <ConteudosGestante></ConteudosGestante>
+                        <MonitoramentoGestante></MonitoramentoGestante>
+                        <ConteudosGestanteAtivo></ConteudosGestanteAtivo>
                         <GaleriaGestante></GaleriaGestante>
                         <PerfilGestante></PerfilGestante>
                     </ul>
@@ -46,7 +46,7 @@ export default function Monitoramento() {
 
             <main className="w-full h-full bg-gray-1 rounded-2xl">
 
-               <DegradeRed></DegradeRed>
+               <DegradePink></DegradePink>
 
                 <section className="w-full h-full flex">
 

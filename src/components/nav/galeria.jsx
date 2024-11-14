@@ -2,14 +2,14 @@
 
 import Image from "next/image";
 import { useRouter } from 'next/navigation';
-import Icon from "@/public/icons/nav/home.svg"
-import IconAtivo from "@/public/icons/nav/Ativo/home.svg"
+import Icon from "@/public/icons/nav/galeria.svg"
+import IconAtivo from "@/public/icons/nav/Ativo/galeria2.svg"
 
 export function GaleriaGestante() {
 
     const router = useRouter();
     const GaleriaGestante = () => {
-        router.push('/gestante/homepage');
+        router.push('/gestante/galeria');
     }
 
     return (
@@ -27,14 +27,14 @@ export function GaleriaGestanteAtivo() {
 
     const router = useRouter();
     const GaleriaGestante = () => {
-        router.push('/gestante/homepage');
+        router.push('/gestante/galeria');
     }
 
     return (
         <button onClick={GaleriaGestante}>
-            <div className="flex items-center gap-2 p-2 rounded-xl w-44 cursor-pointer bg-orange-degrade-3">
+            <div className="flex items-center gap-2 p-2 rounded-xl w-44 cursor-pointer bg-blue-degrade-1">
                 <Image className="w-[15px]" alt="Arrow Icon" src={IconAtivo}></Image>
-                <li className="text-orange-degrade-1">Galeria</li>
+                <li className="text-blue-degrade-3">Galeria</li>
             </div>
         </button>
     )

@@ -31,6 +31,17 @@ import { useState } from "react";
 import Calendar from "react-calendar";
 import '@/../src/styles/Calendar.css';
 
+
+//Import dos componentes do nav
+import { HomeGestante, HomeGestanteAtivo } from '@/components/nav/home';
+import { GaleriaGestante, GaleriaGestanteAtivo } from '@/components/nav/galeria';
+import { MonitoramentoGestante, MonitoramentoGestanteAtivo } from '@/components/nav/monitoramento';
+import { PerfilGestante, PerfilGestanteAtivo } from '@/components/nav/perfil';
+import { ConteudosGestante, ConteudosGestanteAtivo } from '@/components/nav/conteudos';
+import { Logout } from '@/components/nav/logout';
+import { NavTop } from '@/components/nav/navTop';
+import { DegradeOrange } from '@/components/degrade';
+
 export default async function Home() {
 
   // async function getGestante() {
@@ -60,63 +71,38 @@ export default async function Home() {
 
 
   return (
-    <div className="flex h-screen">
-      <header className="flex flex-col md:w-[20%] py-10 px-10">
-        {/* lótus */}
-        <div className="flex flex-row items-center gap-2 pb-16">
-          <Image src={Logo} alt="logo" className="size-16"></Image>
-          <h1 className="font-ABeeZee text-pink-3 font-light text-3xl text-center">
-            Lótus
-          </h1>
+    <div className="h-screen w-screen flex p-6 gap-4 overflow-hidden max-md:flex-col">
+
+      <nav className="flex flex-col justify-between text-gray-3 max-md:flex-col">
+
+        <div className="flex flex-col gap-4">
+
+          <NavTop></NavTop>
+
+          <ul className="flex flex-col gap-2 max-md:flex-wrap mt-8 max-md:flex-row max-md:">
+            <HomeGestanteAtivo></HomeGestanteAtivo>
+            <MonitoramentoGestante></MonitoramentoGestante>
+            <ConteudosGestante></ConteudosGestante>
+            <GaleriaGestante></GaleriaGestante>
+            <PerfilGestante></PerfilGestante>
+          </ul>
         </div>
-        {/* navegação */}
-        <nav className="flex flex-col gap-10 h-[80%]">
-          <a href="#" className="flex flex-row items-center p-2 gap-2 hover:bg-orange-degrade-3 transition duration-200 rounded-xl group">
-            <Image src={LogoHome} alt="home" className="fill-current group-hover:text-white size-8" ></Image>
-            <h1 className="font-Inter font-normal text-gray-3 text-lg group-hover:text-white">
-              Home
-            </h1>
-          </a>
-          <a href="#" className="flex flex-row items-center p-2 gap-2 hover:bg-orange-degrade-3 transition duration-200 rounded-xl group">
-            <Image src={LogoMonitoramento} alt="monitoramento" className="size-8" ></Image>
-            <h1 className="font-Inter font-normal text-gray-3 text-lg group-hover:text-white">
-              Monitoramento
-            </h1>
-          </a>
-          <a href="#" className="flex flex-row items-center p-2 gap-2 hover:bg-orange-degrade-3 transition duration-200 rounded-xl group">
-            <Image src={LogoConteudo} alt="conteudo" className="size-8" ></Image>
-            <h1 className="font-Inter font-normal text-gray-3 text-lg group-hover:text-white">
-              Conteúdo
-            </h1>
-          </a>
-          <a href="#" className="flex flex-row items-center p-2 gap-2 hover:bg-orange-degrade-3 transition duration-200 rounded-xl group">
-            <Image src={LogoChat} alt="chat" className="size-8" ></Image>
-            <h1 className="font-Inter font-normal text-gray-3 text-lg group-hover:text-white">
-              Chat
-            </h1>
-          </a>
-          <a href="#" className="flex flex-row items-center p-2 gap-2 hover:bg-orange-degrade-3 transition duration-200 rounded-xl group">
-            <Image src={LogoGaleria} alt="galeria" className="size-8" ></Image>
-            <h1 className="font-Inter font-normal text-gray-3 text-lg group-hover:text-white">
-              Galeria
-            </h1>
-          </a>
-          <a href="#" className="flex flex-row items-center p-2 gap-2 hover:bg-orange-degrade-3 transition duration-200 rounded-xl group">
-            <Image src={LogoPerfil} alt="perfil" className="size-8" ></Image>
-            <h1 className="font-Inter font-normal text-gray-3 text-lg group-hover:text-white">
-              Perfil
-            </h1>
-          </a>
-        </nav>
-        {/* botão sair */}
-        <button className="flex flex-row gap-2 items-center">
-          <Image src={LogoLogout} alt="logout" className="size-8"></Image>
-          <p className="font-Inter font-normal text-gray-3 text-lg hover:text-orange-3">
-            Log out
-          </p>
-        </button>
-      </header>
-      <main className="w-[80%] bg-white p-10 grid grid-cols-2 gap-2">
+
+        <Logout></Logout>
+
+
+      </nav>
+
+      <main className="w-full h-full bg-gray-1 rounded-2xl">
+
+        <DegradeOrange></DegradeOrange>
+
+        <section className="w-full h-full flex">
+
+          {/* Adicione o conteudo aqui */}
+
+
+          <main className="p-10 grid grid-cols-2 gap-2 justify-between w-full">
         {/* telinha 1 */}
         <div className="h-full bg-gray-2 p-6 rounded-[40px] flex flex-col gap-10">
           {/* Título e descrição */}
@@ -185,7 +171,7 @@ export default async function Home() {
             </div>
             {/* card do calendário */}
             <div className="h-60 w-full bg-transparent ">
-            {/* calendário */}
+              {/* calendário */}
               <Calendar></Calendar>
 
             </div>
@@ -205,13 +191,13 @@ export default async function Home() {
                   <div className="flex flex-row items-center gap-2">
                     <FaCalendarAlt className="text-[#af9676] h-4 w-5"/>
                     <p className="font-Inter text-xs text-[#af9676] font-normal">
-                      27 jan 2024 
+                      27 jan 2024
                     </p>
                   </div>
                   <div className="flex flex-row items-center gap-2">
                     <FaRegClock className="text-[#af9676] h-4 w-4"/>
                     <p className="font-Inter text-xs text-[#af9676] font-normal">
-                      27 jan 2024 
+                      27 jan 2024
                     </p>
                   </div>
                 </div>
@@ -231,13 +217,13 @@ export default async function Home() {
                   <div className="flex flex-row items-center gap-2">
                     <FaCalendarAlt className="text-[#af9676] h-4 w-5"/>
                     <p className="font-Inter text-xs text-[#af9676] font-normal">
-                      27 jan 2024 
+                      27 jan 2024
                     </p>
                   </div>
                   <div className="flex flex-row items-center gap-2">
                     <FaRegClock className="text-[#af9676] h-4 w-4"/>
                     <p className="font-Inter text-xs text-[#af9676] font-normal">
-                      27 jan 2024 
+                      27 jan 2024
                     </p>
                   </div>
                 </div>
@@ -250,11 +236,25 @@ export default async function Home() {
                 </p>
               </button>  */}
           </div>
-
-
-
+  
         </div>
       </main>
+
+
+
+
+
+
+
+
+
+
+
+
+        </section>
+
+      </main>
+
     </div>
   )
 }
