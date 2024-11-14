@@ -11,6 +11,13 @@ import logout from "@/public/icons/nav/Ativo/logout.png";
 import chat from "@/public/icons/nav/chat.svg";
 import monitoramento from "@/public/icons/nav/monitoramento.svg";
 import home from "@/public/icons/nav/home.svg";
+import nervosaImg from "@/public/icons/emotions/nervosa.png";
+import ansiosaImg from "@/public/icons/emotions/ansiosa.png";
+import medoImg from "@/public/icons/emotions/medo.png";
+import felizImg from "@/public/icons/emotions/feliz.png";
+import animadaImg from "@/public/icons/emotions/animada.png";
+import calmaImg from "@/public/icons/emotions/calma.png";
+
 
 // Componente para barra de progresso circular
 const CircularProgress = ({ progress, label, color }) => {
@@ -42,7 +49,6 @@ const CircularProgress = ({ progress, label, color }) => {
     );
 };
 
-// Novo componente para o modal vazio
 const Modal = ({ isOpen, onClose }) => {
     if (!isOpen) return null;
 
@@ -52,20 +58,45 @@ const Modal = ({ isOpen, onClose }) => {
                 <button onClick={onClose} className="absolute top-2 right-2 text-gray-500">
                     X
                 </button>
-                {/* Conteúdo vazio do modal */}
+                
+                {/* Conteúdo do modal com título e botões de humor em duas colunas */}
                 <div className="text-center text-gray-500">
+                    <h1 className="text-[35px] text-gray-300">Monitoramento de hoje</h1>
+                    <div className="w-3/4 mx-auto mt-2 h-1 bg-gray-100 shadow-slate-200"></div>
 
-                <h1 className="text-[35px] text-gray-300">
-                    Monitoramento de hoje
-                </h1>
-                <div className="w-3/4 mx-auto mt-2 h-1 bg-gray-100 shadow-slate-200"></div>
-
-
+                    {/* Botões de monitoramento de humor em duas colunas */}
+                    <div className="grid grid-cols-2 gap-4 mt-6 mx-auto w-3/4">
+                        <button className="flex flex-col items-center justify-center bg-pink-300 text-white w-32 h-32 rounded-lg hover:bg-pink-400 transition">
+                            <img src={nervosaImg.src} alt="Nervosa" className="w-12 h-12 mb-2" />
+                            <span>Se sentiu nervosa</span>
+                        </button>
+                        <button className="flex flex-col items-center justify-center bg-yellow-300 text-white w-32 h-32 rounded-lg hover:bg-yellow-400 transition">
+                            <img src={ansiosaImg.src} alt="Ansiosa" className="w-12 h-12 mb-2" />
+                            <span>Se sentiu ansiosa</span>
+                        </button>
+                        <button className="flex flex-col items-center justify-center bg-blue-300 text-white w-32 h-32 rounded-lg hover:bg-blue-400 transition">
+                            <img src={medoImg.src} alt="Medo" className="w-12 h-12 mb-2" />
+                            <span>Sentiu medo</span>
+                        </button>
+                        <button className="flex flex-col items-center justify-center bg-green-400 text-white w-32 h-32 rounded-lg hover:bg-green-500 transition">
+                            <img src={felizImg.src} alt="Feliz" className="w-12 h-12 mb-2" />
+                            <span>Se sentiu feliz</span>
+                        </button>
+                        <button className="flex flex-col items-center justify-center bg-pink-400 text-white w-32 h-32 rounded-lg hover:bg-pink-500 transition">
+                            <img src={animadaImg.src} alt="Animada" className="w-12 h-12 mb-2" />
+                            <span>Se sentiu animada</span>
+                        </button>
+                        <button className="flex flex-col items-center justify-center bg-purple-400 text-white w-32 h-32 rounded-lg hover:bg-purple-500 transition">
+                            <img src={calmaImg.src} alt="Calma" className="w-12 h-12 mb-2" />
+                            <span>Se sentiu calma</span>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
     );
 };
+
 
 // Função principal do componente Home
 export default function Home() {
@@ -181,7 +212,7 @@ export default function Home() {
                         >
                             Adicionar Monitoramento
                         </button>
-                        
+
                         {/* Dropdown de Filtrar por */}
                         <div className="relative">
                             <button
@@ -207,6 +238,17 @@ export default function Home() {
                                 </div>
                             )}
                         </div>
+                    </div>
+
+
+
+
+
+                </div>
+
+                <div className="bg-pink-400 h-[450px]">
+                    <div className="bg-pink-950 h-32">
+
                     </div>
                 </div>
             </div>
