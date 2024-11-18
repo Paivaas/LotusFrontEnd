@@ -117,9 +117,9 @@ export default function Home() {
                 <ul className="flex flex-col gap-2 max-md:flex-wrap mt-8 max-md:flex-row max-md:">
                     <HomeGestante></HomeGestante>
                     <MonitoramentoGestante></MonitoramentoGestante>
-                    <ConteudosGestanteAtivo></ConteudosGestanteAtivo>
+                    <ConteudosGestante></ConteudosGestante>
                     <GaleriaGestante></GaleriaGestante>
-                    <PerfilGestante></PerfilGestante>
+                    <PerfilGestanteAtivo></PerfilGestanteAtivo>
                 </ul>
             </div>
             

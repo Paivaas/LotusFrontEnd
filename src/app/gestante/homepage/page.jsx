@@ -40,7 +40,7 @@ import { PerfilGestante, PerfilGestanteAtivo } from '@/components/nav/perfil';
 import { ConteudosGestante, ConteudosGestanteAtivo } from '@/components/nav/conteudos';
 import { Logout } from '@/components/nav/logout';
 import { NavTop } from '@/components/nav/navTop';
-import { DegradeOrange } from '@/components/degrade';
+import { DegradeOrange2 } from '@/components/degrade';
 
 export default async function Home() {
 
@@ -94,8 +94,6 @@ export default async function Home() {
       </nav>
 
       <main className="w-full h-full bg-gray-1 rounded-2xl">
-
-        <DegradeOrange></DegradeOrange>
 
         <section className="w-full h-full flex">
 
@@ -158,9 +156,7 @@ export default async function Home() {
         {/* telinha 2 */}
         <div className="bg-gray-1 h-full rounded-[36px] overflow-hidden">
           {/* degradê */}
-          <div className="bg-orange-degrade-2 flex flex-row w-full h-16 justify-end rounded-s-[40px]  overflow-hidden">
-            <div className="bg-orange-degrade-3 w-1/2 flex justify-end rounded-bl-full"></div>
-          </div>
+          <DegradeOrange2></DegradeOrange2>
           {/* calendário */}
           <div className="flex flex-col px-28 py-20 gap-4">
             {/* card título */}

@@ -27,6 +27,7 @@ module.exports = {
         'gray-2': "var(--gray-2)",
         'gray-3': "var(--gray-3)",
         'gray-4': "var(--gray-4)",
+        'gray-5': "var(--gray-5)",
 
         'pink-1': "var(--pink-1)",
         'pink-2': "var(--pink-2)",

@@ -14,7 +14,7 @@ export function ConteudosGestante() {
 
     return (
         <button onClick={ConteudosGestante}>
-            <div className="flex items-center gap-2 bg-white p-2 rounded-xl w-44 cursor-pointer hover:bg-gray-2  transition duration-150 ease-in-out">
+            <div className=" flex items-center gap-2 bg-white p-2 rounded-xl w-44 cursor-pointer hover:bg-gray-2  transition duration-150 ease-in-out">
                 <Image className="w-[15px]" alt="Arrow Icon" src={Icon}></Image>
                 <li>Conteúdos</li>
             </div>
@@ -32,7 +32,7 @@ export function ConteudosGestanteAtivo() {
 
     return (
         <button onClick={ConteudosGestante}>
-            <div className="flex items-center gap-2 p-2 rounded-xl w-44 cursor-pointer bg-pink-degrade-1">
+            <div className="animate-duration-[400ms] animate-fade-right animate-once flex items-center gap-2 p-2 rounded-xl w-44 cursor-pointer bg-pink-degrade-1">
                 <Image className="w-[15px]" alt="Arrow Icon" src={IconAtivo}></Image>
                 <li className="text-pink-degrade-3">Conteúdos</li>
             </div>

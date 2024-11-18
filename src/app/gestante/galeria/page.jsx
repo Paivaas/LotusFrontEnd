@@ -166,7 +166,7 @@ export default function Galeria() {
 
                             <div className="text-center p-7">
                                 <h2 className="text-[35px] font-ABeeZee text-gray-3">Galeria</h2>
-                                <div className="w-3/4 mx-auto mt-2 h-1 bg-gray-200 shadow-slate-200"></div>
+                                <div className="w-3/4 mx-auto mt-2 h-1 bg-[#F6F6F6] shadow-slate-200"></div>
                             </div>
 
                             <div className="mt-8 p-7">

@@ -19,7 +19,7 @@ import UserCheckIcon from "@/public/icons/profile-information/grey/user-check.sv
 import CakeIcon from "@/public/icons/profile-information/grey/birthday-cake.svg"
 import ClipboardIcon from "@/public/icons/profile-information/grey/profession-edit-clipboard.svg"
 import BabyIcon from "@/public/icons/profile-information/grey/baby.svg"
-// import CalendarIcon from "@/public/icons/profile-information/grey/calendar-heart.svg"
+import CalendarIcon from "@/public/icons/profile-information/grey/calendar.svg"
 import BloodIcon from "@/public/icons/profile-information/grey/blood-type.svg"
 
 export default function RegisterDoula() {

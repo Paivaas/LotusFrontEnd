@@ -139,22 +139,20 @@ export default function Home() {
 
           {/* Adicione o conteudo aqui */}
 
-
-          <div className="bg-gray-1 flex-grow lg:w-[600%] rounded-3xl lg:ml-[20%] p-4 lg:p-8 relative">
-            <div className="absolute top-0 left-0 w-full">
-
+          <div className="flex-grow w-full rounded-3xl p-6 lg:p-8 relative">
+            <div className="relative bottom-24 left-0 w-full ">
               <button onClick={() => setIsSettingsModalOpen(true)}>
                 <Image
                   src={config}
                   alt="Configurações"
-                  className="absolute right-16 top-2 w-9 h-16"
+                  className="absolute right-16 top-2 w-9 "
                 />
               </button>
               <button onClick={toggleModal}>
                 <Image
                   src={edit}
                   alt="Editar"
-                  className="absolute right-4 top-2 w-9 h-16 rounded-full"
+                  className="absolute right-4 top-2 w-9 p-[4px] rounded-full bg-white"
                 />
               </button>
             </div>
@@ -249,8 +247,8 @@ export default function Home() {
           <SettingsModal isOpen={isSettingsModalOpen} onClose={() => setIsSettingsModalOpen(false)} />
 
           {isModalOpen && (
-            <div className="fixed inset-0 flex items-center justify-center z-50 bg-opacity-25">
-              <div className="bg-gray-1  rounded-lg p-6 w-11/12 md:w-1/2 max-h-[80vh] overflow-y-auto">
+            <div className="bg-zinc-950 fixed inset-0 flex items-center justify-center z-50 bg-opacity-25">
+              <div className="bg-zinc-100 rounded-lg px-12 w-11/12 md:w-1/2 max-h-[80vh] overflow-y-auto">
                 <h2 className="text-lg font-ABeeZee text-gray-3 mb-4">Editar Perfil</h2>
                 <div className="flex items-start gap-4 mb-4">
                   <label className="cursor-pointer">
@@ -333,12 +331,17 @@ export default function Home() {
                         </div>
                       </div>
                     )}
-                    <button onClick={handleSave} className="mt-4 bg-pink-3 text-white p-2 w-52 rounded">
-                      Salvar
-                    </button>
-                    <button onClick={toggleModal} className="mt-4 bg-gray-300 text-gray-700 w-52 p-2 rounded">
-                      Cancelar
-                    </button>
+                    <div className='flex gap-4 justify-end'>
+
+                      <button onClick={toggleModal} className="mt-4 bg-[#FFDAE1] text-[#FFAEBF] w-40 p-2 rounded">
+                        Cancelar
+                      </button>
+
+                      <button onClick={handleSave} className="mt-4 bg-[#DCEFC4] text-[#97CC58] p-2 w-40 rounded">
+                        Salvar
+                      </button>
+
+                    </div>
                   </div>
                 </div>
               </div>

@@ -14,7 +14,7 @@ export function HomeGestante() {
 
     return (
         <button onClick={HomeGestante}>
-            <div className="flex items-center gap-2 bg-white p-2 rounded-xl w-44 cursor-pointer hover:bg-gray-2  transition duration-150 ease-in-out">
+            <div className=" flex items-center gap-2 bg-white p-2 rounded-xl w-44 cursor-pointer hover:bg-gray-2  transition duration-150 ease-in-out">
                 <Image className="w-[15px]" alt="Arrow Icon" src={Icon}></Image>
                 <li>Home</li>
             </div>
@@ -32,7 +32,7 @@ export function HomeGestanteAtivo() {
 
     return (
         <button onClick={HomeGestante}>
-            <div className="flex items-center gap-2 p-2 rounded-xl w-44 cursor-pointer bg-orange-degrade-3">
+            <div className="animate-duration-[400ms] animate-fade-right animate-once flex items-center gap-2 p-2 rounded-xl w-44 cursor-pointer bg-orange-degrade-3">
                 <Image className="w-[15px]" alt="Arrow Icon" src={IconAtivo}></Image>
                 <li className="text-orange-degrade-1">Home</li>
             </div>
