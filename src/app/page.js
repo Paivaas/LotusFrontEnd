@@ -1,6 +1,5 @@
 "use client";
 
-
 import { NavTop } from '@/components/nav/navTop';
 import { useRouter } from 'next/navigation';
 
@@ -11,13 +10,11 @@ import Galeria from "@/public/icons/nav/Ativo/galeria2.svg"
 import Chat from "@/public/icons/nav/Ativo/chat.svg"
 import Monitoramento from "@/public/icons/nav/Ativo/monitoramento.svg"
 
-
 import doula1 from "@/public/img/Doula-1.jpg"
 import doula2 from "@/public/img/Doula-2.jpg"
 import doula3 from "@/public/img/Doula-3.png"
 
 export default function Page() {
-
 
   const router = useRouter();
 
