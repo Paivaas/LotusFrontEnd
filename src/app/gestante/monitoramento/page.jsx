@@ -58,7 +58,10 @@ import { Logout } from '@/components/nav/logout';
 import { NavTop } from '@/components/nav/navTop';
 import { DegradeRed } from '@/components/degrade';
 
-// Componente para barra de progresso circular
+
+
+
+// Import das imagens (mantém os imports existentes)
 const CircularProgress = ({ progress, label, color }) => {
     const circumference = 100 * Math.PI;
     const offset = circumference - (progress / 100) * circumference;
@@ -80,7 +83,7 @@ const CircularProgress = ({ progress, label, color }) => {
                     transform="rotate(-90 60 60)"
                 />
                 <text x="60" y="65" textAnchor="middle" fontSize="24" fill="#333">
-                    {`${progress}%`}
+
                 </text>
             </svg>
             <span className="text-center mt-2">{label}</span>
@@ -88,13 +91,42 @@ const CircularProgress = ({ progress, label, color }) => {
     );
 };
 
-// Novo componente para o modal com botões de monitoramento
-const Modal = ({ isOpen, onClose }) => {
+// Modal com botões de monitoramento
+const Modal = ({ isOpen, onClose, onSave }) => {
+    const [localSelections, setLocalSelections] = useState([]);
+
+    const handleSelection = (option) => {
+        setLocalSelections((prev) =>
+            prev.includes(option)
+                ? prev.filter((item) => item !== option)
+                : [...prev, option]
+        );
+    };
+
+    const handleSave = () => {
+        onSave(localSelections);
+        onClose();
+    };
+
+    if (!isOpen) return null;
 
 
     
-    if (!isOpen) return null;
-
+    const handleDateSelection = async () => {
+        const { value: date } = await Swal.fire({
+          title: "Select departure date",
+          input: "date",
+          didOpen: () => {
+            const today = new Date().toISOString();
+            Swal.getInput().min = today.split("T")[0]; // Define a data mínima como hoje
+          },
+        });
+    
+        if (date) {
+          setSelectedDate(date); // Atualiza o estado com a data selecionada
+          Swal.fire("Departure date", date); // Mostra um alerta com a data
+        }
+      };
     // Dados de cada categoria e seus respectivos botões e ícones
     const monitoramentoData = [
         {
@@ -104,7 +136,7 @@ const Modal = ({ isOpen, onClose }) => {
                 { label: "Felicidade", icon: felicidade },
                 { label: "Raiva", icon: raiva },
                 { label: "Sensível", icon: sensivel },
-                { label: "Neutra", icon: neutra }
+                { label: "Neutra", icon: neutra },
             ],
         },
         {
@@ -125,7 +157,6 @@ const Modal = ({ isOpen, onClose }) => {
                 { label: "Vomitando", icon: vomitando },
                 { label: "Com gases", icon: comGases },
                 { label: "Ok", icon: ok },
-
             ],
         },
         {
@@ -133,106 +164,71 @@ const Modal = ({ isOpen, onClose }) => {
             options: [
                 { label: "Relação protegida", icon: relacaoProtegida },
                 { label: "Relação desprotegida", icon: relacaoDesprotegida },
-                { label: "Relação desprotegida", icon: naoHouveRelacao },
-
+                { label: "Não houve relação", icon: naoHouveRelacao },
             ],
         },
         {
             title: "Vida Social",
             options: [
-                { label: "Sociavel", icon: sociavel },
+                { label: "Sociável", icon: sociavel },
                 { label: "Introvertida", icon: introvertida },
-                { label: "Conflitante", icon: conflitante }
+                { label: "Conflitante", icon: conflitante },
             ],
         },
     ];
 
-    
 
-    // Função para escolher a data
-    const [selectedDate, setSelectedDate] = useState(""); // Estado para armazenar a data selecionada
-
-    const handleDateSelection = async () => {
-        const { value: date } = await Swal.fire({
-            title: "Selecione a data de hoje",
-            confirmButtonColor: "#FBA1A1", // Cor do botão de confirmação
-            input: "date",
-            didOpen: () => {
-                const today = new Date().toISOString();
-                Swal.getInput().min = today.split("T")[0]; // Define a data mínima como hoje
-            },
-        });
-
-        if (date) {
-
-            setSelectedDate(date);
-            Swal.fire({
-                position: "center",
-                icon: "success",
-                title: "Data selecionada", date,
-                showConfirmButton: false,
-                timer: 1500
-              });
-
-
-        }
-
-    }
 
     return (
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-opacity-50">
             <div className="bg-white p-6 rounded-lg shadow-lg w-[60%] relative h-[70%] overflow-y-auto">
-
-                {/* Título do Modal */}
                 <div className="text-center text-gray-500">
                     <h1 className="text-[35px] text-gray-300">Monitoramento de hoje</h1>
                     <div className="w-3/4 mx-auto mt-2 h-1 bg-gray-100 shadow-slate-200"></div>
                 </div>
 
-                {/* Seções de monitoramento */}
                 <div className="mt-6 space-y-8">
                     {monitoramentoData.map((section, index) => (
                         <div key={index} className="text-left">
-                            {/* Título da Categoria */}
-                            <h2 className="text-[24px] text-gray-700 mb-4 ">{section.title}</h2>
-
-                            {/* Botões de Opções */}
-                            <div className="space-y-3 ">
+                            <h2 className="text-[24px] text-gray-700 mb-4">{section.title}</h2>
+                            <div className="space-y-3">
                                 {section.options.map((option, idx) => (
                                     <button
                                         key={idx}
-                                        className="flex items-center p-3 w-full text-left bg-gray-100 rounded-lg hover:bg-gray-200"
+                                        className={`flex items-center p-3 w-full text-left ${localSelections.includes(option.label)
+                                                ? "bg-gray-200"
+                                                : "bg-gray-100"
+                                            } rounded-lg hover:bg-gray-200`}
+                                        onClick={() => handleSelection(option.label)}
                                     >
-                                        <Image src={option.icon} alt={`${option.label} Icon`} width={24} height={24} className="mr-3" />
+                                        <Image
+                                            src={option.icon}
+                                            alt={`${option.label} Icon`}
+                                            width={24}
+                                            height={24}
+                                            className="mr-3"
+                                        />
                                         <span className="text-gray-700">{option.label}</span>
                                     </button>
                                 ))}
                             </div>
                         </div>
-
                     ))}
 
                     <div className="flex gap-2 justify-end">
 
                         <div className="flex items-center justify-center gap-2 border-[3px] px-4 py-2 rounded-lg w-64">
                             <Image className="w-[10%]" alt="Lotus Icon" src={Calendario}></Image>
-                            <button onClick={handleDateSelection}>Data de hoje</button>
-                            {selectedDate && ( // Exibe a data apenas se ela for selecionada
-                                <p>
-                                    <strong>{selectedDate}</strong>
-                                </p>
-                            )}
+                            <button>Data de hoje</button>
+                            <button onClick={handleDateSelection}>Select Date</button>
                         </div>
 
                         <button onClick={onClose} className="bg-[#FFDAE1] text-[#FFAEBF] w-40 p-2 rounded-lg">
                             Cancelar
                         </button>
-
-                        <button  className=" bg-[#DCEFC4] text-[#97CC58] p-2 w-40 rounded-lg">
-                        Salvar
-                      </button>
-
-
+                        <button onClick={handleSave} className="bg-[#DCEFC4] text-[#97CC58] p-2 w-40 rounded-lg">
+                            Salvar
+                        </button>
                     </div>
                 </div>
             </div>
@@ -240,11 +236,19 @@ const Modal = ({ isOpen, onClose }) => {
     );
 };
 
-export default function Monitoramento() {
 
-    const [fotos, setFotos] = useState([]);
+
+
+
+
+
+
+
+
+export default function Monitoramento() {
+    const [selectedGroups, setSelectedGroups] = useState([]); // Grupos de opções selecionadas
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [isDropdownOpen, setIsDropdownOpen] = useState(false); // Estado para controlar o dropdown
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
     const toggleModal = () => {
         setIsModalOpen(!isModalOpen);
@@ -264,43 +268,30 @@ export default function Monitoramento() {
 
 
     return (
-
-        <div className="h-screen w-screen flex p-6 gap-4 overflow-hidden max-md:flex-col">
-
+        <div className="h-screen w-screen flex p-6 gap-4 overflow-x-hidden max-md:flex-col">
             <nav className="flex flex-col justify-between text-gray-3 max-md:flex-col">
-
                 <div className="flex flex-col gap-4">
-
-                    <NavTop></NavTop>
-
-                    <ul className="flex flex-col gap-2 max-md:flex-wrap mt-8 max-md:flex-row max-md:">
-                        <HomeGestante></HomeGestante>
-                        <MonitoramentoGestanteAtivo></MonitoramentoGestanteAtivo>
-                        <ConteudosGestante></ConteudosGestante>
-                        <GaleriaGestante></GaleriaGestante>
-                        <PerfilGestante></PerfilGestante>
+                    <NavTop />
+                    <ul className="flex flex-col gap-2 max-md:flex-wrap mt-8">
+                        <HomeGestante />
+                        <MonitoramentoGestanteAtivo />
+                        <ConteudosGestante />
+                        <GaleriaGestante />
+                        <PerfilGestante />
                     </ul>
                 </div>
-
-                <Logout></Logout>
-
-
+                <Logout />
             </nav>
 
             <main className="w-full h-full bg-gray-1 rounded-2xl">
-
-                <DegradeRed></DegradeRed>
-
+                <DegradeRed />
                 <section className="w-full h-full flex flex-col px-10">
-
-                    {/* Adicione o conteudo aqui */}
-
                     <div className="text-center p-7">
                         <h2 className="text-[35px] font-ABeeZee text-gray-3">Monitoramento</h2>
                         <div className="w-3/4 mx-auto mt-2 h-1 bg-[#F6F6F6] shadow-slate-200"></div>
                     </div>
 
-                    <div className="mt-4 ">
+                    <div className="mt-4">
                         <h2 className="text-[20px] text-gray-4 text-left rounded-[60px] bg-white py-2 px-4">
                             Durante a sua gestação você:
                         </h2>
@@ -317,21 +308,15 @@ export default function Monitoramento() {
                         ))}
                     </div>
 
-                    <div className=" flex items-center justify-between bg-white py-2 px-4 rounded-full mb-4 mt-4">
-                        <h1 className="text-gray-4 text-[20px]">
-                            Veja com mais detalhes seu monitoramento:
-                        </h1>
-
-                        <div className="flex flex-row-reverse gap-2 relative items-center ">
-                            {/* Botão de Adicionar Monitoramento */}
+                    <div className="flex items-center justify-between bg-white py-2 px-4 rounded-full mb-4 mt-4">
+                        <h1 className="text-gray-4 text-[20px]">Veja com mais detalhes seu monitoramento:</h1>
+                        <div className="flex flex-row-reverse gap-2 relative items-center">
                             <button
                                 onClick={toggleModal}
                                 className="bg-pink-3 text-white px-3 py-2 hover:bg-pink-3 transition rounded-2xl"
                             >
                                 Adicionar Monitoramento
                             </button>
-
-                            {/* Dropdown de Filtrar por */}
                             <div className="relative">
                                 <button
                                     type="button"
@@ -340,8 +325,6 @@ export default function Monitoramento() {
                                 >
                                     Filtrar por ⇩
                                 </button>
-
-                                {/* Dropdown aberto */}
                                 {isDropdownOpen && (
                                     <div className="absolute right-0 mt-2 w-48 bg-white border border-pink-3 rounded-md shadow-lg py-1">
                                         <button className="block w-full px-4 py-2 text-left text-pink-3 hover:bg-gray-100">
@@ -357,33 +340,47 @@ export default function Monitoramento() {
                                 )}
                             </div>
                         </div>
-
-
                     </div>
 
-                    <div className="bg-pink-400 h-[300px]">
-                        <div className="bg-pink-950 h-32">
-
-                        </div>
-                    </div>
-
-                    {/* Modal */}
-                    <Modal isOpen={isModalOpen} onClose={toggleModal} />
-
-
-
-
-
-
-
-
-
-
-
+                    <main className="w-full h-full bg-gray-1 rounded-2xl">
+                        <section className="w-full h-full flex flex-col ">
+                            {/* Monitoramento */}
+                            <div className=" h-auto p-4 rounded-lg">
+                                <div className="flex flex-col gap-4">
+                                    {selectedGroups.length > 0 ? (
+                                        selectedGroups.map((group, groupIdx) => (
+                                            <div
+                                                key={groupIdx}
+                                                className="bg-white rounded-lg p-4 shadow-md flex flex-col gap-2"
+                                            >
+                                                <h4 className="text-gray-700 font-semibold">Grupo {groupIdx + 1}</h4>
+                                                <ul className="flex flex-wrap gap-2">
+                                                    {group.map((option, optionIdx) => (
+                                                        <li
+                                                            key={optionIdx}
+                                                            className="bg-red-degrade-3 text-white px-3 py-1 rounded-full shadow-md"
+                                                        >
+                                                            {option}
+                                                        </li>
+                                                    ))}
+                                                </ul>
+                                            </div>
+                                        ))
+                                    ) : (
+                                        <p className="text-white">Nenhuma opção selecionada.</p>
+                                    )}
+                                </div>
+                            </div>
+                        </section>
+                    </main>
                 </section>
-
             </main>
+            <Modal
+                isOpen={isModalOpen}
+                onClose={toggleModal}
+                onSave={(selections) => setSelectedGroups((prev) => [...prev, selections])}
 
+            />
         </div>
     );
 }
