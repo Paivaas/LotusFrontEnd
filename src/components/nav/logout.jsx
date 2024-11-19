@@ -14,7 +14,7 @@ export function Logout() {
 
     return (
 
-        <button onClick={logout}>
+        <button  onClick={logout}>
             <div className="flex max-md:items-center gap-2 cursor-pointer bg-gray-1 rounded-2xl justify-center mt-4 hover:bg-white animate-jump animate-once animate-duration-[400ms] animate-ease-in-out">
                 <Image className="w-[15px]" alt="Arrow Icon" src={Icon}></Image>
                 <h1>Log out</h1>
@@ -24,3 +24,5 @@ export function Logout() {
     )
 
 }
+
+//className="max-xl:absolute bottom-0"

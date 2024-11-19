@@ -45,8 +45,8 @@ const UploadModal = ({ isOpen, onClose, onUpload }) => {
     return (
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-opacity-15">
             <div className="bg-[#E1EDF2] rounded-[25px] p-6 w-11/12 md:w-1/2 max-w-4xl">
-                <div className="flex mb-4">
-                    <label className="w-1/2">
+                <div className="flex flex-col mb-4 ">
+                    <label className="w-1/2 max-xl:w-full">
                         <input
                             type="file"
                             onChange={handleImageChange}
@@ -54,7 +54,7 @@ const UploadModal = ({ isOpen, onClose, onUpload }) => {
                             className="hidden"
                         />
                         {selectedImage ? (
-                            <div className="w-96 h-96 border-2 border-dashed border-gray-400 flex items-center justify-center overflow-hidden rounded">
+                            <div className="w-96 max-xl:w-full h-96 border-2 border-dashed border-gray-400 flex items-center justify-center overflow-hidden rounded">
                                 <Image
                                     src={selectedImage}
                                     alt="Preview"
@@ -64,12 +64,12 @@ const UploadModal = ({ isOpen, onClose, onUpload }) => {
                                 />
                             </div>
                         ) : (
-                            <div className="border-2 border-dashed border-gray-400 h-[550px] w-[500px] flex items-center justify-center rounded">
+                            <div className="border-2 border-dashed border-gray-400 h-[550px] w-[500px] max-xl:w-full max-xl:h-96 flex items-center justify-center rounded ">
                                 <span className="text-gray-500">Escolher imagem</span>
                             </div>
                         )}
                     </label>
-                    <div className="ml-24 flex-1 h-[500px]">
+                    <div className="ml-24 flex-1 h-[500px]  max-xl:ml-0">
                         <input
                             type="text"
                             value={title}
@@ -169,18 +169,18 @@ export default function Galeria() {
                                 <div className="w-3/4 mx-auto mt-2 h-1 bg-[#F6F6F6] shadow-slate-200"></div>
                             </div>
 
-                            <div className="mt-8 p-7">
-                                <h2 className="text-[25px] font-ABeeZee text-gray-4 text-left">Meu bebê</h2>
+                            <div className="mt-8 p-7 max-xl:p-2">
+                                <h2 className="text-[25px] font-ABeeZee text-gray-4 text-left">Minha maternidade</h2>
                             </div>
 
                             <div id="Imagens" className="mt-2 h-[55vh] overflow-y-auto">
                                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
                                     {fotos.map((foto, index) => (
-                                        <div key={index} className="relative bg-blue-degrade-1 p-8 flex items-center justify-center">
+                                        <div key={index} className="relative bg-blue-degrade-1 p-8 flex items-center justify-center max-xl:p-4">
                                             <Image
                                                 src={foto.url}
                                                 alt={`Foto ${index + 1}`}
-                                                className="object-cover w-80 h-80 bg-[#E1EDF2]"
+                                                className="object-cover w-80 h-80 bg-[#E1EDF2] max-xl:w-44 max-xl:h-44"
                                                 width={256}
                                                 height={256}
                                             />
@@ -192,7 +192,7 @@ export default function Galeria() {
                                             </div>
                                         </div>
                                     ))}
-                                </div>
+                                </div>  
                             </div>
 
                         </div>
