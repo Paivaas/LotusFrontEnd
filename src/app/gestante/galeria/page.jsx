@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-
+import Swal from 'sweetalert2';
 
 //Import dos componentes do nav
 import { HomeGestante, HomeGestanteAtivo } from '@/components/nav/home';
@@ -30,13 +30,25 @@ const UploadModal = ({ isOpen, onClose, onUpload }) => {
         }
     };
 
+    const modal = () => {
+        Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Sua lembrança foi salva",
+            showConfirmButton: false,
+            timer: 1500
+        });
+    }
+
     const handleUpload = () => {
         if (selectedImage && title && description) {
             onUpload({ url: selectedImage, title, description });
             setSelectedImage(null);
             setTitle("");
             setDescription("");
+            modal();
             onClose();
+
         }
     };
 
@@ -45,7 +57,7 @@ const UploadModal = ({ isOpen, onClose, onUpload }) => {
     return (
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-opacity-15">
             <div className="bg-[#E1EDF2] rounded-[25px] p-6 w-11/12 md:w-1/2 max-w-4xl">
-                <div className="flex flex-col mb-4 ">
+                <div className="flex max-2xl:flex-col mb-4">
                     <label className="w-1/2 max-xl:w-full">
                         <input
                             type="file"
@@ -110,6 +122,7 @@ export default function Galeria() {
 
     const toggleUploadModal = () => {
         setIsUploadModalOpen(!isUploadModalOpen);
+
     };
 
     const handleUploadPhoto = ({ url, title, description }) => {
@@ -117,34 +130,43 @@ export default function Galeria() {
     };
 
     const handleImageClick = (foto) => {
-        alert(`Título: ${foto.title}\nDescrição: ${foto.description}`);
+        // alert(`Título: ${foto.title}\nDescrição: ${foto.description}`);
+
+        Swal.fire({
+            title: `${foto.title}`,
+            imageUrl: `${foto.url}`,
+            imageHeight: 300,
+            text: `${foto.description}`,
+            confirmButtonColor: '#BCE0EF',
+            confirmButtonText: 'Voltar',
+        });
     };
 
     return (
         <div className="h-screen w-screen flex p-6 gap-4 overflow-hidden max-md:flex-col">
 
-        <nav className="flex flex-col justify-between text-gray-3 max-md:flex-col">
+            <nav className="flex flex-col justify-between text-gray-3 max-md:flex-col">
 
-            <div className="flex flex-col gap-4">
-                
-                <NavTop></NavTop>
+                <div className="flex flex-col gap-4">
 
-                <ul className="flex flex-col gap-2 max-md:flex-wrap mt-8 max-md:flex-row max-md:">
-                    <HomeGestante></HomeGestante>
-                    <MonitoramentoGestante></MonitoramentoGestante>
-                    <ConteudosGestante></ConteudosGestante>
-                    <GaleriaGestanteAtivo></GaleriaGestanteAtivo>
-                    <PerfilGestante></PerfilGestante>
-                </ul>
-            </div>
-            
-            <Logout></Logout>
+                    <NavTop></NavTop>
 
-        </nav>
+                    <ul className="flex flex-col gap-2 max-md:flex-wrap mt-8 max-md:flex-row max-md:">
+                        <HomeGestante></HomeGestante>
+                        <MonitoramentoGestante></MonitoramentoGestante>
+                        <ConteudosGestante></ConteudosGestante>
+                        <GaleriaGestanteAtivo></GaleriaGestanteAtivo>
+                        <PerfilGestante></PerfilGestante>
+                    </ul>
+                </div>
+
+                <Logout></Logout>
+
+            </nav>
 
             <main className="w-full h-full bg-gray-1 rounded 3xl">
 
-               <DegradeBlue></DegradeBlue>
+                <DegradeBlue></DegradeBlue>
 
                 <section className="w-full h-full">
 
@@ -192,7 +214,7 @@ export default function Galeria() {
                                             </div>
                                         </div>
                                     ))}
-                                </div>  
+                                </div>
                             </div>
 
                         </div>

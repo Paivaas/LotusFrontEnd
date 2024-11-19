@@ -272,7 +272,7 @@ export default function Monitoramento() {
             <nav className="flex flex-col justify-between text-gray-3 max-md:flex-col">
                 <div className="flex flex-col gap-4">
                     <NavTop />
-                    <ul className="flex flex-col gap-2 max-md:flex-wrap mt-8">
+                    <ul className="flex flex-col gap-2 max-md:flex-wrap mt-8 max-md:flex-row">
                         <HomeGestante />
                         <MonitoramentoGestanteAtivo />
                         <ConteudosGestante />
