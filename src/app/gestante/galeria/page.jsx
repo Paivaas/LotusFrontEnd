@@ -57,8 +57,8 @@ const UploadModal = ({ isOpen, onClose, onUpload }) => {
     return (
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-opacity-15">
             <div className="bg-[#E1EDF2] rounded-[25px] p-6 w-11/12 md:w-1/2 max-w-4xl">
-                <div className="flex max-2xl:flex-col mb-4">
-                    <label className="w-1/2 max-xl:w-full">
+                <div className="flex max-2xl:flex-col mb-4 justify-center">
+                    <label className="max-xl:w-full mr-6">
                         <input
                             type="file"
                             onChange={handleImageChange}
@@ -66,7 +66,7 @@ const UploadModal = ({ isOpen, onClose, onUpload }) => {
                             className="hidden"
                         />
                         {selectedImage ? (
-                            <div className="w-96 max-xl:w-full h-96 border-2 border-dashed border-gray-400 flex items-center justify-center overflow-hidden rounded">
+                            <div className="w-full max-xl: h-96 border-2 border-dashed border-gray-400 flex items-center justify-center overflow-hidden rounded">
                                 <Image
                                     src={selectedImage}
                                     alt="Preview"
@@ -81,7 +81,7 @@ const UploadModal = ({ isOpen, onClose, onUpload }) => {
                             </div>
                         )}
                     </label>
-                    <div className="ml-24 flex-1 h-[500px]  max-xl:ml-0">
+                    <div className="flex-1 max-xl:ml-0">
                         <input
                             type="text"
                             value={title}
@@ -192,17 +192,17 @@ export default function Galeria() {
                             </div>
 
                             <div className="mt-8 p-7 max-xl:p-2">
-                                <h2 className="text-[25px] font-ABeeZee text-gray-4 text-left">Minha maternidade</h2>
+                                <h2 className="text-[25px] font-ABeeZee text-gray-4 text-left">Minha maternidade ♡</h2>
                             </div>
 
-                            <div id="Imagens" className="mt-2 h-[55vh] overflow-y-auto">
+                            <div id="Imagens" className="mt-2 h-auto overflow-y-scroll ">
                                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
                                     {fotos.map((foto, index) => (
-                                        <div key={index} className="relative bg-blue-degrade-1 p-8 flex items-center justify-center max-xl:p-4">
+                                        <div key={index} className="relative p-6 flex items-center justify-center max-xl:p-4 bg-blue-degrade-1 cursor-pointer">
                                             <Image
                                                 src={foto.url}
                                                 alt={`Foto ${index + 1}`}
-                                                className="object-cover w-80 h-80 bg-[#E1EDF2] max-xl:w-44 max-xl:h-44"
+                                                className="object-cover w-full h-80 bg-[#E1EDF2] max-xl:h-44"
                                                 width={256}
                                                 height={256}
                                             />
