@@ -124,18 +124,25 @@ export default async function Home() {
           </div>
           {/* cards */}
           <div className="flex items-center justify-center flex-col gap-2">
+
+          
             {/* card de progresso */}
-            <div className="h-20 w-[440px] bg-orange-1 rounded-md border-2 border-orange-degrade-1 p-4 flex flex-col gap-2">
-              <p className="flex font-ABeeZee text-orange-degrade-1">
-                12 semanas restantes
-              </p>
-              {/* degradê */}
-              <div className="bg-pink-degrade-3 flex flex-row w-full h-4 justify-end rounded-s-[40px] rounded-e-[40px] overflow-hidden">
-                <div className="bg-pink-degrade-2 w-2/3 flex justify-end rounded-b-full">
-                  <div className="bg-pink-degrade-1 w-1/2 rounded-bl-full"></div>
-                </div>
+            <div className="h-20 w-[440px] bg-white rounded-md p-4 flex flex-row shadow-lg gap-6 justify-between">
+              <Image src={LogoBaby} alt="chat" className="size-14"></Image>
+              <div className="flex flex-col justify-start ">
+                <h1 className="font-Inter text-lg text-gray-4">
+                  Calendário
+                </h1>
+                <p className="font-Inter text-sm text-gray-4">
+                  Anote seus compromissos
+                </p>
               </div>
+              <button className="">
+                <Image src={LogoSeta} alt="seta" className="size-14"></Image>
+              </button>
             </div>
+
+
             {/* card */}
             <div className="h-20 w-[440px] bg-white rounded-md p-4 flex flex-row shadow-lg gap-6 justify-between">
               <Image src={LogoBaby} alt="chat" className="size-14"></Image>
@@ -232,7 +239,7 @@ export default async function Home() {
                 </p>
               </button>  */}
           </div>
-  
+
         </div>
       </main>
 

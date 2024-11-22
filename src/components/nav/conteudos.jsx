@@ -69,7 +69,7 @@ export function ConteudosDoulaAtivo() {
 
     return (
         <button onClick={ConteudosDoula}>
-            <div className="flex items-center gap-2 p-2 rounded-xl w-44 cursor-pointer bg-pink-degrade-1">
+            <div className="animate-duration-[400ms] animate-fade-right animate-once flex items-center gap-2 p-2 rounded-xl w-44 cursor-pointer bg-pink-degrade-1">
                 <Image className="w-[15px]" alt="Arrow Icon" src={IconAtivo}></Image>
                 <li className="text-pink-degrade-3">Conteúdos</li>
             </div>

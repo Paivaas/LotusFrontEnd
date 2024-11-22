@@ -89,11 +89,12 @@ const CircularProgress = ({ progress, label, color }) => {
             <span className="text-center mt-2">{label}</span>
         </div>
     );
-};
+}
 
 // Modal com botões de monitoramento
 const Modal = ({ isOpen, onClose, onSave }) => {
     const [localSelections, setLocalSelections] = useState([]);
+    const [selectedDate, setSelectedDate] = useState(false); 
 
     const handleSelection = (option) => {
         setLocalSelections((prev) =>
@@ -110,23 +111,24 @@ const Modal = ({ isOpen, onClose, onSave }) => {
 
     if (!isOpen) return null;
 
-
     
     const handleDateSelection = async () => {
         const { value: date } = await Swal.fire({
-          title: "Select departure date",
-          input: "date",
-          didOpen: () => {
-            const today = new Date().toISOString();
-            Swal.getInput().min = today.split("T")[0]; // Define a data mínima como hoje
-          },
+            title: "Select departure date",
+            input: "date",
+            didOpen: () => {
+                const today = new Date().toISOString();
+                Swal.getInput().min = today.split("T")[0];
+            },
         });
-    
+
         if (date) {
-          setSelectedDate(date); // Atualiza o estado com a data selecionada
-          Swal.fire("Departure date", date); // Mostra um alerta com a data
+            setSelectedDate(date);  // Atualiza o estado com a data selecionada
+            Swal.fire("Departure date", date);
+            
         }
-      };
+    }
+
     // Dados de cada categoria e seus respectivos botões e ícones
     const monitoramentoData = [
         {
@@ -177,8 +179,6 @@ const Modal = ({ isOpen, onClose, onSave }) => {
         },
     ];
 
-
-
     return (
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-opacity-50">
             <div className="bg-white p-6 rounded-lg shadow-lg w-[60%] relative h-[70%] overflow-y-auto">
@@ -196,8 +196,8 @@ const Modal = ({ isOpen, onClose, onSave }) => {
                                     <button
                                         key={idx}
                                         className={`flex items-center p-3 w-full text-left ${localSelections.includes(option.label)
-                                                ? "bg-gray-200"
-                                                : "bg-gray-100"
+                                            ? "bg-gray-200"
+                                            : "bg-gray-100"
                                             } rounded-lg hover:bg-gray-200`}
                                         onClick={() => handleSelection(option.label)}
                                     >
@@ -219,8 +219,8 @@ const Modal = ({ isOpen, onClose, onSave }) => {
 
                         <div className="flex items-center justify-center gap-2 border-[3px] px-4 py-2 rounded-lg w-64">
                             <Image className="w-[10%]" alt="Lotus Icon" src={Calendario}></Image>
-                            <button>Data de hoje</button>
-                            <button onClick={handleDateSelection}>Select Date</button>
+                            <button onClick={handleDateSelection}>Data de hoje</button>
+                            {selectedDate && <span>{selectedDate}</span>}
                         </div>
 
                         <button onClick={onClose} className="bg-[#FFDAE1] text-[#FFAEBF] w-40 p-2 rounded-lg">
@@ -234,18 +234,10 @@ const Modal = ({ isOpen, onClose, onSave }) => {
             </div>
         </div>
     );
-};
+}
 
+export default function Monitoramento(selectedDate) {
 
-
-
-
-
-
-
-
-
-export default function Monitoramento() {
     const [selectedGroups, setSelectedGroups] = useState([]); // Grupos de opções selecionadas
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -346,6 +338,8 @@ export default function Monitoramento() {
                         <section className="w-full h-full flex flex-col ">
                             {/* Monitoramento */}
                             <div className=" h-auto p-4 rounded-lg">
+
+                                
                                 <div className="flex flex-col gap-4">
                                     {selectedGroups.length > 0 ? (
                                         selectedGroups.map((group, groupIdx) => (
@@ -353,7 +347,8 @@ export default function Monitoramento() {
                                                 key={groupIdx}
                                                 className="bg-white rounded-lg p-4 shadow-md flex flex-col gap-2"
                                             >
-                                                <h4 className="text-gray-700 font-semibold">Grupo {groupIdx + 1}</h4>
+                                                
+                                                <h4 className="text-gray-700 font-semibold">Monitoramento {groupIdx + 1}</h4>
                                                 <ul className="flex flex-wrap gap-2">
                                                     {group.map((option, optionIdx) => (
                                                         <li

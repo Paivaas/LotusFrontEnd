@@ -141,7 +141,7 @@ export default function Home() {
                     <div className="relative">
                         <div className="bg-white h-48 w-48 lg:h-80 lg:w-80 rounded-full flex items-center justify-center">
                             <div className="absolute inset-0 flex items-center justify-center">
-                            <Image className="rounded-full w-72 h-72" alt="" src={doula1}></Image>
+                            <Image className="rounded-full w-72 h-72 max-md:w-44 max-md:h-44" alt="" src={doula1}></Image>
                             </div>
                         </div>
                     </div>
@@ -196,7 +196,7 @@ export default function Home() {
                         </div>
 
                     </div>
- 
+
                 </div>
 
             </section>
