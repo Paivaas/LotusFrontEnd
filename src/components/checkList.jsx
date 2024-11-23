@@ -103,15 +103,15 @@ const TodoList = () => {
         <div className="animate-flip-up animate-once animate-duration-500 animate-ease-linear    h-full w-full flex flex-col rounded-3xl  drop-shadow-lg bg-white">
 
             <DegradePink></DegradePink>
-            <div className="px-14 py-6">
+            <div className="px-24 py-6 max-xl:px-6">
                 
-                <div className="text-gray-4 w-full h-16 font-ABeeZee border-b-4 border-zinc-200 text-2xl flex items-center justify-center mb-6">
-                    <h1>Monte seu enxoval</h1>
+                <div className="text-gray-4 w-full font-ABeeZee border-b-4 border-zinc-200 text-2xl max-xl:text-xl max-xl:pb-2 flex items-center justify-center mb-6">
+                    <h1 >Monte seu enxoval</h1>
                 </div>
 
-                <div className="flex gap-4 mb-4">
+                <div className="flex gap-4 mb-4 max-xl:gap-2">
                     <input
-                        className="w-[80vw] rounded-3xl px-4 py-2 border-[3px] border-pink-2"
+                        className="w-[80vw] max-xl:w-[45vw] rounded-3xl px-4 py-2 border-[3px] border-pink-2"
                         type="text"
                         value={newTodo}
                         placeholder="Adicionar novo item..."

@@ -35,7 +35,6 @@ export default async function Conteudos() {
 
 
     return (
-
         <div className="h-screen w-screen flex p-6 gap-4 overflow-hidden max-md:flex-col">
 
             <nav className="flex flex-col justify-between text-gray-3 max-md:flex-col">
@@ -81,13 +80,9 @@ export default async function Conteudos() {
                         >
 
                             <div className="grid grid-cols-[repeat(auto-fill,minmax(270px,1fr))] gap-8 h-full">
-
-                                {console.log(conteudo)}
                                 {conteudo.map((item) => {
-                                    return <Card usuario="gestante" imagem={item.foto_capa} titulo={item.titulo_conteudo} id={item.id_conteudos} key={item.id_conteudos} />
+                                    return <Card usuario="doula" imagem={item.foto_capa} titulo={item.titulo_conteudo} id={item.id_conteudos} key={item.id_conteudos} />
                                 })}
-
-
                             </div>
                         </div>
                     </div>

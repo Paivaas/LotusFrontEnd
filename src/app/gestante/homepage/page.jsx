@@ -1,36 +1,19 @@
-'use client'
+"use client";
+// Tela Doula
 
 import Image from "next/image";
 import Link from "next/link";
-
-import Logo from "@/public/icons/utilities/lotus-icon.svg"
-import LogoLogout from "@/public/icons/nav/logout.svg"
-
-// Navegção
-import LogoHome from "@/public/icons/nav/home.svg"
-import LogoMonitoramento from "@/public/icons/nav/monitoramento.svg"
-import LogoConteudo from "@/public/icons/nav/conteudos.svg"
-import LogoChat from "@/public/icons/nav/chat.svg"
-import LogoGaleria from "@/public/icons/nav/galeria.svg"
-import LogoPerfil from "@/public/icons/nav/profile.svg"
-
-// Outros
-import LogoBaby from "@/public/icons/profile-information/pink/baby.svg"
-import LogoSeta from "@/public/icons/utilities/arrow-pink.svg"
-
-// Icones
-import { FaCalendarAlt } from "react-icons/fa";
-import { FaRegClock } from "react-icons/fa";
-import { IoAdd } from "react-icons/io5";
-
-// Quadro
-import Flor from "@/components/quadro";
 import { useState } from "react";
+import Swal from 'sweetalert2';
+import { useRouter } from 'next/navigation';
 
-// Calendário
-import Calendar from "react-calendar";
-import '@/../src/styles/Calendar.css';
-
+// Import das imagens 
+import LotusIcon from "@/public/icons/utilities/lotus-icon.svg"
+import ArrowPink from "@/public/icons/utilities/arrow-pink.svg"
+import ArrowOrange from "@/public/icons/utilities/arrow-orange.svg"
+import AgendaOrange from "@/public/icons/utilities/calendar-orange.svg"
+import ChecklistIcon from "@/public/icons/profile-information/pink/baby.svg"
+import Cegonha from "@/public/img/Cegonha.svg"
 
 //Import dos componentes do nav
 import { HomeGestante, HomeGestanteAtivo } from '@/components/nav/home';
@@ -39,225 +22,128 @@ import { MonitoramentoGestante, MonitoramentoGestanteAtivo } from '@/components/
 import { PerfilGestante, PerfilGestanteAtivo } from '@/components/nav/perfil';
 import { ConteudosGestante, ConteudosGestanteAtivo } from '@/components/nav/conteudos';
 import { Logout } from '@/components/nav/logout';
-import { NavTop } from '@/components/nav/navTop';
-import { DegradeOrange2 } from '@/components/degrade';
+import CheckList from '@/components/checkList';
+import Agenda from '@/components/agenda';
+import Loading from '@/components/loading';
+import { DegradePurple } from '@/components/degrade';
 
-export default async function Home() {
-
-  // async function getGestante() {
-
-  //     const url = `https://lotus-back-end.onrender.com/v1/Lotus/cadastro/gestante` 
-  //     const response = await fetch(url)
-  //     const data = await response.json()
-  //     return data.conteudosDados
-
-  // }    
-
-  // const gestante = {
-  //     nome: "Juliana"
-  // }
-
-  // const info = await getFlor()
-
-  // async function getFlor(id) {
-  //   const url = `https://lotus-back-end.onrender.com/v1/Lotus/cadastro/gestante`
-  //   const response = await fetch(url)
-  //   const data = await response.json()
-  //   return data.gestanteDados
-
-  // }
-
-  // const conteudo = await getFlor()
+export default function Chat() {
 
 
-  return (
-    <div className="h-screen w-screen flex p-6 gap-4 overflow-hidden max-md:flex-col">
+    const [selectedComponent, setSelectedComponent] = useState(null);
+    return (
 
-      <nav className="flex flex-col justify-between text-gray-3 max-md:flex-col">
+        <div className="h-screen w-screen flex p-6 gap-4 overflow-x-hidden max-md:flex-col">
 
-        <div className="flex flex-col gap-4">
+            <nav className="flex flex-col justify-between text-gray-3 max-md:flex-col">
 
-          <NavTop></NavTop>
+                <div className="flex flex-col gap-4">
+                    <div className="flex items-center gap-2 text-pink-3">
+                        <Image className="w-[40px]" alt="Arrow Icon" src={LotusIcon}></Image>
+                        <h1 className="font-ABeeZee">Lotus</h1>
+                    </div>
 
-          <ul className="flex flex-col gap-2 max-md:flex-wrap mt-8 max-md:flex-row max-md:">
-            <HomeGestanteAtivo></HomeGestanteAtivo>
-            <MonitoramentoGestante></MonitoramentoGestante>
-            <ConteudosGestante></ConteudosGestante>
-            <GaleriaGestante></GaleriaGestante>
-            <PerfilGestante></PerfilGestante>
-          </ul>
-        </div>
-
-        <Logout></Logout>
-
-
-      </nav>
-
-      <main className="w-full h-full bg-gray-1 rounded-2xl">
-
-        <section className="w-full h-full flex">
-
-          {/* Adicione o conteudo aqui */}
-
-
-          <main className="p-10 grid grid-cols-2 gap-2 justify-between w-full">
-        {/* telinha 1 */}
-        <div className="h-full bg-gray-2 p-6 rounded-[40px] flex flex-col gap-10">
-          {/* Título e descrição */}
-          <div className="flex flex-col gap-2">
-            <h2 className="font-ABeeZee text-black font-medium">
-              Olá,
-              {/* <span>{info.nome_gestante}</span>  */}
-            </h2>
-            <p className="font-Inter font-light text-gray-4 text-xs">
-              Estamos aqui para acompanhar cada passo dessa jornada incrível, oferecendo suporte, dicas e informações personalizadas para você e seu bebê.
-            </p>
-          </div>
-          {/* quadro */}
-          {/* {conteudo.map(item)=>{
-              return <Flor imagem={item.foto_flor}></>
-            }} */}
-          <div className="flex items-center justify-center">
-            <div className="h-[440px] w-[440px] bg-white rounded-xl border-4 border-pink-3 flex items-center justify-center">
-              <Image src={LogoBaby} alt="chat" className="size-1/2"></Image>
-            </div>
-          </div>
-          {/* cards */}
-          <div className="flex items-center justify-center flex-col gap-2">
-
-          
-            {/* card de progresso */}
-            <div className="h-20 w-[440px] bg-white rounded-md p-4 flex flex-row shadow-lg gap-6 justify-between">
-              <Image src={LogoBaby} alt="chat" className="size-14"></Image>
-              <div className="flex flex-col justify-start ">
-                <h1 className="font-Inter text-lg text-gray-4">
-                  Calendário
-                </h1>
-                <p className="font-Inter text-sm text-gray-4">
-                  Anote seus compromissos
-                </p>
-              </div>
-              <button className="">
-                <Image src={LogoSeta} alt="seta" className="size-14"></Image>
-              </button>
-            </div>
-
-
-            {/* card */}
-            <div className="h-20 w-[440px] bg-white rounded-md p-4 flex flex-row shadow-lg gap-6 justify-between">
-              <Image src={LogoBaby} alt="chat" className="size-14"></Image>
-              <div className="">
-                <h1 className="font-Inter text-lg text-gray-4">
-                  Enxoval
-                </h1>
-                <p className="font-Inter text-sm text-gray-4">
-                  Monte seu enxoval no checkList
-                </p>
-              </div>
-              <button className="">
-                <Image src={LogoSeta} alt="seta" className="size-14"></Image>
-              </button>
-            </div>
-          </div>
-        </div>
-        {/* telinha 2 */}
-        <div className="bg-gray-1 h-full rounded-[36px] overflow-hidden">
-          {/* degradê */}
-          <DegradeOrange2></DegradeOrange2>
-          {/* calendário */}
-          <div className="flex flex-col px-28 py-20 gap-4">
-            {/* card título */}
-            <div className="flex items-baseline">
-              <h1 className="text-3xl text-orange-5 font-Inter">
-                Agenda
-              </h1>
-            </div>
-            {/* card do calendário */}
-            <div className="h-60 w-full bg-transparent ">
-              {/* calendário */}
-              <Calendar></Calendar>
-
-            </div>
-            {/* cards de eventos */}
-            {/* <div className="h-28 w-full bg-orange-100 rounded-lg p-4">
-                <div className="flex flex-row items-baseline gap-2 pb-4">
-                  <div className="w-10 h-10 bg-pink-200 rounded-full flex items-center justify-center">
-                    <p className="font-Inter text-pink-4 text-xs">
-                      20
-                    </p>
-                  </div>
-                  <p className="font-Inter text-xs text-[#af9676] font-semibold">
-                    Me ajuda Deus, ta foda esse tcc
-                  </p>
+                    <ul className="flex flex-col gap-2 max-md:flex-wrap mt-8 max-md:flex-row max-md:">
+                        <HomeGestante></HomeGestante>
+                        <MonitoramentoGestante></MonitoramentoGestante>
+                        <ConteudosGestante></ConteudosGestante>
+                        <GaleriaGestante></GaleriaGestante>
+                        <PerfilGestante></PerfilGestante>
+                    </ul>
                 </div>
-                <div className="grid grid-cols-2 px-12">
-                  <div className="flex flex-row items-center gap-2">
-                    <FaCalendarAlt className="text-[#af9676] h-4 w-5"/>
-                    <p className="font-Inter text-xs text-[#af9676] font-normal">
-                      27 jan 2024
-                    </p>
-                  </div>
-                  <div className="flex flex-row items-center gap-2">
-                    <FaRegClock className="text-[#af9676] h-4 w-4"/>
-                    <p className="font-Inter text-xs text-[#af9676] font-normal">
-                      27 jan 2024
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div className="h-28 w-full bg-orange-100 rounded-lg p-4">
-                <div className="flex flex-row items-baseline gap-2 pb-4">
-                  <div className="w-10 h-10 bg-pink-200 rounded-full flex items-center justify-center">
-                    <p className="font-Inter text-pink-4 text-xs">
-                      20
-                    </p>
-                  </div>
-                  <p className="font-Inter text-xs text-[#af9676] font-semibold">
-                    Me ajuda Deus, ta foda esse tcc
-                  </p>
-                </div>
-                <div className="grid grid-cols-2 px-12">
-                  <div className="flex flex-row items-center gap-2">
-                    <FaCalendarAlt className="text-[#af9676] h-4 w-5"/>
-                    <p className="font-Inter text-xs text-[#af9676] font-normal">
-                      27 jan 2024
-                    </p>
-                  </div>
-                  <div className="flex flex-row items-center gap-2">
-                    <FaRegClock className="text-[#af9676] h-4 w-4"/>
-                    <p className="font-Inter text-xs text-[#af9676] font-normal">
-                      27 jan 2024
-                    </p>
-                  </div>
-                </div>
-              </div> */}
-            {/* botão de adicionar evento */}
-            {/* <button className="group h-16 w-full bg-pink-degrade-1 rounded-2xl flex flex-row items-center p-4 gap-2 hover:bg-pink-2">
-                <IoAdd className="text-pink-4 h-10 w-10"/>
-                <p className="text-lg text-pink-4 font-normal font-Inter">
-                  Adicionar Evento
-                </p>
-              </button>  */}
-          </div>
+
+                <Logout></Logout>
+
+            </nav>
+
+            <main className="w-full h-full bg-gray-1 rounded-2xl">
+
+                <section className="w-full h-full flex">
+
+                    <div className="p-4 flex w-[85vw] max-xl:flex-col">
+
+                        <div className="max-xl:w-full max-xl:h-1/4 max-md:p-0   w-1/2 h-full flex flex-col justify-between p-6">
+
+                            <div>
+                            <h1 className="font-ABeeZee text-xl text-gray-4">Ola, Juliana</h1>
+                            <p className="font-ABeeZee text-gray-3">Na maternidade, cada dia é uma nova chance de aprender, amar e crescer juntos.</p>
+                            </div>
+
+
+                            <div className="  max-xl:px-0  max-md:gap-2   flex max-xl:flex-row flex-col gap-6 space-x-2 px-16 max-xl:w-full  ">
+                                <button
+                                    className="max-xl:w-1/2 max-xl:h-14 hover:border-b-4 hover:border-orange-3 ease-out duration-300 bg-white rounded-3xl text-slate-900 h-28 justify-between drop-shadow-lg px-4 flex items-center text-white"
+                                    onClick={() => setSelectedComponent("agenda")}
+                                >
+                                    
+                                    <div className="flex ">
+                                        <Image className="w-[3vw] max-xl:w-4" alt="" src={
+                                            AgendaOrange
+                                        }></Image>
+
+                                        <div className="text-gray-4 ml-4">
+                                            <h1 className="text-left text-xl max-xl:text-base">Agenda</h1>
+                                            <p className="text-left max-xl:hidden">Anote seus compromissos</p>
+                                        </div>
+                                    </div>
+                                    <Image className="w-[3vw] max-xl:w-6" alt="" src={
+                                            ArrowOrange
+                                        }></Image>
+
+                                </button>
+
+                                <button
+                                    className="max-xl:w-1/2 max-xl:h-14 hover:border-b-4 hover:border-pink-3 bg-white ease-out duration-300 rounded-3xl text-slate-900 h-28 justify-between drop-shadow-lg px-4 flex items-center text-white"
+                                    onClick={() => setSelectedComponent("checklist")}
+                                >
+
+                                    <div className="flex">
+                                        <Image className="w-[3vw] max-xl:w-4" alt="" src={
+                                            ChecklistIcon
+                                        }></Image>
+
+                                        <div className="text-gray-4 ml-4">
+                                            <h1 className="text-left text-xl max-xl:text-base">Checklist</h1>
+                                            <p className="text-left max-xl:hidden">Monte seu enxoval no checkList</p>
+                                        </div>
+                                    </div>
+                                    <Image className="w-[3vw] max-xl:w-6" alt="" src={
+                                            ArrowPink
+                                        }></Image>
+
+                                </button>
+                            </div>
+
+
+
+                        </div>
+
+                        <div
+                            id="aparecerAqui"
+                            className="max-xl:w-full max-md:mt-4   w-1/2 h-[90vh] text-white"
+                        >
+                            {selectedComponent === "agenda" && <Agenda />}
+                            {selectedComponent === "checklist" && <CheckList />}
+                            {!selectedComponent && (
+                                <div className="text-gray-400 flex flex-col h-full justify-center items-center ">
+
+
+                                    <Image className="w-1/2 max-xl:w-1/4" alt="" src={
+                                        Cegonha
+                                    }></Image>
+
+                                    <h1 className="font-ABeeZee text-pink-3 text-2">Lotus. Maternidade</h1>
+
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                    {/* Adicione o conteudo aqui */}
+
+                </section>
+
+            </main>
 
         </div>
-      </main>
-
-
-
-
-
-
-
-
-
-
-
-
-        </section>
-
-      </main>
-
-    </div>
-  )
+    );
 }

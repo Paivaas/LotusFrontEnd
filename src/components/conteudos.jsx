@@ -4,12 +4,12 @@ import { Jersey_10 } from "next/font/google";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
-export default function Card({ titulo, imagem, id }) {
+export default function Card({usuario, titulo, imagem, id }) {
 
     const router = useRouter()
 
     const handleClick = () => {
-        router.push('/conteudos/conteudo/' + id)
+        router.push(`/${usuario}/conteudos/conteudo/${id}`)
     }
 
     return (
