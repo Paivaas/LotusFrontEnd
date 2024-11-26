@@ -11,7 +11,7 @@ export default function ConteudoID ({imagem, titulo, data, texto}) {
 
     <div className="flex flex-col h-full">
         {/* imagem */}
-        <div className="w-full h-1/3 rounded-b-[40px] bg-pink-400 bg-cover bg-no-repeat bg-center shrink-0"  style={{backgroundImage: `url(${imagem})`}}></div>
+        <div className="w-full h-1/3 rounded-b-[40px] bg-pink-3 bg-cover bg-no-repeat bg-center shrink-0"  style={{backgroundImage: `url(${imagem})`}}></div>
         {/* título e data */}
         <div className="pt-10 px-20 flex flex-col gap-2">
             <h1 className="font-inter font-normal text-gray-4 text-3xl">

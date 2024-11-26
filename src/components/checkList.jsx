@@ -109,9 +109,9 @@ const TodoList = () => {
                     <h1 >Monte seu enxoval</h1>
                 </div>
 
-                <div className="flex gap-4 mb-4 max-xl:gap-2">
+                <div className="flex gap-4 mb-4 max-xl:gap-2 justify-center">
                     <input
-                        className="w-[80vw] max-xl:w-[45vw] rounded-3xl px-4 py-2 border-[3px] border-pink-2"
+                        className="w-1/2 max-xl:w-[45vw] rounded-3xl px-4 py-2 border-[3px] border-pink-2"
                         type="text"
                         value={newTodo}
                         placeholder="Adicionar novo item..."

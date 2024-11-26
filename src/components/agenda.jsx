@@ -85,6 +85,7 @@ const Agenda = () => {
             }
         }
     };
+
     
     return (
         <div className=" animate-flip-up animate-once animate-duration-500 animate-ease-linear  h-full  flex flex-col rounded-3xl drop-shadow-lg bg-white">
@@ -102,6 +103,8 @@ const Agenda = () => {
                         {loading ? "Carregando..." : "Adicionar evento +"}
                     </button>
                 </div>
+
+                <Calendar></Calendar>
 
                 <ul>
                     {items.map((item, index) => (

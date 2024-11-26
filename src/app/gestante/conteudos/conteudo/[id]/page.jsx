@@ -1,14 +1,10 @@
-"use client";
-// Tela Doula
+'use client'
 
-import Image from "next/image";
-import Link from "next/link";
-import { useState } from "react";
-import Swal from 'sweetalert2';
-import { useRouter } from 'next/navigation';
-
-// Import das imagens 
-import LotusIcon from "@/public/icons/utilities/lotus-icon.svg"
+// Componente
+import { useParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import ConteudoID from "@/components/ConteudoID";
+// preciso da função de id
 
 //Import dos componentes do nav
 import { HomeGestante, HomeGestanteAtivo } from '@/components/nav/home';
@@ -17,34 +13,35 @@ import { MonitoramentoGestante, MonitoramentoGestanteAtivo } from '@/components/
 import { PerfilGestante, PerfilGestanteAtivo } from '@/components/nav/perfil';
 import { ConteudosGestante, ConteudosGestanteAtivo } from '@/components/nav/conteudos';
 import { Logout } from '@/components/nav/logout';
-import { DegradePurple } from '@/components/degrade';
+import { NavTop } from '@/components/nav/navTop';
+import { DegradePink } from '@/components/degrade';
 
-export default async function Chat() {
+export default function Conteudo() {
 
     const [dados, setDados] = useState()
     const params = useParams()
 
     async function getContentID(id) {
+
         const url = `https://lotus-back-end.onrender.com/v1/Lotus/conteudo/gestante/${id}`
         const response = await fetch(url)
-        console.log(response);
         const data = await response.json()
         return data.conteudo
 
     }
 
-    const getDados = async(id) => {   
-        
-        const dado = await getContentID(id)        
-        if(dado){
-            console.log(dado);
-            setDados(dado)
-        }
-    }   
-
     useEffect(() => {
         getDados(params.id)
     }, [params])
+
+    const getDados = async (id) => {
+
+        const dado = await getContentID(id)
+        if (dado) {
+            console.log(dado);
+            setDados(dado)
+        }
+    }
 
     return (
 
@@ -53,10 +50,7 @@ export default async function Chat() {
             <nav className="flex flex-col justify-between text-gray-3 max-md:flex-col">
 
                 <div className="flex flex-col gap-4">
-                    <div className="flex items-center gap-2 text-pink-3">
-                        <Image className="w-[40px]" alt="Arrow Icon" src={LotusIcon}></Image>
-                        <h1 className="font-ABeeZee">Lotus</h1>
-                    </div>
+                  <NavTop></NavTop>
 
                     <ul className="flex flex-col gap-2 max-md:flex-wrap mt-8 max-md:flex-row max-md:">
                         <HomeGestante></HomeGestante>
@@ -73,25 +67,20 @@ export default async function Chat() {
 
             <main className="w-full h-full bg-gray-1 rounded-2xl">
 
-                <DegradePurple></DegradePurple>
+                <DegradePink></DegradePink>
 
                 <section className="w-full h-full flex">
 
-                    {/* Adicione o conteudo aqui */}
+                    <div className="flex h-screen">
 
-                    <div className="bg-gray-1 w-full h-full rounded-[40px] overflow-hidden">
-                        {/* degradê */}
-                        <div className="bg-pink-degrade-3 flex flex-row w-full h-20 justify-end rounded-tl-[40px] overflow-hidden">
-                            <div className="bg-pink-degrade-2 w-2/3 h-20 flex justify-end rounded-b-full">
-                                <div className="bg-pink-degrade-1 w-1/2 h-20 rounded-bl-full"></div>
-                            </div>
+                        <div className="bg-gray-1 w-full h-full rounded-[40px] overflow-hidden">
+
+                            {/* Card Conteudo */}
+                            {dados && (
+                                <ConteudoID imagem={dados[0].foto_capa} titulo={dados[0].titulo_conteudo} data={dados[0].data_conteudo} texto={dados[0].conteudo} />
+                            )}
+
                         </div>
-                        {/* Card Conteudo */}
-                        {dados && (
-                            <ConteudoID usuario="gestante" imagem={dados[0].foto_capa} titulo={dados[0].titulo_conteudo} data={dados[0].data_conteudo} texto={dados[0].conteudo} />
-                        )}
-
-
 
                     </div>
 
@@ -100,5 +89,6 @@ export default async function Chat() {
             </main>
 
         </div>
-    );
+
+    )
 }

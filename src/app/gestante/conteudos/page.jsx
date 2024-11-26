@@ -1,11 +1,4 @@
 "use client";
-// Tela Doula
-
-import Image from "next/image";
-import { useState } from "react";
-import Swal from 'sweetalert2';
-
-// Import das imagens 
 
 //Import dos componentes do nav
 import { HomeGestante, HomeGestanteAtivo } from '@/components/nav/home';
@@ -71,7 +64,7 @@ export default async function Conteudos() {
 
                     {/* Adicione o conteudo aqui */}
 
-                    <div className="h-[60%] flex flex-col justify-between gap-4 px-10 grow" >
+                    <div className="h-[80%] flex flex-col justify-between gap-4 px-10 grow" >
                         {/* 1ª fileira de cards */}
 
                         <div className="flex flex-col gap-2 h-full overflow-y-scroll overscroll-x-none p-4"

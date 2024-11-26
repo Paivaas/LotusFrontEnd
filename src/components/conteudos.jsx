@@ -1,7 +1,5 @@
 'use client'
 
-import { Jersey_10 } from "next/font/google";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 export default function Card({usuario, titulo, imagem, id }) {
@@ -9,7 +7,7 @@ export default function Card({usuario, titulo, imagem, id }) {
     const router = useRouter()
 
     const handleClick = () => {
-        router.push(`/${usuario}/conteudos/conteudo/${id}`)
+        router.push(`/gestante/conteudos/conteudo/${id}`)
     }
 
     return (

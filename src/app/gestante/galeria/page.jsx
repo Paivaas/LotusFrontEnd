@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Swal from 'sweetalert2';
 
@@ -141,6 +141,7 @@ export default function Galeria() {
             confirmButtonText: 'Voltar',
         });
     };
+
 
     return (
         <div className="h-screen w-screen flex p-6 gap-4 overflow-hidden max-md:flex-col">
