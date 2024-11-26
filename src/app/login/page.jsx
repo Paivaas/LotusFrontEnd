@@ -106,7 +106,7 @@ export default function Home() {
 
   return (
 
-    <div className="flex w-screen h-screen max-xl:p-16 max-sm:p-8 overflow-hidden">
+    <div className="flex w-screen h-screen p-16 max-sm:p-8 overflow-hidden">
 
       <div className="h-full w-2/3 flex flex-col justify-center items-center gap-20 max-xl:w-full">
 
