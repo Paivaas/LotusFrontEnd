@@ -19,10 +19,17 @@ export default function Home() {
   const apiUrl = "http://localhost:8080/v1/Lotus/cadastro/gestante/login";
 
   //Variveis
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+
+
+  const [email, setEmail] = useState('');
+  const [senha, setSenha] = useState('');
+  const [erro, setErro] = useState('');
+  const [usuario, setUsuario] = useState(null);
+
+
+
   const router = useRouter();
+  const [isChecked, setIsChecked] = useState(false); // Estado do checkbox
 
   // Alerts (invalidEmail, successLogin, funcaoFututa)
   const invalidDados = () => {
@@ -44,65 +51,75 @@ export default function Home() {
     });
   };
 
-  const featureConstruction = () => {
-    Swal.fire({
-      title: "Em manutenção",
-      text: "Essa funcionalidade está passando por alterações",
-      icon: "info",
-      showConfirmButton: false,
-      timer: 1700
-    });
-  }
-
   const registePageRouter = () => {
     router.push('cadastro');
   }
 
-  // Função para validar e enviar os dados de login para a API
-   const validacaoLogin = async (e) => {
-    e.preventDefault();
-    setError("");
 
-    // Validação de campos
-    if (email === "" || password === "" || !email.includes('@') || !email.includes('.com')) {
-      invalidDados();
-      return;
-    }
+
+  // Função de login
+  const validacaoLogin = async (e) => {
+    e.preventDefault();
 
     try {
-      // Enviando os dados para a API
-      const response = await fetch(apiUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-           email: email,
-           senha_gestante: password 
-          })
-      });
-      
-      const data = await response.json();
+      // Fazendo requisição para obter todos os doula cadastrados
+      const response = await fetch('https://lotus-back-end.onrender.com/v1/Lotus/cadastro/doula');
 
-      if (response.ok) {
-
-        successLogin();
-        router.push('homepage');
-        console.log("Login realizado com sucesso:", data);
-
-
-      } else {
-
-        invalidDados()
-        console.log("Erro no login");
+      // Verificando se a requisição foi bem-sucedida
+      if (!response.ok) {
+        throw new Error('Erro ao conectar com o servidor');
       }
 
+      // Convertendo a resposta para JSON
+      const data = await response.json();
+
+      // Procurando pelo usuário que possui o email e senha corretos
+      const user = data.cadastro.find(
+        (user) => user.email_doula === email && user.senha_doula === senha
+      );
+
+      if (user) {
+        // Caso encontre o usuário, armazena os dados
+        Swal.fire({
+          icon: "success",
+          
+          title: "Bem vindo-a Lotus! <h3>Bem-vindo, {usuario.nome_doula}!</h3>",
+          showConfirmButton: false,
+          timer: 1500
+        });
+        setUsuario(user);
+        setErro('');
+      } else {
+        // Caso contrário, exibe mensagem de erro
+        invalidDados()
+        setUsuario(null);
+      }
     } catch (err) {
-      setError("Ocorreu um erro ao tentar logar. Tente novamente mais tarde.");
-      console.error("Erro ao fazer login:", err);
-      
+      Swal.fire({
+        title: "Erro 3011",
+        text: "Erro ao tentar conectar com o servidor. Tente novamente mais tarde.",
+        icon: "warning",
+        showConfirmButton: false,
+        timer: 2000
+      });
+      setErro('');
+      console.error(err);
     }
   };
+
+
+
+
+
+
+  // Função chamada quando o estado do checkbox mudar
+  const handleCheckboxChange = (e) => {
+    setIsChecked(e.target.checked);
+    setErrorMessage(''); // Limpa a mensagem de erro sempre que o checkbox for alterado
+  };
+
+
+
 
   return (
 
@@ -121,31 +138,58 @@ export default function Home() {
 
           {/* Campos para entrada de valor */}
 
-          <form className="flex text-gray-4 flex-col gap-4 w-[40vw] font-ABeeZee max-xl:w-full">
 
-            <div className="flex p-4 rounded-3xl border-[3px] bg-white gap-4">
-              <Image className="w-[5%] max-sm:w-50%]" alt="Email Icon" src={EmailIcon}></Image>
-              <input type="email" placeholder="Seu email" className="w-full" onChange={(e) => setEmail(e.target.value)}
-                aria-label="Seu email"
-                required />
-            </div>
 
-            <div className="flex p-4 rounded-3xl border-[3px] bg-white gap-4">
-              <Image className="w-[5%] max-sm:w-[5%]" alt="Key Icon" src={KeyIcon}></Image>
-              <input type="password" placeholder="Sua Senha" className="w-full" onChange={(e) => setPassword(e.target.value)} aria-label="Sua Senha"
-                required />
-            </div>
 
-            <p onClick={featureConstruction} className="text-pink-3 hover:text-pink-2  hover:cursor-pointer transition duration-150 ease-in-out">Esqueceu sua senha?</p>
+          <div className="login-container">
+            <form
+              className="flex text-gray-4 flex-col gap-4 w-[40vw] font-ABeeZee max-xl:w-full"
+              onSubmit={validacaoLogin}>
 
-          </form>
+              <div className="flex p-4 rounded-3xl border-[3px] bg-white gap-4">
+                <Image className="w-[5%] max-sm:w-50%]" alt="Email Icon" src={EmailIcon}></Image>
+                <input
+                  type="email"
+                  value={email}
+                  className="w-full"
+                  placeholder="Seu email"
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
+              </div>
 
-          <button onClick={validacaoLogin} className="duration-300 bg-gradient-to-r from-pink-3 to-orange-3 w-40 p-4 px-6 items-center justify-between rounded-full text-white flex hover:cursor-pointer hover:scale-95">
 
-            <p className="text-xl">Entrar</p>
-            <Image className="w-[20%]" alt="Arrow Icon" src={ArrowIcon}></Image>
+              <div className="flex p-4 rounded-3xl border-[3px] bg-white gap-4">
+                <Image className="w-[5%] max-sm:w-[5%]" alt="Key Icon" src={KeyIcon}></Image>
+                <input
+                  type="password"
+                  value={senha}
+                  className="w-full"
+                  placeholder="Sua senha"
+                  onChange={(e) => setSenha(e.target.value)}
+                  required
+                />
+              </div>
 
-          </button>
+
+
+              <button
+                className="duration-300 bg-gradient-to-r from-pink-3 to-orange-3 w-40 p-4 px-6 items-center justify-between rounded-full text-white flex hover:cursor-pointer hover:scale-95"
+                type="submit">
+
+                <p className="text-xl">Entrar</p>
+                <Image className="w-[20%]" alt="Arrow Icon" src={ArrowIcon}></Image>
+
+              </button>
+            </form>
+
+            {usuario && (
+              <div className="usuario-info">
+                <h3>Bem-vindo, {usuario.nome_doula}!</h3>
+                <p>Email: {usuario.email_doula}</p>
+              </div>
+            )}
+          </div>
 
         </div>
 

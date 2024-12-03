@@ -1,159 +1,190 @@
-'use client'; // Marca o componente como Client Component
-
+"use client";
 import React, { useState, useEffect } from 'react';
 
-const CRUDDoulas = () => {
+const DoulaCrud = () => {
   const [doulas, setDoulas] = useState([]);
-  const [newDoula, setNewDoula] = useState({ nome_doula: '', sobrenome_doula: '', email_doula: '', foto_doula: '', tempo_de_atuacao: '', sobremim_doula: '' });
-  const [loading, setLoading] = useState(true);
-  const [editDoula, setEditDoula] = useState(null);
+  const [doula, setDoula] = useState({
+    nome_doula: '',
+    sobrenome_doula: '',
+    email_doula: '',
+    senha_doula: '',
+    cpf_doula: '',
+    sobremim_doula: '',
+    foto_doula: '',
+    tempo_de_atuacao: ''
+  });
+  const [editId, setEditId] = useState(null);
 
-  // Função para listar doulas
-  const fetchDoulas = () => {
-    setLoading(true);
-    fetch('https://lotus-back-end.onrender.com/v1/Lotus/cadastro/doula')
-      .then((response) => response.json())
-      .then((data) => {
-        setDoulas(data.cadastro);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error('Erro ao buscar dados', error);
-        setLoading(false);
-      });
+  // Função para buscar todas as doulas
+  const fetchDoulas = async () => {
+    try {
+      const response = await fetch('https://lotus-back-end.onrender.com/v1/Lotus/cadastro/doula');
+      if (!response.ok) {
+        throw new Error('Erro ao buscar doulas');
+      }
+      const data = await response.json();
+      setDoulas(data.cadastro);  // Agora estamos usando data.cadastro pois é assim que está estruturado o JSON
+    } catch (error) {
+      console.error('Erro ao carregar doulas:', error);
+    }
   };
 
-  // Filtra a lista para exibir apenas a doula com id_usuario_doula === 1
-  const doulaToShow = doulas.filter(doula => doula.id_usuario_doula === 1);
+  // Função para criar uma nova doula
+  const createDoula = async () => {
+    try {
+      const response = await fetch('https://lotus-back-end.onrender.com/v1/Lotus/cadastro/doula', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(doula),
+      });
+      if (!response.ok) {
+        throw new Error('Erro ao criar doula');
+      }
+      const newDoula = await response.json();
+      setDoulas([...doulas, newDoula]);  // Adiciona a nova doula à lista
+      setDoula({ nome_doula: '', sobrenome_doula: '', email_doula: '', senha_doula: '', cpf_doula: '', sobremim_doula: '', foto_doula: '', tempo_de_atuacao: '' }); // Limpa o formulário
+    } catch (error) {
+      console.error('Erro ao criar doula:', error);
+    }
+  };
 
-  // Efeito para inicializar e carregar as doulas ao montar o componente
+  // Função para atualizar os dados de uma doula
+  const updateDoula = async () => {
+    try {
+      const response = await fetch(`https://lotus-back-end.onrender.com/v1/Lotus/cadastro/doula/${editId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(doula),
+      });
+      if (!response.ok) {
+        throw new Error('Erro ao atualizar doula');
+      }
+      const updatedDoula = await response.json();
+      setDoulas(doulas.map((d) => (d.id_usuario_doula === editId ? updatedDoula : d)));  // Atualiza a doula na lista
+      setDoula({ nome_doula: '', sobrenome_doula: '', email_doula: '', senha_doula: '', cpf_doula: '', sobremim_doula: '', foto_doula: '', tempo_de_atuacao: '' }); // Limpa o formulário
+      setEditId(null);  // Limpa o estado de edição
+    } catch (error) {
+      console.error('Erro ao atualizar doula:', error);
+    }
+  };
+
+  // Função para excluir uma doula
+  const deleteDoula = async (id) => {
+    try {
+      const response = await fetch(`https://lotus-back-end.onrender.com/v1/Lotus/cadastro/doula/${id}`, {
+        method: 'DELETE',
+      });
+      if (!response.ok) {
+        throw new Error('Erro ao excluir doula');
+      }
+      setDoulas(doulas.filter((doula) => doula.id_usuario_doula !== id));  // Remove a doula da lista
+    } catch (error) {
+      console.error('Erro ao excluir doula:', error);
+    }
+  };
+
+  // Função para definir os dados no formulário quando clicar em editar
+  const handleEdit = (doula) => {
+    setDoula({
+      nome_doula: doula.nome_doula,
+      sobrenome_doula: doula.sobrenome_doula,
+      email_doula: doula.email_doula,
+      senha_doula: doula.senha_doula,
+      cpf_doula: doula.cpf_doula,
+      sobremim_doula: doula.sobremim_doula,
+      foto_doula: doula.foto_doula,
+      tempo_de_atuacao: doula.tempo_de_atuacao,
+    });
+    setEditId(doula.id_usuario_doula);
+  };
+
+  // Carregar as doulas ao montar o componente
   useEffect(() => {
     fetchDoulas();
   }, []);
 
-
-  // Função para adicionar uma nova doula
-  const handleAddDoula = (event) => {
-    event.preventDefault();
-    fetch('https://lotus-back-end.onrender.com/v1/Lotus/cadastro/doula', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(newDoula),
-    })
-      .then((response) => response.json())
-      .then(() => {
-        fetchDoulas(); // Recarrega a lista de doulas após adicionar
-        setNewDoula({ nome_doula: '', sobrenome_doula: '', email_doula: '', foto_doula: '', tempo_de_atuacao: '', sobremim_doula: '' });
-      })
-      .catch((error) => console.error('Erro ao adicionar doula', error));
-  };
-
-  // Função para editar uma doula
-  const handleEditDoula = (doula) => {
-    setEditDoula(doula);
-    setNewDoula(doula); // Preenche os campos com os dados da doula que será editada
-  };
-
-  // Função para salvar a edição de uma doula
-  const handleSaveEdit = (event) => {
-    event.preventDefault();
-    fetch(`https://lotus-back-end.onrender.com/v1/Lotus/cadastro/doula/${editDoula.id_usuario_doula}`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(newDoula),
-    })
-      .then((response) => response.json())
-      .then(() => {
-        fetchDoulas(); // Recarrega a lista de doulas após editar
-        setEditDoula(null); // Limpa o estado de edição
-        setNewDoula({ nome_doula: '', sobrenome_doula: '', email_doula: '', foto_doula: '', tempo_de_atuacao: '', sobremim_doula: '' });
-      })
-      .catch((error) => console.error('Erro ao editar doula', error));
-  };
-
-  // Função para excluir uma doula
-  const handleDeleteDoula = (id) => {
-    fetch(`https://lotus-back-end.onrender.com/v1/Lotus/cadastro/doula/${id}`, {
-      method: 'DELETE',
-    })
-      .then(() => fetchDoulas()) // Recarrega a lista de doulas após exclusão
-      .catch((error) => console.error('Erro ao excluir doula', error));
-  };
-
-  if (loading) {
-    return <p>Carregando...</p>;
-  }
-
   return (
-    <div className="p-12">
-      <h1>Gestão de Doulas</h1>
+    <div>
+      <h1>Cadastro de Doulas</h1>
 
-      {/* Formulário de Adição ou Edição */}
-      <form 
-      className="bg-gray-500 p-4 absolute bottom-[50%]"  
-      onSubmit={editDoula ? handleSaveEdit : handleAddDoula}>
-
-        <h2>{editDoula ? 'Editar Doula' : 'Adicionar Nova Doula'}</h2>
+      {/* Formulário para criar ou editar uma doula */}
+      <form onSubmit={(e) => {
+        e.preventDefault();
+        if (editId) {
+          updateDoula();
+        } else {
+          createDoula();
+        }
+      }}>
         <input
           type="text"
           placeholder="Nome"
-          value={newDoula.nome_doula}
-          onChange={(e) => setNewDoula({ ...newDoula, nome_doula: e.target.value })}
+          value={doula.nome_doula}
+          onChange={(e) => setDoula({ ...doula, nome_doula: e.target.value })}
         />
         <input
           type="text"
           placeholder="Sobrenome"
-          value={newDoula.sobrenome_doula}
-          onChange={(e) => setNewDoula({ ...newDoula, sobrenome_doula: e.target.value })}
+          value={doula.sobrenome_doula}
+          onChange={(e) => setDoula({ ...doula, sobrenome_doula: e.target.value })}
         />
         <input
           type="email"
           placeholder="Email"
-          value={newDoula.email_doula}
-          onChange={(e) => setNewDoula({ ...newDoula, email_doula: e.target.value })}
+          value={doula.email_doula}
+          onChange={(e) => setDoula({ ...doula, email_doula: e.target.value })}
+        />
+        <input
+          type="password"
+          placeholder="Senha"
+          value={doula.senha_doula}
+          onChange={(e) => setDoula({ ...doula, senha_doula: e.target.value })}
+        />
+        <input
+          type="text"
+          placeholder="CPF"
+          value={doula.cpf_doula}
+          onChange={(e) => setDoula({ ...doula, cpf_doula: e.target.value })}
+        />
+        <textarea
+          placeholder="Sobre mim"
+          value={doula.sobremim_doula}
+          onChange={(e) => setDoula({ ...doula, sobremim_doula: e.target.value })}
         />
         <input
           type="text"
           placeholder="Foto URL"
-          value={newDoula.foto_doula}
-          onChange={(e) => setNewDoula({ ...newDoula, foto_doula: e.target.value })}
+          value={doula.foto_doula}
+          onChange={(e) => setDoula({ ...doula, foto_doula: e.target.value })}
         />
         <input
           type="text"
           placeholder="Tempo de Atuação"
-          value={newDoula.tempo_de_atuacao}
-          onChange={(e) => setNewDoula({ ...newDoula, tempo_de_atuacao: e.target.value })}
+          value={doula.tempo_de_atuacao}
+          onChange={(e) => setDoula({ ...doula, tempo_de_atuacao: e.target.value })}
         />
-        <textarea
-          placeholder="Sobre Mim"
-          value={newDoula.sobremim_doula}
-          onChange={(e) => setNewDoula({ ...newDoula, sobremim_doula: e.target.value })}
-        />
-        <button type="submit">{editDoula ? 'Salvar Edição' : 'Adicionar Doula'}</button>
+        <button type="submit">{editId ? 'Atualizar Doula' : 'Criar Doula'}</button>
       </form>
 
-       {/* Lista de Doulas Filtrada para Exibir Somente a Doula com ID 1 */}
-       <ul>
-        {doulaToShow.length > 0 ? (
-          doulaToShow.map((doula) => (
-            <li key={doula.id_usuario_doula}>
-              <img src={doula.foto_doula} alt={`${doula.nome_doula} ${doula.sobrenome_doula}`} width="100" height="100" />
-              <h3>{doula.nome_doula} {doula.sobrenome_doula}</h3>
-              <p>Email: {doula.email_doula}</p>
-              <p>Tempo de Atuação: {doula.tempo_de_atuacao}</p>
-              <p>Sobre Mim: {doula.sobremim_doula}</p>
-              <button onClick={() => handleEditDoula(doula)}>Editar</button>
-              <button onClick={() => handleDeleteDoula(doula.id_usuario_doula)}>Excluir</button>
-            </li>
-          ))
-        ) : (
-          <p>Nenhuma doula encontrada com o ID 1.</p>
-        )}
+      {/* Exibindo a lista de doulas */}
+      <ul>
+        {doulas.map((doula) => (
+          <li key={doula.id_usuario_doula}>
+            <h3>{doula.nome_doula} {doula.sobrenome_doula}</h3>
+            <p>Email: {doula.email_doula}</p>
+            <p>Tempo de atuação: {doula.tempo_de_atuacao}</p>
+            <img src={doula.foto_doula} alt={`${doula.nome_doula} ${doula.sobrenome_doula}`} width="100" />
+            <button onClick={() => handleEdit(doula)}>Editar</button>
+            <button onClick={() => deleteDoula(doula.id_usuario_doula)}>Excluir</button>
+          </li>
+        ))}
       </ul>
-
-
     </div>
   );
 };
 
-export default CRUDDoulas;
+export default DoulaCrud;
