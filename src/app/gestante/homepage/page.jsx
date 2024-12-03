@@ -44,7 +44,7 @@ export default function Chat() {
                     </div>
 
                     <ul className="flex flex-col gap-2 max-md:flex-wrap mt-8 max-md:flex-row max-md:">
-                        <HomeGestante></HomeGestante>
+                        <HomeGestanteAtivo></HomeGestanteAtivo>
                         <MonitoramentoGestante></MonitoramentoGestante>
                         <ConteudosGestante></ConteudosGestante>
                         <GaleriaGestante></GaleriaGestante>

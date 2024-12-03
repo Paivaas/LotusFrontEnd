@@ -11,6 +11,8 @@ import { Logout } from '@/components/nav/logout';
 import { NavTop } from '@/components/nav/navTop';
 import CheckList from '@/components/checkList';
 import Agenda from '@/components/agenda';
+import ComentariosDoula from '@/components/comentario/comentarioDoula';
+import ComentariosGestante from '@/components/comentario/comentarioGestante';
 import Loading from '@/components/loading';
 import { DegradeOrange, DegradeRed } from '@/components/degrade';
 import { HomeDoula, HomeDoulaAtivo } from "@/components/nav/home";
@@ -50,13 +52,19 @@ export default function Home() {
 
           <div className=" w-1/3 h-[80vh]">
 
-            <Agenda></Agenda>
+            <CheckList></CheckList>
 
           </div>
 
           <div className=" w-1/3 h-[80vh]">
 
-            <CheckList></CheckList>
+            <ComentariosDoula></ComentariosDoula>
+          </div>
+
+
+
+          <div className=" w-1/3 h-[80vh]">
+            <ComentariosGestante></ComentariosGestante>
 
           </div>
 
