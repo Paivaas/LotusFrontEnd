@@ -29,7 +29,6 @@ import { DegradePurple } from '@/components/degrade';
 
 export default function Chat() {
 
-
     const [selectedComponent, setSelectedComponent] = useState(null);
     return (
 

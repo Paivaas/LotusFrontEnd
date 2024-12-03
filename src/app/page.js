@@ -75,28 +75,25 @@ export default function Page() {
         <section className="text-gray-4 max-xl:mt-32 max-xl:flex-wrap max-xl:h-[40vh] w-full h-[25vh] mt-6 flex justify-center gap-6">
 
           <div className="cursor-pointer w-56 h-[350px] max-xl:w-2/5 max-xl:h-[230px] bg-white  rounded-2xl flex flex-col justify-center items-center border-4 border-red-degrade-2 hover:animate-wiggle hover:animate-once hover:animate-duration-[600ms]">
-            <Image className="w-1/2 max-xl:w-1/4" alt="" src={Monitoramento}></Image>
+            <Image className="w-1/3 max-xl:w-1/4" alt="" src={Monitoramento}></Image>
             <h1 className="text-2xl max-xl:text-xl" >Monitoramento</h1>
             <p className="text-center max-xl:text-sm " >Monitore seu humor e sentimentos durante a gravidez.</p>
           </div>
-
           
           <div className="cursor-pointer w-56 h-[350px] max-xl:w-2/5 max-xl:h-[230px] bg-white  rounded-2xl flex flex-col justify-center items-center border-4 border-blue-degrade-2 hover:animate-wiggle hover:animate-once hover:animate-duration-[600ms]">
-            <Image className="w-1/2 mb-2 max-xl:w-1/4" alt="" src={Galeria}></Image>
+            <Image className="w-1/3 mb-2 max-xl:w-1/4" alt="" src={Galeria}></Image>
             <h1 className="text-2xl max-xl:text-xl" >Galeria</h1>
             <p className="text-center max-xl:text-sm " >Guarde seus todos os seus bons momentos na nossa galeria.</p>
 
           </div>
 
-          
           <div className="cursor-pointer w-56 h-[350px] max-xl:w-2/5 max-xl:h-[230px] bg-white  rounded-2xl flex flex-col justify-center items-center border-4 border-pink-degrade-2 hover:animate-wiggle hover:animate-once hover:animate-duration-[600ms]">
-            <Image className="w-1/2 max-xl:w-1/4" alt="" src={Conteudos}></Image>
+            <Image className="w-1/3 max-xl:w-1/4" alt="" src={Conteudos}></Image>
             <h1 className="text-2xl max-xl:text-xl" >Conteúdos</h1>
             <p className="text-center max-xl:text-sm " >Veja os conteúdos exclusivos publicados por Doulas.</p>
 
           </div>
 
-          
           <div className="cursor-pointer w-56 h-[350px] max-xl:w-2/5 max-xl:h-[230px] bg-white  rounded-2xl flex flex-col justify-center items-center border-4 border-purple-degrade-2 hover:animate-wiggle hover:animate-once hover:animate-duration-[600ms]">
             <Image className="w-1/2 max-xl:w-1/4" alt="" src={Chat}></Image>
             <h1 className="text-2xl max-xl:text-xl" >Duvidas</h1>

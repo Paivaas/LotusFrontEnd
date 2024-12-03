@@ -8,7 +8,7 @@ export default function Card({usuario, titulo, imagem, id }) {
 
     const handleClick = () => {
         router.push(`/gestante/conteudos/conteudo/${id}`)
-    }
+    } 
 
     return (
         <div>

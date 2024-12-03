@@ -18,6 +18,7 @@ export default function Home() {
 
   //Variveis
 
+  const UserContext = createContext();
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const [loading, setLoading] = useState(false);
@@ -224,7 +225,6 @@ export default function Home() {
                 />
               </div>
 
-
               <div className="flex p-4 rounded-3xl border-[3px] bg-white gap-4">
                 <Image className="w-[5%] max-sm:w-[5%]" alt="Key Icon" src={KeyIcon}></Image>
                 <input
@@ -263,7 +263,6 @@ export default function Home() {
                 <span className="">Login como Doula</span>
               </label>
 
-
               <button
                 className="duration-300 bg-gradient-to-r from-pink-3 to-orange-3 w-40 p-4 px-6 items-center justify-between rounded-full text-white flex hover:cursor-pointer hover:scale-95"
                 type="submit">
@@ -285,7 +284,6 @@ export default function Home() {
         </div>
 
       </div>
-
 
       <div className="h-full w-1/3 max-xl:w-0 max-xl:hidden">
 
