@@ -27,6 +27,11 @@ export default function Register() {
   const [email, setEmail] = useState(''); // Inicializando o estado
   const [password, setPassword] = useState(''); // Inicializando o estado
 
+  const loginPageRouter = () => {
+    router.push('login');
+  }
+
+
   useEffect(() => {
 
     const botao = document.getElementById("btn");
@@ -92,7 +97,7 @@ export default function Register() {
             <Image className="w-[15%]" alt="Lotus Icon" src={LotusIcon}></Image>
 
             <h1 className="text-gray-3 text-5xl">Crie sua conta</h1>
-            <h2 className="text-gray-3">Ja possui uma conta? <span className="hover:text-pink-3 cursor-pointer transition duration-150 ease-in-out">Clique aqui</span> </h2>
+            <h2 className="text-gray-3">Ja possui uma conta? <span onClick={loginPageRouter} className="hover:text-pink-3 cursor-pointer transition duration-150 ease-in-out">Clique aqui</span> </h2>
           </div>
 
           {/* Campos para entrada de valor */}

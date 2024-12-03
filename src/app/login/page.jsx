@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useState } from "react";
 import Swal from 'sweetalert2';
 import { useRouter } from 'next/navigation';
+import React from 'react';
 
 // Import das imagens 
 import LotusIcon from "@/public/icons/utilities/lotus-icon.svg"
@@ -15,18 +16,13 @@ import CircleDegrade from "@/public/icons/utilities/circle-degrade.svg"
 
 export default function Home() {
 
-  // URl da API
-  const apiUrl = "http://localhost:8080/v1/Lotus/cadastro/gestante/login";
-
   //Variveis
-
 
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
+  const [loading, setLoading] = useState(false);
   const [erro, setErro] = useState('');
   const [usuario, setUsuario] = useState(null);
-
-
 
   const router = useRouter();
   const [isChecked, setIsChecked] = useState(false); // Estado do checkbox
@@ -56,13 +52,16 @@ export default function Home() {
   }
 
 
+  // Função de login Doula
+  const validacaoLoginDoula = async () => {
 
-  // Função de login
-  const validacaoLogin = async (e) => {
-    e.preventDefault();
+    if (loading) return; // Impede múltiplos envios durante o carregamento
+
+    setLoading(true); // Inicia o carregamento
+    setErro(''); // Reseta qualquer erro anterior
 
     try {
-      // Fazendo requisição para obter todos os doula cadastrados
+      // Fazendo requisição para obter todos os doulas cadastrados
       const response = await fetch('https://lotus-back-end.onrender.com/v1/Lotus/cadastro/doula');
 
       // Verificando se a requisição foi bem-sucedida
@@ -79,47 +78,117 @@ export default function Home() {
       );
 
       if (user) {
-        // Caso encontre o usuário, armazena os dados
+        // Caso encontre o usuário, armazena os dados e exibe mensagem
         Swal.fire({
-          icon: "success",
-          
-          title: "Bem vindo-a Lotus! <h3>Bem-vindo, {usuario.nome_doula}!</h3>",
+          icon: 'success',
+          title: `Bem-vinda, ${user.nome_doula}!`,
           showConfirmButton: false,
-          timer: 1500
+          timer: 1500,
         });
+
         setUsuario(user);
         setErro('');
+        router.push('doula/homepage')
+      } else {
+        // Caso contrário, exibe mensagem de erro
+        invalidDados()
+
+        setUsuario(null);
+      }
+    } catch (err) {
+      // Tratamento de erro em caso de falha na requisição
+      Swal.fire({
+        title: 'Erro 3011',
+        text: 'Erro ao tentar conectar com o servidor. Tente novamente mais tarde.',
+        icon: 'warning',
+        showConfirmButton: false,
+        timer: 2000,
+      });
+
+      console.error('Erro de requisição:', err);
+    } finally {
+      setLoading(false); // Fim do carregamento
+    }
+  }
+
+  // Função de login gestante
+  const validacaoLoginGestante = async () => {
+
+    if (loading) return; // Impede múltiplos envios durante o carregamento
+
+    setLoading(true); // Inicia o carregamento
+    setErro(''); // Reseta qualquer erro anterior
+
+    try {
+      // Fazendo requisição para obter todos os doulas cadastrados
+      const response = await fetch('https://lotus-back-end.onrender.com/v1/Lotus/cadastro/gestante');
+
+      // Verificando se a requisição foi bem-sucedida
+      if (!response.ok) {
+        throw new Error('Erro ao conectar com o servidor');
+      }
+
+      // Convertendo a resposta para JSON
+      const data = await response.json();
+
+      // Procurando pelo usuário que possui o email e senha corretos
+      const user = data.cadastro.find(
+        (user) => user.email_gestante === email && user.senha_gestante === senha
+      );
+
+      if (user) {
+        // Caso encontre o usuário, armazena os dados e exibe mensagem
+        Swal.fire({
+          icon: 'success',
+          title: `Bem-vinda, ${user.nome_gestante}!`,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+
+        setUsuario(user);
+        setErro('');
+        router.push('gestante/homepage')
       } else {
         // Caso contrário, exibe mensagem de erro
         invalidDados()
         setUsuario(null);
       }
     } catch (err) {
+      // Tratamento de erro em caso de falha na requisição
       Swal.fire({
-        title: "Erro 3011",
-        text: "Erro ao tentar conectar com o servidor. Tente novamente mais tarde.",
-        icon: "warning",
+        title: 'Erro 3011',
+        text: 'Erro ao tentar conectar com o servidor. Tente novamente mais tarde.',
+        icon: 'warning',
         showConfirmButton: false,
-        timer: 2000
+        timer: 2000,
       });
-      setErro('');
-      console.error(err);
+
+      console.error('Erro de requisição:', err);
+    } finally {
+      setLoading(false); // Fim do carregamento
+    }
+  }
+
+
+  // Função que altera o estado do checkbox
+  const handleCheckboxChange = () => {
+    setIsChecked(prevState => !prevState);
+  };
+
+
+  // Função que é chamada quando o formulário é submetido
+  const validacaoLogin = (event) => {
+    event.preventDefault(); // Previne o comportamento padrão de envio do formulário
+
+    // Verifica o estado do checkbox e chama a função apropriada
+    if (isChecked) {
+      // Ação quando o checkbox está marcado
+      validacaoLoginDoula()
+    } else {
+      // Ação quando o checkbox está desmarcado
+      validacaoLoginGestante()
     }
   };
-
-
-
-
-
-
-  // Função chamada quando o estado do checkbox mudar
-  const handleCheckboxChange = (e) => {
-    setIsChecked(e.target.checked);
-    setErrorMessage(''); // Limpa a mensagem de erro sempre que o checkbox for alterado
-  };
-
-
-
 
   return (
 
@@ -137,9 +206,6 @@ export default function Home() {
           </div>
 
           {/* Campos para entrada de valor */}
-
-
-
 
           <div className="login-container">
             <form
@@ -171,6 +237,31 @@ export default function Home() {
                 />
               </div>
 
+
+              <label className="flex items-center gap-2 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={isChecked}
+                  onChange={handleCheckboxChange}
+                  className="peer hidden"
+                />
+                <span className="w-5 h-5 border-2  rounded-md flex items-center justify-center peer-checked:bg-pink-degrade-1 peer-checked:border-pink-2">
+                  <svg
+                    className="w-3 h-3 text-white hidden peer-checked:block"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M16.293 4.293a1 1 0 0 1 0 1.414L8 13.414 4.707 10.121a1 1 0 1 1 1.414-1.414L8 10.586l7.879-7.879a1 1 0 0 1 1.414 0z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </span>
+                <span className="">Login como Doula</span>
+              </label>
 
 
               <button
