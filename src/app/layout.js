@@ -1,4 +1,5 @@
 import { abeezee, inter } from "@/fonts/fonts";
+import { UserProvider } from "@/context/contextUser";
 import "./globals.css";
 
 export const metadata = {
@@ -15,8 +16,11 @@ export default function RootLayout({ children }) {
       <body
         className={` ${inter.variable} ${abeezee.variable}  antialiased`}
       >
-        {children}
+        <UserProvider>
+          {children}
+        </UserProvider>
       </body>
     </html>
   );
 }
+

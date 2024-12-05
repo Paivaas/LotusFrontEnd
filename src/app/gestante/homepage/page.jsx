@@ -26,8 +26,13 @@ import CheckList from '@/components/checkList';
 import Agenda from '@/components/agenda';
 import Loading from '@/components/loading';
 import { DegradePurple } from '@/components/degrade';
+import Login, { home } from '@/app/login/page'
+import { useUser } from "@/context/contextUser";
 
-export default function Chat() {
+
+export default function HomePageGestante() {
+
+   //  const { user } = useUser();
 
     const [selectedComponent, setSelectedComponent] = useState(null);
     return (
@@ -64,17 +69,17 @@ export default function Chat() {
                         <div className="max-xl:w-full max-xl:h-1/4 max-md:p-0   w-1/2 h-full flex flex-col justify-between p-6">
 
                             <div>
-                            <h1 className="font-ABeeZee text-xl text-gray-4">Ola, Juliana</h1>
-                            <p className="font-ABeeZee text-gray-3">Na maternidade, cada dia é uma nova chance de aprender, amar e crescer juntos.</p>
+                                <h1 className="font-ABeeZee text-xl text-gray-4">Ola, seja bem vinda!</h1>
+                            
+                                <p className="font-ABeeZee text-gray-3">Na maternidade, cada dia é uma nova chance de aprender, amar e crescer juntos.</p>
                             </div>
-
 
                             <div className="  max-xl:px-0  max-md:gap-2   flex max-xl:flex-row flex-col gap-6 space-x-2 px-16 max-xl:w-full  ">
                                 <button
                                     className="max-xl:w-1/2 max-xl:h-14 hover:border-b-4 hover:border-orange-3 ease-out duration-300 bg-white rounded-3xl text-slate-900 h-28 justify-between drop-shadow-lg px-4 flex items-center text-white"
                                     onClick={() => setSelectedComponent("agenda")}
                                 >
-                                    
+
                                     <div className="flex ">
                                         <Image className="w-[3vw] max-xl:w-4" alt="" src={
                                             AgendaOrange
@@ -86,8 +91,8 @@ export default function Chat() {
                                         </div>
                                     </div>
                                     <Image className="w-[3vw] max-xl:w-6" alt="" src={
-                                            ArrowOrange
-                                        }></Image>
+                                        ArrowOrange
+                                    }></Image>
 
                                 </button>
 
@@ -107,13 +112,11 @@ export default function Chat() {
                                         </div>
                                     </div>
                                     <Image className="w-[3vw] max-xl:w-6" alt="" src={
-                                            ArrowPink
-                                        }></Image>
+                                        ArrowPink
+                                    }></Image>
 
                                 </button>
                             </div>
-
-
 
                         </div>
 

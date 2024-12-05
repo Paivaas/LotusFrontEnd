@@ -6,6 +6,7 @@ import { useState } from "react";
 import Swal from 'sweetalert2';
 import { useRouter } from 'next/navigation';
 import React from 'react';
+import { useUser } from "@/context/contextUser";
 
 // Import das imagens 
 import LotusIcon from "@/public/icons/utilities/lotus-icon.svg"
@@ -14,16 +15,18 @@ import KeyIcon from "@/public/icons/profile-information/grey/key.svg"
 import ArrowIcon from "@/public/icons/utilities/arrow-white.svg"
 import CircleDegrade from "@/public/icons/utilities/circle-degrade.svg"
 
-export default function Home() {
 
+ export let minhaVariavel = "";
+
+export default function Login(minhaVariavel) {
   //Variveis
-
-  const UserContext = createContext();
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const [loading, setLoading] = useState(false);
   const [erro, setErro] = useState('');
   const [usuario, setUsuario] = useState(null);
+  
+  // const { setUser } = useUser();
 
   const router = useRouter();
   const [isChecked, setIsChecked] = useState(false); // Estado do checkbox
@@ -79,6 +82,7 @@ export default function Home() {
       );
 
       if (user) {
+
         // Caso encontre o usuário, armazena os dados e exibe mensagem
         Swal.fire({
           icon: 'success',
@@ -138,6 +142,7 @@ export default function Home() {
       );
 
       if (user) {
+        
         // Caso encontre o usuário, armazena os dados e exibe mensagem
         Swal.fire({
           icon: 'success',
@@ -146,6 +151,7 @@ export default function Home() {
           timer: 1500,
         });
 
+        minhaVariavel = user.nome_gestante;
         setUsuario(user);
         setErro('');
         router.push('gestante/homepage')
@@ -274,7 +280,7 @@ export default function Home() {
             </form>
 
             {usuario && (
-              <div className="usuario-info">
+              <div>
                 <h3>Bem-vindo, {usuario.nome_doula}!</h3>
                 <p>Email: {usuario.email_doula}</p>
               </div>
@@ -303,3 +309,4 @@ export default function Home() {
     </div>
   );
 }
+

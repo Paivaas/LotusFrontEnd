@@ -320,13 +320,13 @@ export default function Monitoramento(selectedDate) {
                                 {isDropdownOpen && (
                                     <div className="absolute right-0 mt-2 w-48 bg-white border border-pink-3 rounded-md shadow-lg py-1">
                                         <button className="block w-full px-4 py-2 text-left text-pink-3 hover:bg-gray-100">
-                                            Últimos 7 dias
+                                            1º trimestre
                                         </button>
                                         <button className="block w-full px-4 py-2 text-left text-pink-3 hover:bg-gray-100">
-                                            Últimos 15 dias
+                                            2º trimestre
                                         </button>
                                         <button className="block w-full px-4 py-2 text-left text-pink-3 hover:bg-gray-100">
-                                            Últimos 30 dias
+                                            3º trimestre
                                         </button>
                                     </div>
                                 )}
