@@ -260,7 +260,7 @@ export default function Monitoramento(selectedDate) {
 
 
     return (
-        <div className="h-screen w-screen flex p-6 gap-4 overflow-x-hidden max-md:flex-col">
+        <div className="h-screen w-screen flex p-6 gap-4 overflow-hidden max-md:flex-col">
             <nav className="flex flex-col justify-between text-gray-3 max-md:flex-col">
                 <div className="flex flex-col gap-4">
                     <NavTop />

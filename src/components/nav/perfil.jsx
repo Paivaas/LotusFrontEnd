@@ -9,7 +9,7 @@ export function PerfilGestante() {
 
     const router = useRouter();
     const PerfilGestante = () => {
-        router.push('/gestante/perfilfake');
+        router.push('/gestante/perfil');
     }
 
     return (
@@ -27,7 +27,7 @@ export function PerfilGestanteAtivo() {
 
     const router = useRouter();
     const PerfilGestante = () => {
-        router.push('/gestante/perfilfake');
+        router.push('/gestante/perfil');
     }
 
     return (

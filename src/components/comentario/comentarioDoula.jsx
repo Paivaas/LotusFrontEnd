@@ -80,11 +80,12 @@ const Comentarios = () => {
                         timer: 1500,
                         icon: "success"
                     });
-                    window.location.reload();
 
-                    setTimeout(() => {
-                        window.location.reload(); // Força o reload após o delay
-                    }, 2000);
+                   window.location.reload();
+
+                    // setTimeout(() => {
+                    //     window.location.reload(); // Força o reload após o delay
+                    // }, 2000);
 
                 } else {
                     Swal.fire("Erro enviar seu comentário...");
@@ -112,9 +113,9 @@ const Comentarios = () => {
                     icon: "success"
                 });
 
-                setTimeout(() => {
-                    window.location.reload(); // Força o reload após o delay
-                }, 2000);
+                // setTimeout(() => {
+                //     window.location.reload(); // Força o reload após o delay
+                // }, 2000);
 
             } else {
                 Swal.fire("Erro ao excluir o produto!");
@@ -188,9 +189,9 @@ const Comentarios = () => {
                         icon: "success"
                     });
 
-                    setTimeout(() => {
-                        window.location.reload(); // Força o reload após o delay
-                    }, 2000);
+                    // setTimeout(() => {
+                    //     window.location.reload(); // Força o reload após o delay
+                    // }, 2000);
 
 
                 } else {
@@ -242,9 +243,9 @@ const Comentarios = () => {
                     icon: "success"
                 });
                 
-                setTimeout(() => {
-                    window.location.reload(); // Força o reload após o delay
-                }, 2000);
+                // setTimeout(() => {
+                //     window.location.reload(); // Força o reload após o delay
+                // }, 2000);
 
             } catch (err) {
                 Swal.fire({
@@ -285,9 +286,9 @@ const Comentarios = () => {
 
             fetchEnxoval()
 
-            setTimeout(() => {
-                window.location.reload(); // Força o reload após o delay
-            }, 2000);
+            // setTimeout(() => {
+            //     window.location.reload(); // Força o reload após o delay
+            // }, 2000);
 
 
         } catch (err) {
@@ -342,7 +343,6 @@ const Comentarios = () => {
     return (
         <div className="animate-flip-up animate-once animate-duration-500 animate-ease-linear    h-full w-full flex flex-col rounded-3xl  drop-shadow-lg bg-white">
 
-            <DegradePink></DegradePink>
             <div className="px-14 py-6 flex flex-col items-center justify-center">
                 <div className="text-gray-4 w-full h-16 font-ABeeZee border-b-4 border-zinc-200 text-2xl flex items-center justify-between mb-6">
                     <h1>Comentários</h1>

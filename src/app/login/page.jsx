@@ -279,12 +279,6 @@ export default function Login(minhaVariavel) {
               </button>
             </form>
 
-            {usuario && (
-              <div>
-                <h3>Bem-vindo, {usuario.nome_doula}!</h3>
-                <p>Email: {usuario.email_doula}</p>
-              </div>
-            )}
           </div>
 
         </div>

@@ -69,7 +69,7 @@ export default function HomePageGestante() {
                         <div className="max-xl:w-full max-xl:h-1/4 max-md:p-0   w-1/2 h-full flex flex-col justify-between p-6">
 
                             <div>
-                                <h1 className="font-ABeeZee text-xl text-gray-4">Ola, seja bem vinda!</h1>
+                                <h1 className="font-ABeeZee text-xl text-gray-4">Ola, sempre bom te ver!</h1>
                             
                                 <p className="font-ABeeZee text-gray-3">Na maternidade, cada dia é uma nova chance de aprender, amar e crescer juntos.</p>
                             </div>

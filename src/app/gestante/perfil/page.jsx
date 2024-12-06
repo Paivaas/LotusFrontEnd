@@ -1,5 +1,7 @@
 "use client";
 
+import React, { useEffect } from 'react';
+
 import { useState } from "react";
 import Image from "next/image";
 import logo from "@/public/icons/utilities/lotus-icon.svg";
@@ -44,7 +46,40 @@ const SettingsModal = ({ isOpen, onClose }) => {
     );
 };
 
-export default function Home() {
+export default function Perfil() {
+
+    const [gestanteData, setGestanteData] = useState(null);
+
+    useEffect(() => {
+        const fetchGestanteData = async () => {
+            try {
+                const response = await fetch('https://lotus-back-end.onrender.com/v1/Lotus/cadastro/gestante');
+                const data = await response.json();
+
+                // Filtrando a gestante com id_usuario_gestante igual a 26
+                const filteredGestante = data.cadastro.find(gestante => gestante.id_usuario_gestante === 6);
+
+                if (filteredGestante) {
+                    // Formatação da data para dd/mm/yyyy
+                    const formattedDate = new Date(filteredGestante.data_nascimento_gestante);
+                    const day = String(formattedDate.getDate()).padStart(2, '0');
+                    const month = String(formattedDate.getMonth() + 1).padStart(2, '0');
+                    const year = formattedDate.getFullYear();
+                    filteredGestante.formattedDate = `${day}/${month}/${year}`;
+
+                    setGestanteData(filteredGestante);
+                } else {
+                    setGestanteData(null);
+                }
+            } catch (error) {
+                console.error("Erro ao buscar dados:", error);
+            }
+        };
+
+        fetchGestanteData();
+    }, []);
+
+
     const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
     const [cpf, setCpf] = useState("");
     const [email, setEmail] = useState(""); // Novo estado para email
@@ -89,129 +124,138 @@ export default function Home() {
         }
     };
 
-    const handleSpecializationChange = (option) => {
-        if (selectedSpecializations.includes(option)) {
-            setSelectedSpecializations(
-                selectedSpecializations.filter((spec) => spec !== option)
-            );
-        } else {
-            setSelectedSpecializations([...selectedSpecializations, option]);
-        }
-    };
 
-    const handleSave = () => {
-        setProfilePicture(selectedImage);
-        setSpecialization(selectedSpecializations);
-        toggleModal();
-    };
 
     return (
         <div className="h-screen w-screen flex p-6 gap-4 overflow-hidden max-md:flex-col">
 
-        <nav className="flex flex-col justify-between text-gray-3 max-md:flex-col">
+            <nav className="flex flex-col justify-between text-gray-3 max-md:flex-col">
 
-            <div className="flex flex-col gap-4">
-                
-                <NavTop></NavTop>
+                <div className="flex flex-col gap-4">
 
-                <ul className="flex flex-col gap-2 max-md:flex-wrap mt-8 max-md:flex-row max-md:">
-                    <HomeGestante></HomeGestante>
-                    <MonitoramentoGestante></MonitoramentoGestante>
-                    <ConteudosGestante></ConteudosGestante>
-                    <GaleriaGestante></GaleriaGestante>
-                    <PerfilGestanteAtivo></PerfilGestanteAtivo>
-                </ul>
-            </div>
-            
-            <Logout></Logout>
-        
+                    <NavTop></NavTop>
 
-        </nav>
-
-        <main className="w-full h-full bg-gray-1 rounded-2xl">
-
-           <DegradeOrange></DegradeOrange>
-
-            <section className="w-full h-full flex justify-center">
-
-                {/* Adicione o conteudo aqui */}
-
-                <div className="flex flex-col items-center gap-4 relative md:h-48" style={{ marginTop: '-63px' }}>
-                    <div className="relative">
-                        <div className="bg-white h-48 w-48 lg:h-80 lg:w-80 rounded-full flex items-center justify-center">
-                            <div className="absolute inset-0 flex items-center justify-center">
-                                <div className="h-40 w-40 lg:h-64 lg:w-64 rounded-full flex items-center justify-center bg-gray-1">
-                                    {profilePicture ? (
-                                        <img
-                                            src={profilePicture}
-                                            alt="Perfil"
-                                            className="h-full w-full object-cover rounded-full"
-                                        />
-                                    ) : (
-                                        <span className="text-gray-400">Foto de Perfil</span>
-                                    )}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="text-center mt-2 max-md:h-4">
-                        <h1 className="text-[30px] text-gray-4 font-ABeeZee z-40  font-thin max-md:text-[22px]">
-                            {userInfo ? userInfo.name : "Nome do Usuário"}
-                        </h1>
-                    </div>
-
-                    {/* DIV DE OPÇÕES PRINCIPAIS DO PERFIL */}
-                    <div className="bg-gray-100 w-[600px] h-auto flex flex-col justify-around items-start mt-8 mx-auto p-4 rounded-[13px] max-md:w-[80vw]">
-
-                        {/* Linha com Profissão e Data de Nascimento */}
-                        <div className="flex gap-4 w-full mb-4 max-md:flex-col max-md:gap-2"> {/* Adicionado mb-4 para espaçamento inferior */}
-
-                            {/* Profissão */}
-                            <div className="flex items-center gap-4 bg-white p-4 rounded-[12px] border w-2/3 h-12 max-md:w-full"> {/* Aumentado para h-14 */}
-                                <Image src={editprofissão} alt="Profissão" className="w-7 h-7" />
-                                <div className="flex flex-col">
-                                    <span className="text-gray-400 font-ABeeZee">Profissão</span>
-                                    <span className="text-gray-500">{userInfo?.profissao || ""}</span>
-                                </div>
-                            </div>
-
-                            {/* Data de Nascimento */}
-                            <div className="flex items-center gap-4 bg-white p-4 rounded-[12px] border  w-1/3 h-12 max-md:w-full"> {/* Aumentado para h-14 */}
-                                <Image src={cake} alt="Data de Nascimento" className="w-6 h-7" />
-                                <div className="flex flex-col">
-                                    <span className="text-gray-500">{userInfo?.dataNascimento || ""}</span>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        {/* Nome do Bebê */}
-                        <div className="flex items-center gap-4 bg-white p-4 rounded-[12px] border max-md:mb-2  w-full h-12 mb-4"> {/* Aumentado para h-14 e adicionado mb-4 */}
-                            <Image src={baby} alt="Nome do Bebê" className="w-7 h-7" />
-                            <div className="flex flex-col">
-                                <span className="text-gray-400 font-ABeeZee">Nome do seu Bebê</span>
-                                <span className="text-gray-500">{userInfo?.nomeBebe || ""}</span>
-                            </div>
-                        </div>
-
-                        {/* Data Prevista para o Parto */}
-                        <div className="flex items-center gap-4 bg-white p-4 rounded-[12px] border  w-full h-12"> {/* Aumentado para h-14 */}
-                            <Image src={calendar} alt="Data Prevista para o Parto" className="w-7 h-7" />
-                            <div className="flex flex-col">
-                                <span className="text-gray-400 font-ABeeZee">Data Prevista para o Parto</span>
-                                <span className="text-gray-500">{userInfo?.dataParto || ""}</span>
-                            </div>
-                        </div>
-
-                    </div>
- 
+                    <ul className="flex flex-col gap-2 max-md:flex-wrap mt-8 max-md:flex-row max-md:">
+                        <HomeGestante></HomeGestante>
+                        <MonitoramentoGestante></MonitoramentoGestante>
+                        <ConteudosGestante></ConteudosGestante>
+                        <GaleriaGestante></GaleriaGestante>
+                        <PerfilGestanteAtivo></PerfilGestanteAtivo>
+                    </ul>
                 </div>
 
-            </section>
+                <Logout></Logout>
 
-        </main>
 
-    </div>
+            </nav>
+
+            <main className="w-full h-full bg-gray-1 rounded-2xl">
+
+                <DegradeOrange></DegradeOrange>
+
+                <section className="w-full h-full flex justify-center">
+
+                    {/* Adicione o conteudo aqui */}
+
+
+                    <div>
+                        {gestanteData ? (
+                            <div>
+
+
+
+
+                                <div className="flex flex-col items-center gap-4 relative md:h-48" style={{ marginTop: '-63px' }}>
+                                    <div className="relative">
+                                        <div className="bg-white h-48 w-48 lg:h-80 lg:w-80 rounded-full flex items-center justify-center">
+                                            <div className="absolute inset-0 flex items-center justify-center">
+                                                <div className="h-40 w-40 lg:h-64 lg:w-64 rounded-full flex items-center justify-center bg-gray-1">
+                                                    {profilePicture ? (
+                                                        <img
+                                                            src={profilePicture}
+                                                            alt="Perfil"
+                                                            className="h-full w-full object-cover rounded-full"
+                                                        />
+                                                    ) : (
+                                                        <span className="text-gray-400">Foto de Perfil</span>
+                                                    )}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="text-center mt-2 max-md:h-4">
+                                        <h1 className="text-[30px] flex text-gray-4 font-ABeeZee z-40  font-thin max-md:text-[22px]">
+                                            {gestanteData.nome_gestante}
+                                            <span
+                                                className='w-3'></span>
+                                            {gestanteData.sobrenome_gestante}
+                                        </h1>
+                                    </div>
+
+                                    {/* DIV DE OPÇÕES PRINCIPAIS DO PERFIL */}
+                                    <div className="bg-gray-100 w-[600px] h-auto flex flex-col justify-around items-start mt-8 mx-auto p-4 rounded-[13px] max-md:w-[80vw]">
+
+                                        {/* Linha com Profissão e Data de Nascimento */}
+                                        <div className="flex gap-4 w-full mb-4 max-md:flex-col max-md:gap-2"> {/* Adicionado mb-4 para espaçamento inferior */}
+
+                                            {/* Profissão */}
+                                            <div className="flex items-center gap-4 bg-white p-4 rounded-[12px] border w-2/3 h-12 max-md:w-full"> {/* Aumentado para h-14 */}
+                                                <Image src={editprofissão} alt="Profissão" className="w-7 h-7" />
+                                                <div className="flex gap-2">
+                                                    <span className="text-gray-400 font-ABeeZee">Profissão</span>
+                                                    <span className="text-gray-500">{gestanteData.profissao_gestante}</span>
+                                                </div>
+                                            </div>
+
+                                            {/* Data de Nascimento */}
+                                            <div className="flex items-center gap-4 bg-white p-4 rounded-[12px] border  w-1/3 h-12 max-md:w-full"> {/* Aumentado para h-14 */}
+                                                <Image src={cake} alt="Data de Nascimento" className="w-6 h-7" />
+                                                <div className="flex flex-col">
+                                                    <span className="text-gray-500">{gestanteData.formattedDate}</span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        {/* Nome do Bebê */}
+                                        <div className="flex items-center gap-4 bg-white p-4 rounded-[12px] border max-md:mb-2  w-full h-12 mb-4"> {/* Aumentado para h-14 e adicionado mb-4 */}
+                                            <Image src={baby} alt="Nome do Bebê" className="w-7 h-7" />
+                                            <div className="flex gap-2 items-center">
+                                                <span className="text-gray-400 font-ABeeZee">Nome do seu Bebê</span>
+                                                <span className="text-gray-500">{gestanteData.nome_bebe}</span>
+                                            </div>
+                                        </div>
+
+                                        {/* Data Prevista para o Parto */}
+                                        <div className="flex items-center gap-4 bg-white p-4 rounded-[12px] border  w-full h-12"> {/* Aumentado para h-14 */}
+                                            <Image src={calendar} alt="Data Prevista para o Parto" className="w-7 h-7" />
+                                            <div className="flex gap-2">
+                                                <span className="text-gray-400 font-ABeeZee">Quantas semanas de gravidez</span>
+                                                <span className="text-gray-500">{gestanteData.semanas_de_gravidez}</span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+
+
+
+
+                            </div>
+                        ) : (
+                            <p>Carregando informações...</p>
+                        )}
+                    </div>
+
+
+                </section>
+
+            </main>
+
+        </div>
     );
 }
