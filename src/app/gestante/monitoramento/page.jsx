@@ -114,8 +114,7 @@ const Modal = ({ isOpen, onClose, onSave }) => {
     
     const handleDateSelection = async () => {
         const { value: date } = await Swal.fire({
-            title: "Select departure date",
-            input: "date",
+            input: "date",confirmButtonColor: '#FBA1A1',
             didOpen: () => {
                 const today = new Date().toISOString();
                 Swal.getInput().min = today.split("T")[0];
@@ -124,7 +123,7 @@ const Modal = ({ isOpen, onClose, onSave }) => {
 
         if (date) {
             setSelectedDate(date);  // Atualiza o estado com a data selecionada
-            Swal.fire("Departure date", date);
+         
             
         }
     }
@@ -236,7 +235,7 @@ const Modal = ({ isOpen, onClose, onSave }) => {
     );
 }
 
-export default function Monitoramento(selectedDate) {
+export default function Monitoramento(selectedDate, date) {
 
     const [selectedGroups, setSelectedGroups] = useState([]); // Grupos de opções selecionadas
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -253,7 +252,7 @@ export default function Monitoramento(selectedDate) {
     const progressData = [
         { label: "Se sentiu nervosa", progress: 75, color: "#FD9999" },
         { label: "Se sentiu ansiosa", progress: 50, color: "#FDD69A" },
-        { label: "Sentiu medo", progress: 25, color: "#96A8FD" },
+        { label: "Sentiu medo", progress: 2, color: "#96A8FD" },
         { label: "Se sentiu feliz", progress: 100, color: "#B0E799" },
         { label: "Se sentiu animada", progress: 100, color: "#FDA2DA" },
     ];
@@ -275,7 +274,7 @@ export default function Monitoramento(selectedDate) {
                 <Logout />
             </nav>
 
-            <main className="w-full h-full bg-gray-1 rounded-2xl">
+            <main className="w-[90vw] h-full bg-gray-1 rounded-2xl">
                 <DegradeRed />
                 <section className="w-full h-full flex flex-col px-10">
                     <div className="text-center p-7">
@@ -342,13 +341,13 @@ export default function Monitoramento(selectedDate) {
                                 
                                 <div className="flex flex-col gap-4">
                                     {selectedGroups.length > 0 ? (
-                                        selectedGroups.map((group, groupIdx) => (
+                                        selectedGroups.map((group, groupIdx,date) => (
                                             <div
                                                 key={groupIdx}
-                                                className="bg-white rounded-lg p-4 shadow-md flex flex-col gap-2"
+                                                className="bg-white rounded-lg p-4 shadow-md flex flex-col gap-2 "
                                             >
                                                 
-                                                <h4 className="text-gray-700 font-semibold">Monitoramento {groupIdx + 1}</h4>
+                                                <h4 className="text-gray-700 font-semibold">Monitoramento {groupIdx + 1} - 10/12/2024</h4>
                                                 <ul className="flex flex-wrap gap-2">
                                                     {group.map((option, optionIdx) => (
                                                         <li

@@ -4,6 +4,8 @@ import { useState } from "react";
 import React, { useEffect } from "react";
 import Swal from 'sweetalert2';
 import Loading from '@/components/loading';
+import Loading2 from '@/components/loading2';
+
 import { DegradeOrange, DegradePink, DegradeRed } from '@/components/degrade';
 
 const TodoList = () => {

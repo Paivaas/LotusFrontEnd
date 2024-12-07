@@ -319,7 +319,7 @@ const Comentarios = () => {
                 }
                 const data = await response.json();
                 // Filtra apenas os dados onde id_usuario_gestante = 8
-                const gestantesFiltradas = data.cadastro.filter(gestante => gestante.id_usuario_gestante === 3);
+                const gestantesFiltradas = data.cadastro.filter(gestante => gestante.id_usuario_gestante === 6);
                 setGestantes(gestantesFiltradas); // Atualiza o estado com os dados filtrados
                 setLoading(false);
             } catch (err) {
@@ -344,7 +344,7 @@ const Comentarios = () => {
         <div className="animate-flip-up animate-once animate-duration-500 animate-ease-linear    h-full w-full flex flex-col rounded-3xl  drop-shadow-lg bg-white">
 
             <div className="px-14 py-6 flex flex-col items-center justify-center">
-                <div className="text-gray-4 w-full h-16 font-ABeeZee border-b-4 border-zinc-200 text-2xl flex items-center justify-between mb-6">
+                <div className="max-2xl:flex-col max-2xl:py-3 text-gray-4 w-full h-16 font-ABeeZee border-b-4 border-zinc-200 text-2xl flex items-center justify-between mb-6">
                     <h1>Comentários</h1>
                     <button
                         onClick={adicionarProduto}

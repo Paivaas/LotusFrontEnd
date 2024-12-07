@@ -24,6 +24,7 @@ import { ConteudosGestante, ConteudosGestanteAtivo } from '@/components/nav/cont
 import { Logout } from '@/components/nav/logout';
 import CheckList from '@/components/checkList';
 import Agenda from '@/components/agenda';
+import Calendario2 from '@/components/calendario2';
 import Loading from '@/components/loading';
 import { DegradePurple } from '@/components/degrade';
 import Login, { home } from '@/app/login/page'

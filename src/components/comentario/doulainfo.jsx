@@ -12,7 +12,7 @@ const DoulaInfo = () => {
         const data = await response.json();
         
         // Filtrando o doula com id_usuario_doula = 4
-        const doulaInfo = data.cadastro.find(d => d.id_usuario_doula === 5);
+        const doulaInfo = data.cadastro.find(d => d.id_usuario_doula === 3);
         
         if (doulaInfo) {
           setDoula(doulaInfo);

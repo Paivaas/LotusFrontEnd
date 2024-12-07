@@ -50,24 +50,6 @@ export default function Home() {
 
           {/* Adicione o conteudo aqui */}
 
-          <div className=" w-1/3 h-[80vh]">
-
-            <CheckList></CheckList>
-
-          </div>
-
-          <div className=" w-1/3 h-[80vh]">
-
-            <ComentariosDoula></ComentariosDoula>
-          </div>
-
-
-
-          <div className=" w-1/3 h-[80vh]">
-            <ComentariosGestante></ComentariosGestante>
-
-          </div>
-
 
 
 

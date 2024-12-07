@@ -92,6 +92,7 @@ module.exports = {
       'xl': '1280px',
       '2xl': '1500px',
       '3xl': '5120px',
+      'tcc': '1920px',
     },
        
     },
